@@ -1,0 +1,33 @@
+This is README file for Algorithm PA#1
+Author: <please fill in name and student ID>
+Date:
+=====
+SYNOPSIS:
+
+mysport ¡V[IS|MS|HS] <input_file_name> <output_file_name>
+
+This program supports three different sorting methods: insertion sort, merge sort and heap sort.
+=====
+DIRECTORY:
+
+bin/	executable binary
+doc/	reports
+inputs/ 
+outputs/ 
+lib/	library
+src/ 	source C++ codes
+======
+HOW TO CIMPILE:
+
+Then compile the demo, simply follow the following steps
+	cd ../src
+	make 	
+======
+HOW TO RUN:
+
+	cd ../bin
+	./mysport ¡V[IS|MS|HS] <input_file_name> <output_file_name>
+	For example,
+	./mysport ¡VMS ../inputs/1000.ac.in ../outputs/1000.ac.out
+======
+OTHER NOTICE:

@@ -1,0 +1,2903 @@
+From: <¥Ñ Windows Internet Explorer 8 Àx¦s>
+Subject: C++ Programming Style Guidelines
+Date: Wed, 24 Feb 2010 16:11:55 +0800
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CAB56C.157931C0"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CAB56C.157931C0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://geosoft.no/development/cppstyle.html
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" =
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML><HEAD><TITLE>C++ Programming Style Guidelines</TITLE>
+<META name=3DAuthor content=3D"Geotechnical Software Services">
+<META name=3DKeywords=20
+content=3D"c++, c, programming, code, style, guideline, guidelines, =
+recommendation, recommendations, layout, standard, conventions, =
+standardization, naming, names, indentation, block, readability, =
+maintainability, mixed case, suffix, prefix, statement, statements, =
+conditional, white space, align, alignment comments, code complete, =
+steve mcconnel, geosoft, geotechnical, software, services, stavanger, =
+norway">
+<META name=3DDescription=20
+content=3D"C++ Programming Style Guidelines. GeoSoft's 70+ style rules =
+for C/C++ developers including naming conventions, code layout, =
+commenting and more.">
+<META content=3D"text/html; charset=3Diso-8859-1" =
+http-equiv=3DContent-Type><LINK=20
+rel=3DSTYLESHEET type=3Dtext/css href=3D"http://geosoft.no/style.css">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18876"></HEAD>
+<BODY>
+<TABLE border=3D0 cellSpacing=3D0 cellPadding=3D10>
+  <TBODY>
+  <TR><!--=0A=
+*************************************************************************=
+******=0A=
+   Document content on right hand side=0A=
+*************************************************************************=
+******=0A=
+-->
+    <TD>
+      <CENTER>
+      <H1>C++ Programming Style Guidelines</H1></CENTER>
+      <CENTER><I>Version 4.7, October 2008</I></CENTER>
+      <CENTER><I>Geotechnical Software Services</I></CENTER>
+      <CENTER><I>Copyright =A9 1996 - 2008</I></CENTER><BR>
+      <CENTER>This document is available at <A=20
+      =
+href=3D"http://geosoft.no/development/cppstyle.html">http://geosoft.no/de=
+velopment/cppstyle.html</A>=20
+      </CENTER>
+      <P></P>
+      <HR width=3D"100%">
+
+      <H2>Table of Content</H2>
+      <UL>
+        <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#introduction">1=20
+        Introduction</A>=20
+        <UL>
+          <LI><A=20
+          href=3D"http://geosoft.no/development/cppstyle.html#Layout of =
+the Recommendations">1.1=20
+          Layout of the Recommendations</A></LI>
+          <LI><A=20
+          =
+href=3D"http://geosoft.no/development/cppstyle.html#Recommendation">1.2=20
+          Recommendations Importance</A></LI></UL></LI>
+        <LI><A=20
+        href=3D"http://geosoft.no/development/cppstyle.html#General =
+Recomendations">2=20
+        General Recommendations</A></LI>
+        <LI><A=20
+        href=3D"http://geosoft.no/development/cppstyle.html#Naming =
+Conventions">3=20
+        Naming Conventions</A>=20
+        <UL>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#General">3.1=20
+          General</A></LI>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Specific">3.2=20
+          Specific</A></LI></UL></LI>
+        <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Files">4=20
+        Files</A>=20
+        <UL>
+          <LI><A=20
+          href=3D"http://geosoft.no/development/cppstyle.html#Source =
+Files">4.1=20
+          Source Files</A></LI>
+          <LI><A=20
+          href=3D"http://geosoft.no/development/cppstyle.html#Include =
+Files">4.2=20
+          Include Files and Include Statements</A></LI></UL></LI>
+        <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Statements">5=20
+        Statements</A>=20
+        <UL>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Types">5.1=20
+          Types</A></LI>
+          <LI><A=20
+          =
+href=3D"http://geosoft.no/development/cppstyle.html#Variables">5.2=20
+          Variables</A></LI>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Loops">5.3=20
+          Loops</A></LI>
+          <LI><A=20
+          =
+href=3D"http://geosoft.no/development/cppstyle.html#Conditionals">5.4=20
+          Conditionals</A></LI>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Misc">5.5=20
+          Miscellaneous</A></LI></UL></LI>
+        <LI><A=20
+        href=3D"http://geosoft.no/development/cppstyle.html#Layout and =
+Comments">6=20
+        Layout and Comments</A>=20
+        <UL>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Layout">6.1=20
+          Layout</A></LI>
+          <LI><A=20
+          href=3D"http://geosoft.no/development/cppstyle.html#White =
+Space">6.2=20
+          White space</A></LI>
+          <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#Comments">6.3=20
+          Comments</A></LI></UL></LI>
+        <LI><A =
+href=3D"http://geosoft.no/development/cppstyle.html#References">7=20
+        References</A></LI></UL>
+      <HR width=3D"100%">
+
+      <H1><A name=3Dintroduction></A>1 Introduction </H1>
+      <P>This document lists C++ coding recommendations common in the =
+C++=20
+      development community.=20
+      <P>The recommendations are based on established standards =
+collected from a=20
+      number of sources, individual experience, local =
+requirements/needs, as=20
+      well as suggestions given in <A=20
+      href=3D"http://geosoft.no/development/cppstyle.html#ref1">[1]</A> =
+- <A=20
+      href=3D"http://geosoft.no/development/cppstyle.html#ref4">[4]</A>. =
+
+      <P>There are several reasons for introducing a new guideline =
+rather than=20
+      just referring to the ones above. The main reason is that these =
+guides are=20
+      far too general in their scope and that more specific rules =
+(especially=20
+      naming rules) need to be established. Also, the present guide has =
+an=20
+      annotated form that makes it far easier to use during project code =
+reviews=20
+      than most other existing guidelines. In addition, programming=20
+      recommendations generally tend to mix style issues with language =
+technical=20
+      issues in a somewhat confusing manner. The present document does =
+not=20
+      contain any C++ technical recommendations at all, but focuses =
+mainly on=20
+      programming style. For guidelines on C++ programming =
+<EM>style</EM> refer=20
+      to the <A href=3D"http://geosoft.no/cpp.html">C++ Programming =
+Practice=20
+      Guidelines</A>.=20
+      <P>While a given development environment (IDE) can improve the =
+readability=20
+      of code by access visibility, color coding, automatic formatting =
+and so=20
+      on, the programmer should never <EM>rely</EM> on such features. =
+Source=20
+      code should always be considered <EM>larger</EM> than the IDE it =
+is=20
+      developed within and should be written in a way that maximise its=20
+      readability independent of any IDE.=20
+      <H3><A name=3D"Layout of the Recommendations"></A>1.1 Layout of =
+the=20
+      Recommendations.</H3>
+      <P>The recommendations are grouped by topic and each =
+recommendation is=20
+      numbered to make it easier to refer to during reviews.=20
+      <P>Layout of the recommendations is as follows:=20
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>n. Guideline short description </TD></TR>
+        <TR><TD class=3Dexample>Example if applicable
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Motivation, background and additional=20
+            information. </TD></TR></TBODY></TABLE>
+      <P>The motivation section is important. Coding standards and =
+guidelines=20
+      tend to start "religious wars", and it is important to state the=20
+      background for the recommendation.=20
+      <H3><A name=3DRecommendation></A>1.2 Recommendation =
+Importance</H3>
+      <P>In the guideline sections the terms <I>must</I>, <I>should =
+</I>and=20
+      <I>can </I>have special meaning. A <I>must </I>requirement must be =
+
+      followed, a <I>should </I>is a strong recommendation, and a <I>can =
+</I>is=20
+      a general guideline.=20
+      <H1><A name=3D"General Recomendations"></A>2 General =
+Recommendations </H1><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>1. Any violation to the guide is allowed if =
+it=20
+            enhances readability. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>The main goal of the recommendation is =
+to=20
+            improve readability and thereby the understanding and the=20
+            maintainability and general quality of the code. It is =
+impossible to=20
+            cover all the specific cases in a general guide and the =
+programmer=20
+            should be flexible. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>2. The rules can be violated if there are =
+strong=20
+            personal objections against them. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>The attempt is to make a guideline, not =
+to force=20
+            a particular coding style onto individuals. Experienced =
+programmers=20
+            normally want to adopt a style like this anyway, but having =
+one, and=20
+            at least requiring everyone to get familiar with it, usually =
+makes=20
+            people start <EM>thinking</EM> about programming style and =
+evaluate=20
+            their own habits in this area.=20
+            <P>On the other hand, new and inexperienced programmers =
+normally use=20
+            a style guide as a convenience of getting into the =
+programming=20
+            jargon more easily. </P></TD></TR></TBODY></TABLE>
+      <P>
+      <H1><A name=3D"Naming Conventions"></A>3 Naming Conventions </H1>
+      <H3><A name=3DGeneral></A>3.1 General Naming Conventions</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>3. Names representing types must be in mixed =
+case=20
+            starting with upper case. </TD></TR>
+        <TR><TD class=3Dexample>Line, SavingsAccount
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>4. Variable names must be in mixed case =
+starting=20
+            with lower case. </TD></TR>
+        <TR><TD class=3Dexample>line, savingsAccount
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. Makes variables easy to distinguish from types, =
+and=20
+            effectively resolves potential naming collision as in the=20
+            declaration Line line; </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>5. Named constants (including enumeration =
+values)=20
+            must be all uppercase using underscore to separate words. =
+</TD></TR>
+        <TR><TD class=3Dexample>MAX_ITERATIONS, COLOR_RED, PI
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. In general, the use of such constants should be=20
+            minimized. In many cases implementing the value as a method =
+is a=20
+            better choice:=20
+            <P><PRE>  int getMaxIterations() // NOT: MAX_ITERATIONS =3D =
+25
+  {
+    return 25;
+  }
+</PRE>
+            <P>This form is both easier to read, and it ensures a =
+unified=20
+            interface towards class values. =
+</P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>6. Names representing methods or functions =
+must be=20
+            verbs and written in mixed case starting with lower case. =
+</TD></TR>
+        <TR><TD class=3Dexample>getName(), computeTotalWidth()
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. This is identical to variable names, but =
+functions in C++=20
+            are already distingushable from variables by their specific =
+form.=20
+        </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>7. Names representing namespaces should be =
+all=20
+            lowercase. </TD></TR>
+        <TR><TD class=3Dexample>model::analyzer, io::iomanager, =
+common::math::geometry
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>8. Names representing template types should =
+be a=20
+            single uppercase letter. </TD></TR>
+        <TR><TD class=3Dexample>template&lt;class T&gt; ...
+template&lt;class C, class D&gt; ...
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. This makes template names stand out relative to =
+all other=20
+            names used. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>9. Abbreviations and acronyms must not be =
+uppercase=20
+            when used as name [4]. </TD></TR>
+        <TR><TD class=3Dexample>exportHtmlSource(); <I class=3Dnot>// =
+NOT: exportHTMLSource();</I>
+openDvdPlayer();    <I class=3Dnot>// NOT: openDVDPlayer();</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Using all uppercase for the base name =
+will give=20
+            conflicts with the naming conventions given above. A =
+variable of=20
+            this type whould have to be named dVD, hTML etc. which =
+obviously is=20
+            not very readable. Another problem is illustrated in the =
+examples=20
+            above; When the name is connected to another, the readbility =
+is=20
+            seriously reduced; the word following the abbreviation does =
+not=20
+            stand out as it should. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>10. Global variables should always be =
+referred to=20
+            using the :: operator. </TD></TR>
+        <TR><TD class=3Dexample>::mainWindow.open(), =
+::applicationContext.getName()
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>In general, the use of global variables =
+should=20
+            be avoided. Consider using singleton objects instead.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+**=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>11. Private class variables should have =
+underscore=20
+            suffix. </TD></TR>
+        <TR><TD class=3Dexample>class SomeClass {
+  private:
+    int length_;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Apart from its name and its type, the=20
+            <EM>scope</EM> of a variable is its most important feature.=20
+            Indicating class scope by using underscore makes it easy to=20
+            distinguish class variables from local scratch variables. =
+This is=20
+            important because class variables are considered to have =
+higher=20
+            significance than method variables, and should be treated =
+with=20
+            special care by the programmer.=20
+            <P>A side effect of the underscore naming convention is that =
+it=20
+            nicely resolves the problem of finding reasonable variable =
+names for=20
+            setter methods and constructors: <PRE>  void setDepth (int =
+depth)
+  {
+    depth_ =3D depth;
+  }
+</PRE>
+            <P>An issue is whether the underscore should be added as a =
+prefix or=20
+            as a suffix. Both practices are commonly used, but the =
+latter is=20
+            recommended because it seem to best preserve the readability =
+of the=20
+            name.=20
+            <P>It should be noted that scope identification in variables =
+has=20
+            been a controversial issue for quite some time. It seems, =
+though,=20
+            that this practice now is gaining acceptance and that it is =
+becoming=20
+            more and more common as a convention in the professional =
+development=20
+            community. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>12. Generic variables should have the same =
+name as=20
+            their type. </TD></TR>
+        <TR><TD class=3Dexample>void setTopic(Topic* topic) <I =
+class=3Dnot>// NOT: void setTopic(Topic* value)</I>
+                            <I class=3Dnot>// NOT: void setTopic(Topic* =
+aTopic)</I>
+                            <I class=3Dnot>// NOT: void setTopic(Topic* =
+t)</I>
+
+void connect(Database* database) <I class=3Dnot>// NOT: void =
+connect(Database* db)</I>
+                                 <I class=3Dnot>// NOT: void connect =
+(Database* oracleDB)</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Reduce complexity by reducing the number =
+of=20
+            terms and names used. Also makes it easy to deduce the type =
+given a=20
+            variable name only.=20
+            <P>If for some reason this convention doesn't seem to =
+<EM>fit</EM>=20
+            it is a strong indication that the type name is badly =
+chosen.=20
+            <P>Non-generic variables have a <EM>role</EM>. These =
+variables can=20
+            often be named by combining role and type:=20
+            <P><PRE>  Point  startingPoint, centerPoint;
+  Name   loginName;
+</PRE></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>13. All names should be written in English. =
+</TD></TR>
+        <TR><TD class=3Dexample>fileName;   <I class=3Dnot>// NOT: =
+filNavn</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>English is the preferred language for=20
+            international development. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>14. Variables with a large scope should have =
+long=20
+            names, variables with a small scope can have short names =
+[1]. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Scratch variables used for temporary =
+storage or=20
+            indices are best kept short. A programmer reading such =
+variables=20
+            should be able to assume that its value is not used outside =
+of a few=20
+            lines of code. Common scratch variables for integers are =
+<EM>i</EM>,=20
+            <EM>j</EM>, <EM>k</EM>, <EM>m</EM>, <EM>n</EM> and for =
+characters=20
+            <EM>c</EM> and <EM>d</EM>. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>15. The name of the object is implicit, and =
+should=20
+            be avoided in a method name. </TD></TR>
+        <TR><TD class=3Dexample>line.getLength();   <I class=3Dnot>// =
+NOT: line.getLineLength();</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The latter seems natural in the class=20
+            declaration, but proves superfluous in use, as shown in the =
+example.=20
+          </TD></TR></TBODY></TABLE>
+      <H3><A name=3DSpecific></A>3.2 Specific Naming Conventions</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>17. The terms <I>get/set</I> must be used =
+where an=20
+            attribute is accessed directly. </TD></TR>
+        <TR><TD class=3Dexample>employee.getName();
+employee.setName(name);
+
+matrix.getElement(2, 4);
+matrix.setElement(2, 4, value);
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development=20
+            community. In Java this convention has become more or less =
+standard.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>18. The term <I>compute</I> can be used in =
+methods=20
+            where something is computed. </TD></TR>
+        <TR><TD class=3Dexample>valueSet-&gt;computeAverage();
+matrix-&gt;computeInverse()
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Give the reader the immediate clue that =
+this is=20
+            a potentially time-consuming operation, and if used =
+repeatedly, he=20
+            might consider caching the result. Consistent use of the =
+term=20
+            enhances readability. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>19. The term <I>find</I> can be used in =
+methods=20
+            where something is looked up. </TD></TR>
+        <TR><TD class=3Dexample>vertex.findNearestVertex();
+
+matrix.findMinElement();
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Give the reader the immediate clue that =
+this is=20
+            a simple look up method with a minimum of computations =
+involved.=20
+            Consistent use of the term enhances readability.=20
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>20. The term <I>initialize</I> can be used =
+where an=20
+            object or a concept is established. </TD></TR>
+        <TR><TD class=3Dexample>printer.initializeFontSet();
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The american <I>initialize </I>should be =
+
+            preferred over the English <I>initialise</I>. Abbreviation =
+<I>init=20
+            </I>should be avoided.</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>21. Variables representing GUI components =
+should be=20
+            suffixed by the component type name. </TD></TR>
+        <TR><TD class=3Dexample>mainWindow, propertiesDialog, =
+widthScale, loginText,
+leftScrollbar, mainForm, fileMenu, minLabel, exitButton, yesToggle etc.
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Enhances readability since the name =
+gives the=20
+            user an immediate clue of the type of the variable and =
+thereby the=20
+            objects resources. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>22. Plural form should be used on names =
+representing=20
+            a collection of objects. </TD></TR>
+        <TR><TD class=3Dexample>vector&lt;Point&gt;  points;
+int            values[];
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Enhances readability since the name =
+gives the=20
+            user an immediate clue of the type of the variable and the=20
+            operations that can be performed on its elements.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>23. The prefix <I>n</I> should be used for =
+variables=20
+            representing a number of objects. </TD></TR>
+        <TR><TD class=3Dexample>nPoints, nLines
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The notation is taken from mathematics =
+where it=20
+            is an established convention for indicating a number of =
+objects.=20
+        </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>24.The suffix <I>No</I> should be used for =
+variables=20
+            representing an entity number. </TD></TR>
+        <TR><TD class=3Dexample>tableNo, employeeNo
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The notation is taken from mathematics =
+where it=20
+            is an established convention for indicating an entity =
+number.=20
+            <P>An elegant alternative is to prefix such variables with =
+an=20
+            <EM>i</EM>: <TT>iTable, iEmployee</TT>. This effectively =
+makes them=20
+            <EM>named</EM> iterators. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>25. Iterator variables should be called =
+<EM>i</EM>,=20
+            <EM>j</EM>, <EM>k</EM> etc. </TD></TR>
+        <TR><TD class=3Dexample>for (int i =3D 0; i &lt; nTables); i++) =
+{
+  :
+}
+
+for (vector&lt;MyClass&gt;::iterator i =3D list.begin(); i !=3D =
+list.end(); i++) {
+  Element element =3D *i;
+  ...
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The notation is taken from mathematics =
+where it=20
+            is an established convention for indicating iterators.=20
+            <P>Variables named <EM>j</EM>, <EM>k</EM> etc. should be =
+used for=20
+            nested loops only. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>26. The prefix <I>is</I> should be used for =
+boolean=20
+            variables and methods. </TD></TR>
+        <TR><TD class=3Dexample>isSet, isVisible, isFinished, isFound, =
+isOpen
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice in the C++ development =
+community=20
+            and partially enforced in Java.=20
+            <P>Using the <I>is</I> prefix solves a common problem of =
+choosing=20
+            bad boolean names like <TT>status</TT> or <TT>flag</TT>.=20
+            <TT>isStatus</TT> or <TT>isFlag</TT> simply doesn't fit, and =
+the=20
+            programmer is forced to choose more meaningful names.=20
+            <P>There are a few alternatives to the <EM>is</EM> prefix =
+that fit=20
+            better in some situations. These are the <EM>has</EM>, =
+<EM>can</EM>=20
+            and <EM>should</EM> prefixes:=20
+            <P><PRE>  bool hasLicense();
+  bool canEvaluate();
+  bool shouldSort();
+</PRE></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>27. Complement names must be used for =
+complement=20
+            operations [1]. </TD></TR>
+        <TR><TD class=3Dexample>get/set, add/remove, create/destroy, =
+start/stop, insert/delete,
+increment/decrement, old/new, begin/end, first/last, up/down, min/max,
+next/previous, old/new, open/close, show/hide, suspend/resume, etc.
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Reduce complexity by=20
+      symmetry.</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>28. Abbreviations in names should be =
+avoided.</TD></TR>
+        <TR><TD class=3Dexample>computeAverage();   <I class=3Dnot>// =
+NOT: compAvg();</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>There are two types of words to =
+consider. First=20
+            are the common words listed in a language dictionary. These =
+must=20
+            never be abbreviated. Never write:=20
+            <P><TT>cmd&nbsp;&nbsp; </TT>instead of <TT>&nbsp;=20
+            command</TT><BR><TT>cp &nbsp;&nbsp; </TT>instead of =
+<TT>&nbsp;=20
+            copy</TT><BR><TT>pt &nbsp;&nbsp; </TT>instead of <TT>&nbsp;=20
+            point</TT><BR><TT>comp&nbsp; </TT>instead of <TT>&nbsp;=20
+            compute</TT><BR><TT>init&nbsp; </TT>instead of <TT>&nbsp;=20
+            initialize</TT><BR>etc.<BR>
+            <P>Then there are domain specific phrases that are more =
+naturally=20
+            known through their abbreviations/acronym. These phrases =
+should be=20
+            kept abbreviated. Never write:=20
+            <P><TT>HypertextMarkupLanguage&nbsp;</TT> instead of =
+<TT>&nbsp;=20
+            html</TT><BR><TT>CentralProcessingUnit &nbsp;&nbsp;</TT> =
+instead of=20
+            <TT>&nbsp; cpu</TT><BR><TT>PriceEarningRatio &nbsp;&nbsp; =
+&nbsp;=20
+            &nbsp;</TT> instead of <TT>&nbsp; pe</TT><BR>etc.=20
+      </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>29. Naming pointers specifically should be =
+avoided.=20
+          </TD></TR>
+        <TR><TD class=3Dexample>Line* line; <I class=3Dnot>// NOT: Line* =
+pLine;
+            <I class=3Dnot>// NOT: LIne* linePtr;
+</I></I></TD></TR>
+        <TR>
+          <TD class=3Drationale>Many variables in a C/C++ environment =
+are=20
+            pointers, so a convention like this is almost impossible to =
+follow.=20
+            Also objects in C++ are often oblique types where the =
+specific=20
+            implementation should be ignored by the programmer. Only =
+when the=20
+            actual type of an object is of special significance, the =
+name should=20
+            emphasize the type. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>30. Negated boolean variable names must be =
+avoided.=20
+          </TD></TR>
+        <TR><TD class=3Dexample>bool isError; <I class=3Dnot>// NOT: =
+isNoError</I>
+bool isFound; <I class=3Dnot>// NOT: isNotFound</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The problem arises when such a name is =
+used in=20
+            conjunction with the logical negation operator as this =
+results in a=20
+            double negative. It is not immediately apparent what=20
+            <TT>!isNotFound</TT> means. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>31. Enumeration constants can be prefixed by =
+a=20
+            common type name. </TD></TR>
+        <TR><TD class=3Dexample>enum Color {
+  COLOR_RED,
+  COLOR_GREEN,
+  COLOR_BLUE
+};
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This gives additional information of =
+where the=20
+            declaration can be found, which constants belongs together, =
+and what=20
+            concept the constants represent.=20
+            <P>An alternative approach is to always refer to the =
+constants=20
+            through their common type: <TT>Color::RED</TT>,=20
+            <TT>Airline::AIR_FRANCE</TT> etc.=20
+            <P>Note also that the enum name typically should be=20
+            <EM>singular</EM> as in <TT>enum Color {...}</TT>. A plural =
+name=20
+            like <TT>enum Colors {...}</TT> may look fine when declaring =
+the=20
+            type, but it will look silly in use. =
+</P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>32. Exception classes should be suffixed =
+with=20
+            <EM>Exception</EM>. </TD></TR>
+        <TR><TD class=3Dexample>class AccessException
+{
+  :
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Exception classes are really not part of =
+the=20
+            main design of the program, and naming them like this makes =
+them=20
+            stand out relative to the other classes. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>33. Functions (methods returning something) =
+should=20
+            be named after what they return and procedures (<I>void</I> =
+methods)=20
+            after what they do. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Increase readability. Makes it clear =
+what the=20
+            unit should do and especially all the things it is not =
+supposed to=20
+            do. This again makes it easier to keep the code clean of =
+side=20
+            effects. </TD></TR></TBODY></TABLE>
+      <P>
+      <H1><A name=3DFiles></A>4 Files </H1>
+      <H3><A name=3D"Source Files"></A>4.1 Source Files </H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>34. C++ header files should have the =
+extension=20
+            <I>.h</I> (preferred) or <I>.hpp</I>. Source files can have =
+the=20
+            extension <I>.c++</I> (recommended), <I>.C</I>, <I>.cc</I> =
+or=20
+            <I>.cpp</I>. </TD></TR>
+        <TR><TD class=3Dexample>MyClass.c++, MyClass.h
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>These are all accepted C++ standards for =
+file=20
+            extension. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>35. A class should be declared in a header =
+file and=20
+            defined in a source file where the name of the files match =
+the name=20
+            of the class. </TD></TR>
+        <TR><TD class=3Dexample>MyClass.h, MyClass.c++
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Makes it easy to find the associated =
+files of a=20
+            given class. An obvious exception is template classes that =
+must be=20
+            both declared and defined inside a .h file. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>36. All definitions should reside in source =
+files.=20
+          </TD></TR>
+        <TR><TD class=3Dexample>class MyClass
+{
+public:
+  int getValue () {return value_;}  <I class=3Dnot>// NO!</I>
+  ...
+
+private:
+  int value_;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The header files should declare an =
+interface,=20
+            the source file should implement it. When looking for an=20
+            implementation, the programmer should always know that it is =
+found=20
+            in the source file. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>37. File content must be kept within 80 =
+columns.=20
+        </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>80 columns is a common dimension for =
+editors,=20
+            terminal emulators, printers and debuggers, and files that =
+are=20
+            shared between several people should keep within these =
+constraints.=20
+            It improves readability when unintentional line breaks are =
+avoided=20
+            when passing a file between programmers. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>38. Special characters like TAB and page =
+break must=20
+            be avoided. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>These characters are bound to cause =
+problem for=20
+            editors, printers, terminal emulators or debuggers when used =
+in a=20
+            multi-programmer, multi-platform environment. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>39. The incompleteness of split lines must =
+be made=20
+            obvious [1]. </TD></TR>
+        <TR><TD class=3Dexample>totalSum =3D a + b + c +
+           d + e;
+
+function (param1, param2,
+          param3);
+
+setText ("Long line split"
+         "into two parts.");
+
+for (int tableNo =3D 0; tableNo &lt; nTables;
+     tableNo +=3D tableStep) {
+  ...
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Split lines occurs when a statement =
+exceed the=20
+            80 column limit given above. It is difficult to give rigid =
+rules for=20
+            how lines should be split, but the examples above should =
+give a=20
+            general hint.=20
+            <P>In general:=20
+            <UL>
+              <LI>Break after a comma. </LI>
+              <LI>Break after an operator.</LI>
+              <LI>Align the new line with the beginning of the =
+expression on the=20
+              previous line.</LI></UL></TD></TR></TBODY></TABLE>
+      <H3><A name=3D"Include Files"></A>4.2 Include Files and Include=20
+      Statements</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>40. Header files must contain an include =
+guard.=20
+        </TD></TR>
+        <TR><TD class=3Dexample>#ifndef COM_COMPANY_MODULE_CLASSNAME_H
+#define COM_COMPANY_MODULE_CLASSNAME_H
+  :
+#endif // COM_COMPANY_MODULE_CLASSNAME_H
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The construction is to avoid compilation =
+errors.=20
+            The name convention resembles the location of the file =
+inside the=20
+            source tree and prevents naming conflicts. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>41. Include statements should be sorted and =
+grouped.=20
+            Sorted by their hierarchical position in the system with low =
+level=20
+            files included first. Leave an empty line between groups of =
+include=20
+            statements. </TD></TR>
+        <TR><TD class=3Dexample>#include &lt;fstream&gt;
+#include &lt;iomanip&gt;
+
+#include &lt;qt/qbutton.h&gt;
+#include &lt;qt/qtextfield.h&gt;
+
+#include "com/company/ui/PropertiesDialog.h"
+#include "com/company/ui/MainWindow.h"
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>In addition to show the reader the =
+individual=20
+            include files, it also give an immediate clue about the =
+modules that=20
+            are involved.=20
+            <P>Include file paths must never be absolute. Compiler =
+directives=20
+            should instead be used to indicate root directories for =
+includes.=20
+            </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>42. Include statements must be located at =
+the top of=20
+            a file only. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Common practice. Avoid unwanted =
+compilation side=20
+            effects by "hidden" include statements deep into a source =
+file.=20
+        </TD></TR></TBODY></TABLE>
+      <P>
+      <H1><A name=3DStatements></A>5 Statements </H1>
+      <H3><A name=3DTypes></A>5.1 Types</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>43. Types that are local to one file only =
+can be=20
+            declared inside that file. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Enforces information hiding.=20
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>44. The parts of a class must be sorted=20
+            <I>public</I>, <I>protected </I>and <I>private</I> [2][3]. =
+All=20
+            sections must be identified explicitly. Not applicable =
+sections=20
+            should be left out. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>The ordering is <I>"most public =
+first"</I> so=20
+            people who only wish to use the class can stop reading when =
+they=20
+            reach the protected/private sections. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>45. Type conversions must always be done =
+explicitly.=20
+            Never rely on implicit type conversion. </TD></TR>
+        <TR><TD class=3Dexample>floatValue =3D =
+static_cast&lt;float&gt;(intValue); <I class=3Dnot>// NOT: floatValue =
+=3D intValue;</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>By this, the programmer indicates that =
+he is=20
+            aware of the different types involved and that the mix is=20
+            intentional. </TD></TR></TBODY></TABLE>
+      <H3><A name=3DVariables></A>5.2 Variables</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>46. Variables should be initialized where =
+they are=20
+            declared. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>This ensures that variables are valid at =
+any=20
+            time. Sometimes it is impossible to initialize a variable to =
+a valid=20
+            value where it is declared:=20
+            <P><PRE>  int x, y, z;
+  getCenter(&amp;x, &amp;y, &amp;z);
+</PRE>
+            <P>In these cases it should be left uninitialized rather =
+than=20
+            initialized to some phony value. =
+</P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>47. Variables must never have dual meaning. =
+</TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Enhance readability by ensuring all =
+concepts are=20
+            represented uniquely. Reduce chance of error by side =
+effects.=20
+        </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>48. Use of global variables should be =
+minimized.=20
+        </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>In C++ there is no reason global =
+variables need=20
+            to be used at all. The same is true for global functions or =
+file=20
+            scope (static) variables. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>49. Class variables should never be declared =
+public.=20
+          </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>The concept of C++ information hiding =
+and=20
+            encapsulation is violated by public variables. Use private =
+variables=20
+            and access functions instead. One exception to this rule is =
+when the=20
+            class is essentially a data structure, with no behavior =
+(equivalent=20
+            to a C <EM>struct</EM>). In this case it is appropriate to =
+make the=20
+            class' instance variables public [2].=20
+            <P>Note that <I>struct</I>s are kept in C++ for =
+compatibility with C=20
+            only, and avoiding them increases the readability of the =
+code by=20
+            reducing the number of constructs used. Use a class instead. =
+
+        </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>51. C++ pointers and references should have =
+their=20
+            reference symbol next to the type rather than to the name. =
+</TD></TR>
+        <TR><TD class=3Dexample>float* x; <I class=3Dnot>// NOT: float =
+*x; </I>
+int&amp; y;   <I class=3Dnot>// NOT: int &amp;y;<I>
+</I></I></TD></TR>
+        <TR>
+          <TD class=3Drationale>The <EM>pointer-ness</EM> or=20
+            <EM>reference-ness</EM> of a variable is a property of the =
+type=20
+            rather than the name. C-programmers often use the =
+alternative=20
+            approach, while in C++ it has become more common to follow =
+this=20
+            recommendation. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>53. Implicit test for <I>0</I> should not be =
+used=20
+            other than for boolean variables and pointers. </TD></TR>
+        <TR><TD class=3Dexample>if (nLines !=3D 0)  <I class=3Dnot>// =
+NOT: if (nLines)</I>
+if (value !=3D 0.0) <I class=3Dnot>// NOT: if (value)
+</I></TD></TR>
+        <TR>
+          <TD class=3Drationale>It is not necessarily defined by the C++ =
+
+            standard that ints and floats 0 are implemented as binary 0. =
+Also,=20
+            by using an explicit test the statement gives an immediate =
+clue of=20
+            the type being tested.=20
+            <P>It is common also to suggest that pointers shouldn't test =
+
+            implicitly for 0 either, i.e. <TT>if (line =3D=3D 0)</TT> =
+instead of=20
+            <TT>if (line)</TT>. The latter is regarded so common in =
+C/C++=20
+            however that it can be used. =
+</P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>54. Variables should be declared in the =
+smallest=20
+            scope possible. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Keeping the operations on a variable =
+within a=20
+            small scope, it is easier to control the effects and side =
+effects of=20
+            the variable. </TD></TR></TBODY></TABLE>
+      <H3><A name=3DLoops></A>5.3 Loops</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>55. Only loop control statements must be =
+included in=20
+            the <TT>for()</TT> construction. </TD></TR>
+        <TR><TD class=3Dexample>sum =3D 0;                       <I =
+class=3Dnot>// NOT: for (i =3D 0, sum =3D 0; i &lt; 100; i++)</I>
+for (i =3D 0; i &lt; 100; i++)   <I class=3Dnot>             sum +=3D =
+value[i];</I>
+  sum +=3D value[i];
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Increase maintainability and =
+readability. Make a=20
+            clear distinction of what <EM>controls</EM> and what is=20
+            <EM>contained</EM> in the loop. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>56. Loop variables should be initialized =
+immediately=20
+            before the loop. </TD></TR>
+        <TR><TD class=3Dexample>isDone =3D false;           <I =
+class=3Dnot>// NOT: bool isDone =3D false;</I>
+while (!isDone) {         <I class=3Dnot>//      :</I>
+  :                       <I class=3Dnot>//      while (!isDone) {</I>
+}                         <I class=3Dnot>//        :</I>
+                          <I class=3Dnot>//      }</I>
+<PRE></PRE>
+</TD></TR>
+        <TR><TD class=3Dexample></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>57. <TT>do-while</TT> loops can be avoided. =
+</TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale><EM>do-while</EM> loops are less =
+readable than=20
+            ordinary <EM>while</EM> loops and <EM>for</EM> loops since =
+the=20
+            conditional is at the bottom of the loop. The reader must =
+scan the=20
+            entire loop in order to understand the scope of the loop.=20
+            <P>In addition, <EM>do-while</EM> loops are not needed. Any=20
+            <EM>do-while</EM> loop can easily be rewritten into a =
+<EM>while</EM>=20
+            loop or a <EM>for</EM> loop. Reducing the number of =
+constructs used=20
+            enhance readbility. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>58. The use of <TT>break</TT> and =
+<TT>continue</TT>=20
+            in loops should be avoided. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>These statements should only be used if =
+they=20
+            give higher readability than their structured counterparts.=20
+        </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>60. The form <TT>while(true)</TT> should be =
+used for=20
+            infinite loops. </TD></TR>
+        <TR><TD class=3Dexample>while (true) {
+  :
+}
+<I class=3Dnot>
+for (;;) {  // NO!
+  :
+}
+
+while (1) { // NO!
+  :
+}
+</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Testing against 1 is neither necessary =
+nor=20
+            meaningful. The form <TT>for (;;)</TT> is not very readable, =
+and it=20
+            is not apparent that this actually is an infinite loop.=20
+        </TD></TR></TBODY></TABLE>
+      <H3><A name=3DConditionals></A>5.4 Conditionals</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>61. Complex conditional expressions must be =
+avoided.=20
+            Introduce temporary boolean variables instead [1]. =
+</TD></TR>
+        <TR><TD class=3Dexample>bool isFinished =3D (elementNo &lt; 0) =
+|| (elementNo &gt; maxElement);
+bool isRepeatedEntry =3D elementNo =3D=3D lastElement;
+if (isFinished || isRepeatedEntry) {
+  :
+}
+
+<I class=3Dnot>// NOT:
+if ((elementNo &lt; 0) || (elementNo &gt; maxElement)||
+     elementNo =3D=3D lastElement) {
+  :
+}
+</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>By assigning boolean variables to =
+expressions,=20
+            the program gets automatic documentation. The construction =
+will be=20
+            easier to read, debug and maintain. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>62. The nominal case should be put in the=20
+            <I>if</I>-part and the exception in the <I>else</I>-part of =
+an if=20
+            statement [1]. </TD></TR>
+        <TR><TD class=3Dexample>bool isOk =3D readFile (fileName);
+if (isOk) {
+  :
+}
+else {
+  :
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Makes sure that the exceptions don't =
+obscure the=20
+            normal path of execution. This is important for both the =
+readability=20
+            and performance. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>63. The conditional should be put on a =
+separate=20
+            line. </TD></TR>
+        <TR><TD class=3Dexample>if (isDone)       <I class=3Dnot>// NOT: =
+if (isDone) doCleanup();</I>
+  doCleanup();
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This is for debugging purposes. When =
+writing on=20
+            a single line, it is not apparent whether the test is really =
+true or=20
+            not. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>64. Executable statements in conditionals =
+must be=20
+            avoided. </TD></TR>
+        <TR><TD class=3Dexample>File* fileHandle =3D open(fileName, =
+"w");
+if (!fileHandle) {
+  :
+}
+
+<I class=3Dnot>// NOT:
+if (!(fileHandle =3D open(fileName, "w"))) {
+  :
+}
+</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Conditionals with executable statements =
+are just=20
+            very difficult to read. This is especially true for =
+programmers new=20
+            to C/C++. </TD></TR></TBODY></TABLE>
+      <H3><A name=3DMisc></A>5.5 Miscellaneous</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>65. The use of magic numbers in the code =
+should be=20
+            avoided. Numbers other than <I>0 </I>and <I>1 </I>should be=20
+            considered declared as named constants instead. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>If the number does not have an obvious =
+meaning=20
+            by itself, the readability is enhanced by introducing a =
+named=20
+            constant instead. A different approach is to introduce a =
+method from=20
+            which the constant can be accessed. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>66. Floating point constants should always =
+be=20
+            written with decimal point and at least one decimal. =
+</TD></TR>
+        <TR><TD class=3Dexample>double total =3D 0.0;    <I =
+class=3Dnot>// NOT:  double total =3D 0;</I>
+double speed =3D 3.0e8;  <I class=3Dnot>// NOT:  double speed =3D =
+3e8;</I>
+
+double sum;
+:
+sum =3D (a + b) * 10.0;
+
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This emphasizes the different nature of =
+integer=20
+            and floating point numbers. Mathematically the two model =
+completely=20
+            different and non-compatible concepts.=20
+            <P>Also, as in the last example above, it emphasizes the =
+type of the=20
+            assigned variable (<TT>sum</TT>) at a point in the code =
+where this=20
+            might not be evident. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>67. Floating point constants should always =
+be=20
+            written with a digit before the decimal point. </TD></TR>
+        <TR><TD class=3Dexample>double total =3D 0.5;  <I class=3Dnot>// =
+NOT:  double total =3D .5;</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>The number and expression system in C++ =
+is=20
+            borrowed from mathematics and one should adhere to =
+mathematical=20
+            conventions for syntax wherever possible. Also, 0.5 is a lot =
+more=20
+            readable than .5; There is no way it can be mixed with the =
+integer=20
+            5. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>68. Functions must always have the return =
+value=20
+            explicitly listed. </TD></TR>
+        <TR><TD class=3Dexample>int getValue()   <I class=3Dnot>// NOT: =
+getValue()</I>
+{
+  :
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>If not exlicitly listed, C++ implies=20
+            <TT>int</TT> return value for functions. A programmer must =
+never=20
+            rely on this feature, since this might be confusing for =
+programmers=20
+            not aware of this artifact. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>69. <TT>goto</TT> should not be used. =
+</TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Goto statements violate the idea of =
+structured=20
+            code. Only in some very few cases (for instance breaking out =
+of=20
+            deeply nested structures) should goto be considered, and =
+only if the=20
+            alternative structured counterpart is proven to be less =
+readable.=20
+        </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>70. "0" should be used instead of "NULL". =
+</TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale><TT>NULL</TT> is part of the standard C =
+library,=20
+            but is made obsolete in C++. </TD></TR></TBODY></TABLE>
+      <P>
+      <H1><A name=3D"Layout and Comments"></A>6 Layout and Comments =
+</H1>
+      <H3><A name=3DLayout></A>6.1 Layout</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>71. Basic indentation should be 2. =
+</TD></TR>
+        <TR><TD class=3Dexample>for (i =3D 0; i &lt; nElements; i++)
+  a[i] =3D 0;
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Indentation of 1 is too small to =
+emphasize the=20
+            logical layout of the code. Indentation larger than 4 makes =
+deeply=20
+            nested code difficult to read and increases the chance that =
+the=20
+            lines must be split. Choosing between indentation of 2, 3 =
+and=20
+            4,&nbsp; 2 and 4 are the more common, and 2 chosen to reduce =
+the=20
+            chance of splitting code lines. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom colSpan=3D3>72. Block layout should be as =
+illustrated=20
+            in example 1 below (recommended) or example 2, and must not =
+be as=20
+            shown in example 3 [4]. Function and class blocks must use =
+the block=20
+            layout of example 2. </TD></TR>
+        <TR><TD class=3Dexample width=3D"33%">while (!done) {
+  doSomething();
+  done =3D moreToDo();
+}<BR>
+</TD><TD class=3Dexample width=3D"33%">while (!done)
+{
+  doSomething();
+  done =3D moreToDo();
+}
+</TD><TD class=3Dexample><I class=3Dnot>while (!done)
+  {
+    doSomething();
+    done =3D moreToDo();
+  }
+</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale colSpan=3D3>Example 3 introduces an =
+extra=20
+            indentation level which doesn't emphasize the logical =
+structure of=20
+            the code as clearly as examples 1 and 2. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>73. The <TT>class</TT> declarations should =
+have the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>class SomeClass : public BaseClass
+{
+  public:
+    ...
+
+  protected:
+    ...
+
+  private:
+    ...
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows partly from the general =
+block rule=20
+            above. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>74. Method definitions should have the =
+following=20
+            form: </TD></TR>
+        <TR><TD class=3Dexample>void someMethod()
+{
+  ...
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows from the general block rule =
+above.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>75. The <TT>if-else</TT> class of statements =
+should=20
+            have the following form: </TD></TR>
+        <TR><TD class=3Dexample>if (condition) {
+  statements;
+}
+
+if (condition) {
+  statements;
+}
+else {
+   statements;
+}
+
+if (condition) {
+  statements;
+}
+else if (condition) {
+  statements;
+}
+else {
+  statements;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows partly from the general =
+block rule=20
+            above. However, it might be discussed if an <TT>else</TT> =
+clause=20
+            should be on the same line as the closing bracket of the =
+previous=20
+            <TT>if</TT> or <TT>else</TT> clause: <PRE>  if (condition) {
+    statements;
+  } else {
+    statements;
+  }
+</PRE>The chosen approach is considered better in the way that each=20
+            part of the <TT>if-else</TT> statement is written on =
+separate lines=20
+            of the file. This should make it easier to manipulate the =
+statement,=20
+            for instance when moving <TT>else</TT> clauses around.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>76. A <TT>for</TT> statement should have the =
+
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>for (initialization; condition; update) =
+{
+  statements;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows from the general block rule =
+above.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>77. An empty <TT>for</TT> statement should =
+have the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>for (initialization; condition; update)
+  ;
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This emphasizes the fact that the for =
+statement=20
+            is empty and it makes it obvious for the reader that this is =
+
+            intentional. Empty loops should be avoided however.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>78. A <TT>while</TT> statement should have =
+the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>while (condition) {
+  statements;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows from the general block rule =
+above.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>79. A <TT>do-while</TT> statement should =
+have the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>do {
+  statements;
+} while (condition);
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows from the general block rule =
+above.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>80. A <TT>switch</TT> statement should have =
+the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>switch (condition) {
+  case ABC :
+    statements;
+    // Fallthrough
+
+  case DEF :
+    statements;
+    break;
+
+  case XYZ :
+    statements;
+    break;
+
+  default :
+    statements;
+    break;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Note that each <TT>case</TT> keyword is =
+indented=20
+            relative to the switch statement as a whole. This makes the =
+entire=20
+            switch statement stand out. Note also the extra space before =
+the=20
+            <I>:</I> character. The explicit <I>Fallthrough</I> comment =
+should=20
+            be included whenever there is a case statement without a=20
+            <TT>break</TT> statement. Leaving the <TT>break</TT> out is =
+a common=20
+            error, and it must be made clear that it is intentional when =
+it is=20
+            not there. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>81. A <TT>try-catch</TT> statement should =
+have the=20
+            following form: </TD></TR>
+        <TR><TD class=3Dexample>try {
+  statements;
+}
+catch (Exception&amp; exception) {
+  statements;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This follows partly from the general =
+block rule=20
+            above. The discussion about closing brackets for =
+<TT>if-else</TT>=20
+            statements apply to the <TT>try-catch</TT> statments.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>82. Single statement <TT>if-else</TT>, =
+<TT>for</TT>=20
+            or <TT>while</TT> statements can be written without =
+brackets. </TD></TR>
+        <TR><TD class=3Dexample>if (condition)
+  statement;
+
+while (condition)
+  statement;
+
+for (initialization; condition; update)
+  statement;
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>It is a common recommendation that =
+brackets=20
+            should always be used in all these cases. However, brackets =
+are in=20
+            general a language construct that groups several statements. =
+
+            Brackets are per definition superfluous on a single =
+statement. A=20
+            common argument against this syntax is that the code will =
+break=20
+            <EM>if</EM> an additional statement is added without also =
+adding the=20
+            brackets. In general however, code should never be written =
+to=20
+            accommodate for changes that <EM>might</EM> arise.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>83. The function return type can be put in =
+the left=20
+            column immediately above the function name. </TD></TR>
+        <TR><TD class=3Dexample>void
+MyClass::myMethod(void)
+{
+  :
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This makes it easier to spot function =
+names=20
+            within a file since they all start in the first column.=20
+        </TD></TR></TBODY></TABLE>
+      <H3><A name=3D"White Space"></A>6.2 White Space</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>84.<BR>- Conventional operators should be =
+surrounded=20
+            by a space character. <BR>- C++ reserved words should be =
+followed by=20
+            a white space. <BR>- Commas should be followed by a white =
+space.=20
+            <BR>- Colons should be surrounded by white space. <BR>- =
+Semicolons=20
+            in for statments should be followed by a space character. =
+</TD></TR>
+        <TR><TD class=3Dexample>a =3D (b + c) * d; <I class=3Dnot>// =
+NOT: a=3D(b+c)*d</I>
+
+while (true)   <I class=3Dnot>// NOT: while(true) </I>
+{
+  ...
+
+doSomething(a, b, c, d);  <I class=3Dnot>// NOT: =
+doSomething(a,b,c,d);</I>
+
+case 100 :  <I class=3Dnot>// NOT: case 100:</I>
+
+for (i =3D 0; i &lt; 10; i++) {  <I class=3Dnot>// NOT: =
+for(i=3D0;i&lt;10;i++){<I>
+  ...
+</I></I></TD></TR>
+        <TR>
+          <TD class=3Drationale>Makes the individual components of the=20
+            statements stand out. Enhances readability. It is difficult =
+to give=20
+            a complete list of the suggested use of whitespace in C++ =
+code. The=20
+            examples above however should give a general idea of the =
+intentions.=20
+          </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>85. Method names can be followed by a white =
+space=20
+            when it is followed by another name. </TD></TR>
+        <TR><TD class=3Dexample>doSomething (currentFile);
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Makes the individual names stand out. =
+Enhances=20
+            readability. When no name follows, the space can be omitted=20
+            (<TT>doSomething()</TT>) since there is no doubt about the =
+name in=20
+            this case.=20
+            <P>An alternative to this approach is to require a space=20
+            <I>after</I> the opening parenthesis. Those that adhere to =
+this=20
+            standard usually also leave a space before the closing =
+parentheses:=20
+            <TT>doSomething( currentFile );</TT>. This do make the =
+individual=20
+            names stand out as is the intention, but the space before =
+the=20
+            closing parenthesis is rather artificial, and without this =
+space the=20
+            statement looks rather asymmetrical (<TT>doSomething(=20
+            currentFile);</TT>). </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>86. Logical units within a block should be =
+separated=20
+            by one blank line. </TD></TR>
+        <TR><TD class=3Dexample>Matrix4x4 matrix =3D new Matrix4x4();
+
+double cosAngle =3D Math.cos(angle);
+double sinAngle =3D Math.sin(angle);
+
+matrix.setElement(1, 1,  cosAngle);
+matrix.setElement(1, 2,  sinAngle);
+matrix.setElement(2, 1, -sinAngle);
+matrix.setElement(2, 2,  cosAngle);
+
+multiply(matrix);
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Enhance readability by introducing white =
+space=20
+            between logical units of a block. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>87. Methods should be separated by three =
+blank=20
+            lines. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>By making the space larger than space =
+within a=20
+            method, the methods will stand out within the class.=20
+      </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>88. Variables in declarations can be left =
+aligned.=20
+          </TD></TR>
+        <TR><TD class=3Dexample>AsciiFile* file;
+int        nPoints;
+float      x, y;
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Enhance readability. The variables are =
+easier to=20
+            spot from the types by alignment. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>89. Use alignment wherever it enhances =
+readability.=20
+          </TD></TR>
+        <TR><TD class=3Dexample>if      (a =3D=3D lowValue)    =
+compueSomething();
+else if (a =3D=3D mediumValue) computeSomethingElse();
+else if (a =3D=3D highValue)   computeSomethingElseYet();
+
+value =3D (potential        * oilDensity)   / constant1 +
+        (depth            * waterDensity) / constant2 +
+        (zCoordinateValue * gasDensity)   / constant3;
+
+minPosition     =3D computeDistance(min,     x, y, z);
+averagePosition =3D computeDistance(average, x, y, z);
+
+switch (value) {
+  case PHASE_OIL   : strcpy(phase, "Oil");   break;
+  case PHASE_WATER : strcpy(phase, "Water"); break;
+  case PHASE_GAS   : strcpy(phase, "Gas");   break;
+}
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>There are a number of places in the code =
+where=20
+            white space can be included to enhance readability even if =
+this=20
+            violates common guidelines. Many of these cases have to do =
+with code=20
+            alignment. General guidelines on code alignment are =
+difficult to=20
+            give, but the examples above should give a general clue.=20
+        </TD></TR></TBODY></TABLE>
+      <H3><A name=3DComments></A>6.3 Comments</H3><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>90. Tricky code should not be commented but=20
+            rewritten! [1] </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>In general, the use of comments should =
+be=20
+            minimized by making the code self-documenting by appropriate =
+name=20
+            choices and an explicit logical structure. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>91. All comments should be written in =
+English [2].=20
+          </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>In an international environment English =
+is the=20
+            preferred language. </TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>92. Use <I>//</I> for all comments, =
+including=20
+            multi-line comments. </TD></TR>
+        <TR><TD class=3Dexample>// Comment spanning
+// more than one line.
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>Since multilevel C-commenting is not =
+supported,=20
+            using // comments ensure that it is always possible to =
+comment out=20
+            entire sections of a file using /* */ for debugging purposes =
+etc.=20
+            <P>There should be a space between the "//" and the actual =
+comment,=20
+            and comments should always start with an upper case letter =
+and end=20
+            with a period. </P></TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>93. Comments should be included relative to =
+their=20
+            position in the code. [1] </TD></TR>
+        <TR><TD class=3Dexample>while (true) {       <I class=3Dnot>// =
+NOT:  while (true) { </I>
+  // Do something    <I class=3Dnot>         // Do something</I>
+  something();       <I class=3Dnot>           something();</I>
+}                    <I class=3Dnot>         }</I>
+</TD></TR>
+        <TR>
+          <TD class=3Drationale>This is to avoid that the comments break =
+the=20
+            logical structure of the program. =
+</TD></TR></TBODY></TABLE><!--=0A=
+*************************************************************************=
+***=0A=
+   Rule=0A=
+*************************************************************************=
+***=0A=
+-->
+      <P></P>
+      <TABLE class=3Drule width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD class=3Drecom>94. Class and method header comments should =
+follow=20
+            the JavaDoc conventions. </TD></TR>
+        <TR><TD class=3Dexample></TD></TR>
+        <TR>
+          <TD class=3Drationale>Regarding standardized class and method=20
+            documentation the Java development community is more mature =
+than the=20
+            C/C++ one. This is due to the standard automatic Javadoc =
+tool that=20
+            is part of the development kit and that help producing high =
+quality=20
+            hypertext documentation from these comments.=20
+            <P>There are Javadoc-like tools available also for C++. =
+These=20
+            follows the same tagging syntax as Javadoc. See for instance =
+<A=20
+            href=3D"http://www.zib.de/Visual/software/doc++/">Doc++</A> =
+or <A=20
+            =
+href=3D"http://www.stack.nl/~dimitri/doxygen/index.html">Doxygen</A>.=20
+            </P></TD></TR></TBODY></TABLE>
+      <P>
+      <H1><A name=3DReferences></A>7 References </H1>
+      <P><A name=3Dref1></A>[1] Code Complete, Steve McConnell - =
+Microsoft Press=20
+      <P><A name=3Dref2></A>[2] Programming in C++, Rules and =
+Recommendations, M=20
+      Henricson, e. Nyquist,&nbsp; Ellemtel (Swedish telecom)=20
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A=20
+      =
+href=3D"http://www.doc.ic.ac.uk/lab/cplus/c%2b%2b.rules/">http://www.doc.=
+ic.ac.uk/lab/cplus/c%2b%2b.rules/</A>
+      <P><A name=3Dref3></A>[3] Wildfire C++ Programming Style, Keith =
+Gabryelski,=20
+      Wildfire Communications Inc. <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A =
+
+      =
+href=3D"http://www.wildfire.com/~ag/Engineering/Development/C++Style/">ht=
+tp://www.wildfire.com/~ag/Engineering/Development/C++Style/</A>
+      <P><A name=3Dref4></A>[4] C++ Coding Standard, Todd Hoff=20
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A=20
+      =
+href=3D"http://www.possibility.com/Cpp/CppCodingStandard.html">http://www=
+.possibility.com/Cpp/CppCodingStandard.html</A>
+      <P><A name=3Dref5></A>[5] Doxygen documentation system=20
+      <BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A=20
+      =
+href=3D"http://www.stack.nl/~dimitri/doxygen/index.html">http://www.stack=
+.nl/~dimitri/doxygen/index.html</A>
+      <P>
+      <H1><A name=3DReferences></A>Acknowledgements </H1>Thanks to =
+Robert P.J. Day=20
+      for valuable contributions. <!--=0A=
+*************************************************************************=
+******=0A=
+   Footer=0A=
+*************************************************************************=
+******=0A=
+--><BR><BR>
+      <HR SIZE=3D1>
+
+      <TABLE width=3D"100%">
+        <TBODY>
+        <TR>
+          <TD>
+            <CENTER class=3Dfootnote>=A9 1998 - 2008 Geotechnical =
+Software Services.=20
+            All rights reserved.<BR>This page is maintained by <A=20
+            =
+href=3D"mailto:webwizard@geosoft.no">webwizard@geosoft.no</A>=20
+          =
+</CENTER></TD></TR></TBODY></TABLE></TR></TBODY></TABLE></BODY></HTML>
+
+------=_NextPart_000_0000_01CAB56C.157931C0
+Content-Type: text/css;
+	charset="big5"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://geosoft.no/style.css
+
+BODY {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt
+}
+A {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt
+}
+TD {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt
+}
+OL {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt
+}
+H1 {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 12pt; FONT-WEIGHT: bold
+}
+H2 {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt; FONT-WEIGHT: bold
+}
+H3 {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt; FONT-WEIGHT: bold
+}
+H4 {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 10pt; FONT-WEIGHT: bold
+}
+TT {
+	FONT-FAMILY: monospace
+}
+CODE {
+	FONT-FAMILY: monospace
+}
+PRE {
+	FONT-FAMILY: monospace
+}
+CODE {
+	COLOR: #000099; FONT-SIZE: 1em
+}
+.code {
+	COLOR: #000099
+}
+.comment {
+	COLOR: #990000
+}
+.normal {
+	COLOR: #000099
+}
+.menu {
+	BACKGROUND: #004477
+}
+A.menuentry {
+	TEXT-ALIGN: right; FONT-STYLE: italic; FONT-SIZE: 14pt; FONT-WEIGHT: =
+bold; TEXT-DECORATION: none
+}
+A.selected {
+	TEXT-ALIGN: right; FONT-STYLE: italic; FONT-SIZE: 14pt; FONT-WEIGHT: =
+bold; TEXT-DECORATION: none
+}
+A.menuentry:link {
+	COLOR: #cccccc
+}
+A.menuentry:visited {
+	COLOR: #cccccc
+}
+A.selected {
+	COLOR: white
+}
+.title {
+	TEXT-ALIGN: right; FONT-FAMILY: Helvetica, sans-serif; BACKGROUND: =
+#004477; COLOR: #cccccc; FONT-SIZE: 24pt; FONT-WEIGHT: bold
+}
+.smalltitle {
+	TEXT-ALIGN: right; FONT-FAMILY: Helvetica, sans-serif; BACKGROUND: =
+#004477; COLOR: #cccccc; FONT-SIZE: 24pt; FONT-WEIGHT: bold
+}
+.smalltitle {
+	FONT-STYLE: italic; FONT-SIZE: 18pt
+}
+.footnote {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 8pt
+}
+.address {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 12pt; FONT-WEIGHT: bold
+}
+.access {
+	BACKGROUND: #990000; FONT-SIZE: 8pt
+}
+.noaccess {
+	BACKGROUND: #990000; FONT-SIZE: 8pt
+}
+.legend {
+	BACKGROUND: #990000; FONT-SIZE: 8pt
+}
+.noaccess {
+	BACKGROUND: #ccbbbb
+}
+.legend {
+	BACKGROUND: #ccaaaa
+}
+.trendentry {
+	FONT-SIZE: 1em
+}
+.navigator {
+	FONT-FAMILY: Helvetica, sans-serif; BACKGROUND: #ccbbbb; FONT-WEIGHT: =
+bold
+}
+.rule {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-COLLAPSE: collapse; BORDER-TOP-WIDTH: =
+0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.recom {
+	BORDER-BOTTOM: #667799 1px solid; BORDER-LEFT: #667799 1px solid; =
+PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: =
+#bbccee; BORDER-TOP: #667799 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: =
+#667799 1px solid; PADDING-TOP: 5px
+}
+.example {
+	BORDER-BOTTOM: #667799 1px solid; BORDER-LEFT: #667799 1px solid; =
+PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-FAMILY: =
+monospace; WHITE-SPACE: pre; COLOR: #000077; FONT-SIZE: 1em; BORDER-TOP: =
+#667799 1px solid; BORDER-RIGHT: #667799 1px solid; PADDING-TOP: 5px
+}
+not {
+	BORDER-BOTTOM: #667799 1px solid; BORDER-LEFT: #667799 1px solid; =
+PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-FAMILY: =
+monospace; WHITE-SPACE: pre; COLOR: #000077; FONT-SIZE: 1em; BORDER-TOP: =
+#667799 1px solid; BORDER-RIGHT: #667799 1px solid; PADDING-TOP: 5px
+}
+.not {
+	COLOR: #770000
+}
+.practice {
+	BACKGROUND: #bbccee; FONT-WEIGHT: bold
+}
+.rationale {
+	BORDER-BOTTOM: #667799 1px solid; BORDER-LEFT: #667799 1px solid; =
+PADDING-BOTTOM: 5px; FONT-STYLE: normal; PADDING-LEFT: 5px; =
+PADDING-RIGHT: 5px; FONT-SIZE: 10pt; BORDER-TOP: #667799 1px solid; =
+BORDER-RIGHT: #667799 1px solid; PADDING-TOP: 5px
+}
+.cvtitle {
+	TEXT-ALIGN: center; FONT-FAMILY: Helvetica, sans-serif; BACKGROUND: =
+#004477; COLOR: #cccccc; FONT-SIZE: 24pt; FONT-WEIGHT: bold
+}
+.cvsmalltitle {
+	TEXT-ALIGN: center; FONT-FAMILY: Helvetica, sans-serif; BACKGROUND: =
+#004477; COLOR: #cccccc; FONT-SIZE: 24pt; FONT-WEIGHT: bold
+}
+.cvsmalltitle {
+	TEXT-ALIGN: left; FONT-SIZE: 18pt; FONT-WEIGHT: normal
+}
+.cvprompt {
+	FONT-WEIGHT: bold
+}
+.warning {
+	BACKGROUND: yellow; COLOR: red
+}
+.copyright {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 7pt
+}
+.small {
+	FONT-FAMILY: Helvetica, sans-serif; FONT-SIZE: 8pt
+}
+
+------=_NextPart_000_0000_01CAB56C.157931C0--

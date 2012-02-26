@@ -1,0 +1,20 @@
+CPPFLAGS = -g
+
+all		: demo_stl  demo_is
+
+demo_stl	: main.o stlsort.o
+			$(CXX) main.o stlsort.o -o demo_stl
+
+demo_is		: main.o insertionsort.o
+			$(CXX) main.o insertionsort.o -o demo_is
+
+main.o		: main.cpp replaceable_sorter.h
+
+stlsort.o	: stlsort.cpp
+
+insertionsort.o : insertionsort.cpp
+
+# clean all the .o and executable files
+clean:
+		rm -rf *.o demo_is demo_stl
+    

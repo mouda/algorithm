@@ -1,0 +1,30 @@
+This is a mergesort example for NTUEE Algorithms students.
+Author: created by CM Li, NTUEE
+History: 2/16/2012 revised
+=====
+DIRECTORY
+bin/	executable binary
+doc/	documents
+lib/ 	library files about time and memory usage
+src/ 	source C++ codes
+README	This file
+======
+GETTING STARTED
+Please read the word file in doc/mergesort.doc.
+To start the demo (debug version), simply follow the following steps
+	cd lib
+	make lib
+	cd ../src
+	make demo_dbg
+	cd ../bin
+	./demo_dbg  
+
+To use the optimized version, 
+	make demo_opt
+	cd ../bin
+	./demo_opt 
+======
+CONTACT
+If any question, please email: cmli@cc.ee.ntu.edu.tw or TA.
+
+
