@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "mergeSort.h"
+#include "heapSort.h"
 #include "insertionsort.h"
 
 using namespace std;
@@ -45,6 +46,11 @@ int main( int argc, char *argv[]){
     MergeSort mergeSort(arr);
     mergeSort.sort();
     result = mergeSort.getData();
+  }
+  else if ( argv[1][0] == '-' && argv[1][1] == 'H' && argv[1][2] == 'S') {
+    HeapSort heapSort(arr);
+    heapSort.sort();
+    result = heapSort.getData();
   }
   /* heape sort */
   else {

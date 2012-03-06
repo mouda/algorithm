@@ -6,8 +6,8 @@ CFLAGS =  -c -g
 
 all		: mysort 
 
-mysort : main.o insertionsort.o mergeSort.o
-	$(CC) main.o insertionsort.o mergeSort.o -o mysort
+mysort : main.o insertionsort.o mergeSort.o heapSort.o
+	$(CC) main.o insertionsort.o mergeSort.o heapSort.o -o mysort
 
 main.o		: main.cpp replaceable_sorter.h
 	$(CC) $(CFLAGS) main.cpp
@@ -18,7 +18,11 @@ insertionsort.o : insertionsort.cpp insertionsort.h
 mergeSort.o : mergeSort.h mergeSort.cpp
 	$(CC) $(CFLAGS) mergeSort.h mergeSort.cpp			
 
+heapSort.o : heapSort.h heapSort.cpp
+	$(CC) $(CFLAGS) heapSort.h heapSort.cpp
+
+
 # clean all the .o and executable files
 clean:
-		rm -rf *.o mysort 
+		rm -rf *.o mysort *.gch 
 
