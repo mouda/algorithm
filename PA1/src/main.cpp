@@ -64,7 +64,7 @@ int main( int argc, char *argv[]){
   for (int i = 0; i < result.size(); i++) {
     outFile << i << ' ' << result[i] << endl;
   }
-  
+  outFile << endl; 
 	outFile.close();
 	inFile.close();
 	return 0;
