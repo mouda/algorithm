@@ -9,7 +9,7 @@ all		: mysort
 mysort : main.o insertionsort.o mergeSort.o heapSort.o
 	$(CC) main.o insertionsort.o mergeSort.o heapSort.o -o mysort
 
-main.o		: main.cpp replaceable_sorter.h
+main.o		: main.cpp 
 	$(CC) $(CFLAGS) main.cpp
 
 insertionsort.o : insertionsort.cpp insertionsort.h
