@@ -2,9 +2,10 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "mergeSort.h"
-#include "heapSort.h"
-#include "insertionsort.h"
+//#include "mergeSort.h"
+//#include "heapSort.h"
+//#include "insertionsort.h"
+#include "mySort.h"
 
 using namespace std;
 
@@ -33,24 +34,20 @@ int main( int argc, char *argv[]){
   while(inFile >> junk >> num) arr.push_back(num);
 
   
-  
+  MySort mySort(arr); 
 
   /* STL sort*/
   //sort(arr.begin(), arr.end());
   /* insertion sort */
   if ( argv[1][0] == '-' && argv[1][1] == 'I' && argv[1][2] == 'S') {
-    result = insertion_sort(arr);
+    mySort.insertion_sort();
   }
   /* merge sort */
   else if ( argv[1][0] == '-' && argv[1][1] == 'M' && argv[1][2] == 'S') {
-    MergeSort mergeSort(arr);
-    mergeSort.sort();
-    result = mergeSort.getData();
+    mySort.mergeSort();
   }
   else if ( argv[1][0] == '-' && argv[1][1] == 'H' && argv[1][2] == 'S') {
-    HeapSort heapSort(arr);
-    heapSort.sort();
-    result = heapSort.getData();
+    mySort.heapSort();
   }
   /* heape sort */
   else {
@@ -58,6 +55,7 @@ int main( int argc, char *argv[]){
     return 1;
 
   }
+  result = mySort.getData();
   outFile << "# " << result.size() << " data points" <<endl;
   outFile << "# index number" << endl;  
 
@@ -65,9 +63,9 @@ int main( int argc, char *argv[]){
     outFile << i << ' ' << result[i] << endl;
   }
   outFile << endl; 
-	outFile.close();
-	inFile.close();
-	return 0;
+  outFile.close();
+  inFile.close();
+  return 0;
   
 }
 

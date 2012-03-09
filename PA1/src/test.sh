@@ -4,7 +4,7 @@ x=1;
 outDirName="../outputs";
 inDirName="../inputs";
 
-for index in $(seq 1 1)
+for index in $(seq 1 6)
 do
 
   number=`expr 1000 \* $x`;
