@@ -2,10 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-//#include "mergeSort.h"
-//#include "heapSort.h"
-//#include "insertionsort.h"
 #include "mySort.h"
+#include "tm_usage.h" 
 
 using namespace std;
 
@@ -20,8 +18,11 @@ int main( int argc, char *argv[]){
 
   inFileName = argv[2];
   outFileName = argv[3];
+
+#ifdef _DEBUG_ON_ 
   cout << "The input file is: " << inFileName << endl;  
   cout << "The output file is: " << outFileName << endl;  
+#endif 
 
   char buffer[200]; 
 	fstream inFile(inFileName);
@@ -33,7 +34,12 @@ int main( int argc, char *argv[]){
   vector<int> result;
   while(inFile >> junk >> num) arr.push_back(num);
 
-  
+#ifdef _TIME_ON_ 
+	CommonNs::TmUsage tmusg;
+  CommonNs::TmStat stat;
+  tmusg.periodStart();
+#endif 
+
   MySort mySort(arr); 
 
   /* STL sort*/
@@ -55,9 +61,17 @@ int main( int argc, char *argv[]){
     return 1;
 
   }
+
+#ifdef _TIME_ON_ 
+  tmusg.getPeriodUsage(stat);
+  cout <<"user time:" << stat.uTime / 1000000.0 << "s" << endl; // print period user time in seconds
+  cout <<"system time:" << stat.sTime / 1000000.0 << "s" << endl; // print period systemtime in seconds
+  cout <<"user+system time:" << (stat.uTime + stat.sTime) / 1000000.0 << "s" << endl; 
+#endif 
+
   result = mySort.getData();
   outFile << "# " << result.size() << " data points" <<endl;
-  outFile << "# index number" << endl;  
+  outFile << "# index number " << endl;  
 
   for (int i = 0; i < result.size(); i++) {
     outFile << i << ' ' << result[i] << endl;
