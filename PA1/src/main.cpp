@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "mySort.h"
 #include "tm_usage.h" 
+#include <sys/time.h>
 
 using namespace std;
 
@@ -25,8 +26,8 @@ int main( int argc, char *argv[]){
 #endif 
 
   char buffer[200]; 
-	fstream inFile(inFileName);
-	ofstream outFile(outFileName);
+  fstream inFile(inFileName);
+  ofstream outFile(outFileName);
   inFile.getline(buffer,200);
   inFile.getline(buffer,200);
   int junk, num;
@@ -35,9 +36,12 @@ int main( int argc, char *argv[]){
   while(inFile >> junk >> num) arr.push_back(num);
 
 #ifdef _TIME_ON_ 
-	CommonNs::TmUsage tmusg;
+  timeval tvS, tvE;
+  CommonNs::TmUsage tmusg;
   CommonNs::TmStat stat;
   tmusg.periodStart();
+
+  gettimeofday( &tvS, NULL);
 #endif 
 
   MySort mySort(arr); 
@@ -63,10 +67,12 @@ int main( int argc, char *argv[]){
   }
 
 #ifdef _TIME_ON_ 
-  tmusg.getPeriodUsage(stat);
-  cout <<"user time:" << stat.uTime / 1000000.0 << "s" << endl; // print period user time in seconds
-  cout <<"system time:" << stat.sTime / 1000000.0 << "s" << endl; // print period systemtime in seconds
-  cout <<"user+system time:" << (stat.uTime + stat.sTime) / 1000000.0 << "s" << endl; 
+  gettimeofday( &tvE, NULL);
+  tmusg.getTotalUsage(stat);
+// cout << "Time usage: "<< endl;
+  cout << 1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec <<' ';
+  cout << stat.vmPeak / 1024.0 << endl; 
+
 #endif 
 
   result = mySort.getData();
