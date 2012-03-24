@@ -85,9 +85,29 @@ int main( int argc, char *argv[]) {
 
 
   // ----- initial the object ----- //
-  Knapsack myKnapsack(itemValue, itemSize);
+  Knapsack myKnapsack(itemValue, itemSize, packSpace);
+  //myKnapsack.displayElements();
+  bool* Result = myKnapsack.getResult();
+
+  if ( argv[1][0] == '-' && argv[1][1] == 'B' && argv[1][2] == 'F') 
+    myKnapsack.bruteForce();
+  else if ( argv[1][0] == '-' && argv[1][1] == 'G' && argv[1][2] == 'D') 
+    myKnapsack.greedy();
+  else if ( argv[1][0] == '-' && argv[1][1] == 'D' && argv[1][2] == 'P') 
+    myKnapsack.dynamicProgramming();
+  else if ( argv[1][0] == '-' && argv[1][1] == 'R' && argv[1][2] == 'C') 
+    myKnapsack.recursion();
+  else {
+    cout << "Missing the option "<< endl;
+    return 1;
+  }
+
+#ifdef _DEBUG_ON_ 
   myKnapsack.displayElements();
-  myKnapsack.displayResult();
+  cout << "the result: " << endl;
+  for ( int i = 0; i < totalNumber; i++) cout << Result[i] << ' ';
+  cout << endl;
+#endif 
   
 }
 

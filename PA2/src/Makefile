@@ -15,7 +15,8 @@ all		: 01kanpsack
 main.o : ../lib/tm_usage.h main.cpp 
 	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS)  main.cpp -I../lib
 
-knapsack.o : knapsack.h knapsack.cpp
+
+knapsack.o : knapsack.h knapsack.cpp util.h
 	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS) $(OPT) knapsack.h knapsack.cpp
 
 
