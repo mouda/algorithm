@@ -41,10 +41,9 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
 
 void Knapsack::displayElements() const
 {
-  for (int i = 0; i < items.size(); i++) { 
-    std::cout << "items: "<< items[i].number <<' '<< items[i].value << ' ' << items[i].size
-      << std::endl;
-  }
+  for (int i = 0; i < items.size(); i++)  
+    std::cout << "items: "<< items[i].number <<' '<< items[i].value << ' '
+      << items[i].size << std::endl;
 }
 
 // -------------------------------------------------------------------------- //
@@ -70,11 +69,15 @@ void Knapsack::greedy()
   int remainSpace = packSize;
   int maxIndex = 0;
   sort(items.begin(),items.end(),compareFunction);
-  while(remainSpace > 0) {
-    remainSpace = remainSpace - items[maxIndex].size;
+  
+  while (remainSpace > items[maxIndex].size) {
+    remainSpace = remainSpace - items[maxIndex].size; 
     result[items[maxIndex].number] = 1;
     maxIndex++;
   }
+#ifdef _DEBUG_ON_ 
+  std::cout << "remain space: " << remainSpace << std::endl;
+#endif 
 }
 
 // -------------------------------------------------------------------------- //

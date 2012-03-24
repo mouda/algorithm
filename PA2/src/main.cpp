@@ -75,11 +75,11 @@ int main( int argc, char *argv[]) {
 
 #ifdef _DEBUG_ON_ 
   cout << "the value array: ";
-  for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
+//for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
   cout << endl; 
 
   cout << "the size array: ";
-  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
+//  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
   cout << endl; 
 #endif 
 
@@ -103,7 +103,6 @@ int main( int argc, char *argv[]) {
   }
 
 #ifdef _DEBUG_ON_ 
-  myKnapsack.displayElements();
   cout << "the result: " << endl;
   for ( int i = 0; i < totalNumber; i++) cout << Result[i] << ' ';
   cout << endl;
