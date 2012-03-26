@@ -39,6 +39,7 @@ class Knapsack {
     void dynamicProgramming();
 
     void recursion();
+    int maxValue( int pSize, int n, int consider);
 
   private:
     vector<Item> items; // number, value, size

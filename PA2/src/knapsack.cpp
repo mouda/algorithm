@@ -170,4 +170,17 @@ void Knapsack::recursion()
   }
 }
 
+int Knapsack::maxValue( int pSize, int n, int consider )
+{
+  int value1 = 0, value2 = 0;
+  if (n == 0) return 0;
+  if (pSize == items[consider].size) {
+    value1 = maxValue(pSize, n-1, consider+1);
+    if (value1 > items[consider].value) return value1; 
+    else return items[consider].value;
+  }
+
+}
+
+
 
