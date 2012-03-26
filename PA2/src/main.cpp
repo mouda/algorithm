@@ -75,11 +75,11 @@ int main( int argc, char *argv[]) {
 
 #ifdef _DEBUG_ON_ 
   cout << "the value array: ";
-//for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
+for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
   cout << endl; 
 
   cout << "the size array: ";
-//  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
+  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
   cout << endl; 
 #endif 
 
@@ -87,7 +87,6 @@ int main( int argc, char *argv[]) {
   // ----- initial the object ----- //
   Knapsack myKnapsack(itemValue, itemSize, packSpace);
   //myKnapsack.displayElements();
-  bool* Result = myKnapsack.getResult();
 
   if ( argv[1][0] == '-' && argv[1][1] == 'B' && argv[1][2] == 'F') 
     myKnapsack.bruteForce();
@@ -103,6 +102,7 @@ int main( int argc, char *argv[]) {
   }
 
 #ifdef _DEBUG_ON_ 
+  vector<bool> Result = myKnapsack.getResult();
   cout << "the result: " << endl;
   for ( int i = 0; i < totalNumber; i++) cout << Result[i] << ' ';
   cout << endl;

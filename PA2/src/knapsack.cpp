@@ -8,6 +8,7 @@
 using std::vector;
 using std::pair;
 using std::make_pair;
+using std::find;
 
 
 bool compareFunction( Item a, Item b) {
@@ -30,8 +31,23 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
     items.push_back(*pItem); 
   } 
   packSize = pSize; 
-  result = new bool[value.size()];
-  for (int i = 0; i < value.size(); i++) result[i] = 0;
+//  result = new bool[value.size()];
+  for (int i = 0; i < value.size(); i++) result.push_back(0);
+
+  dp = new int *[items.size()+1];
+  for (int i = 0; i <= items.size(); i++) dp[i] = new int[packSize+1];
+  for (int i = 0; i <= items.size(); i++) dp[i][0] = 0; 
+  for (int i = 0; i <= packSize; i++) dp[0][i] = 0; 
+  for (int i = 0; i <= items.size(); i++) 
+    for (int j = 0; j <= packSize; j++) 
+      dp[i][j] = -1;
+      
+}
+
+Knapsack::~Knapsack()
+{
+  for (int i = 0; i <= items.size(); i++) delete[] dp[i];
+  delete[] dp;
 }
 
 // -------------------------------------------------------------------------- //
@@ -53,7 +69,50 @@ void Knapsack::displayElements() const
 
 void Knapsack::bruteForce()
 {
+  vector<Item> buffer;
+  candidate(buffer);
+  if (allCase.size()== 0 ) return; 
+  else{
+    int maxCase = 0;
+    for (int i = 1; i < allCase.size() ; i++) 
+      if ( totalValue(allCase[i]) > totalValue(allCase[maxCase])) 
+        maxCase = i;
+    for (int i = 0; i < allCase[maxCase].size(); i++) {
+      result[allCase[maxCase][i].number] = 1;
+    }  
+  }
+}
 
+void Knapsack::candidate( vector<Item> buffer)
+{
+  bool addedSomething = false;
+  for (int i = 0; i < items.size(); i++) {
+    if ( find(buffer.begin(), buffer.end(), items[i]) == buffer.end()
+        && (totalSize(buffer)+items[i].size <= packSize  )) {
+      buffer.push_back(items[i]);
+      candidate(buffer);
+      buffer.pop_back();
+      addedSomething = true;
+    }
+  }
+  if (!addedSomething) {
+    allCase.push_back(buffer); 
+    return;
+  }
+}
+
+int Knapsack::totalSize( vector<Item> x)
+{
+  int totalSize = 0;
+  for (int i = 0; i < x.size(); i++) totalSize += x[i].size; 
+  return totalSize;
+}
+
+int Knapsack::totalValue( vector<Item> x)
+{
+  int totalValue = 0;
+  for (int i = 0; i < x.size(); i++) totalValue += x[i].value; 
+  return totalValue;
 }
 
 
@@ -70,10 +129,14 @@ void Knapsack::greedy()
   int maxIndex = 0;
   sort(items.begin(),items.end(),compareFunction);
   
-  while (remainSpace > items[maxIndex].size) {
-    remainSpace = remainSpace - items[maxIndex].size; 
-    result[items[maxIndex].number] = 1;
-    maxIndex++;
+  for (int i = 0; i < items.size(); i++) {
+    if ( i < items.size() && items[i].value == items[i+1].value 
+        && items[i].size > items[i+1].size) 
+      continue;
+    if (remainSpace >= items[i].size) {
+      remainSpace = remainSpace - items[i].size; 
+      result[items[i].number] = 1;
+    }
   }
 #ifdef _DEBUG_ON_ 
   std::cout << "remain space: " << remainSpace << std::endl;
@@ -92,10 +155,19 @@ void Knapsack::dynamicProgramming()
 
 // -------------------------------------------------------------------------- //
 // @Description: recursion solve knapsack problem
+//  Divide and conquer
+//  Divide the original backpack into the sub-backpack, and assume the 
+//  sub-backpack is the optimize result, and so on.
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
 void Knapsack::recursion()
 {
-
+  for (int i = 0; i <= items.size(); i++){ 
+    for (int j = 0; j <= packSize; j++) 
+      std::cout << dp[i][j] << ' ' ;
+    std::cout<< std::endl;
+  }
 }
+
+

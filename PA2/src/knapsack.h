@@ -4,28 +4,47 @@
 using std::vector;
 using std::pair;
 
-typedef struct {
+// -------------------------------------------------------------------------- //
+// @Description: This data sturcture store the serial number, value and size
+//  of every item.
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+typedef struct Item {
   int number;
   int value;
   int size;
+  bool operator==( Item x) { return x.number == this->number;}
 } Item;
+
+// -------------------------------------------------------------------------- //
+// @Description: Defince the object to manage all the solving methods 
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
 
 class Knapsack {
   public:
     Knapsack( vector<int> value, vector<int> size, int pSize);
-    ~Knapsack(){ delete result; }
+    ~Knapsack();
     void displayElements() const;
-    bool* getResult(){return result;}
+    vector<bool> getResult(){return result;}
 
 
     void bruteForce();
+    void candidate( vector<Item> buffer );
+    int totalSize( vector<Item> x);
+    int totalValue( vector<Item> x);
+
     void greedy();
     void dynamicProgramming();
+
     void recursion();
 
   private:
     vector<Item> items; // number, value, size
+    vector< vector<Item> > allCase; //for the BF
+    int **dp;
     int packSize;
-    bool* result;
+    vector<bool> result;
 
 };
