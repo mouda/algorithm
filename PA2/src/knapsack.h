@@ -39,12 +39,14 @@ class Knapsack {
     void dynamicProgramming();
 
     void recursion();
-    int maxValue( int pSize, int n, int consider);
+    int CValue( int pSize, int n, int consider);
+    int max(int a, int b);
 
   private:
     vector<Item> items; // number, value, size
     vector< vector<Item> > allCase; //for the BF
     int **dp;
+    int *traceBack;
     int packSize;
     vector<bool> result;
 

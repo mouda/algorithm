@@ -41,6 +41,7 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
   for (int i = 0; i <= items.size(); i++) 
     for (int j = 0; j <= packSize; j++) 
       dp[i][j] = -1;
+  traceBack = new int [value.size()];
       
 }
 
@@ -48,6 +49,7 @@ Knapsack::~Knapsack()
 {
   for (int i = 0; i <= items.size(); i++) delete[] dp[i];
   delete[] dp;
+  delete[] traceBack;
 }
 
 // -------------------------------------------------------------------------- //
@@ -150,6 +152,17 @@ void Knapsack::greedy()
 
 void Knapsack::dynamicProgramming()
 {
+  for (int i = 0; i <= items.size(); i++) {
+    for (int j = 0; j <=  packSize; j++) {
+      if ( i== 0 || j == 0) 
+        dp[i][j] = 0;
+      else if ( items[i-1].size <= j)
+        dp[i][j] = max( items[i-1].value+dp[i-1][j-items[i-1].size],dp[i-1][j]);
+      else 
+        dp[i][j] = dp[i-1][j];
+    }
+  }
+  std::cout << dp[items.size()][packSize] << std::endl;
 
 }
 
@@ -168,18 +181,40 @@ void Knapsack::recursion()
       std::cout << dp[i][j] << ' ' ;
     std::cout<< std::endl;
   }
+  std::cout<<CValue( packSize, items.size(), 0)<<std::endl;
+
+  for (int i = 0; i <= items.size(); i++){ 
+    for (int j = 0; j <= packSize; j++) 
+      std::cout << dp[i][j] << ' ' ;
+    std::cout<< std::endl;
+  }
+  
 }
 
-int Knapsack::maxValue( int pSize, int n, int consider )
+int Knapsack::CValue( int pSize, int n, int consider )
 {
-  int value1 = 0, value2 = 0;
   if (n == 0) return 0;
-  if (pSize == items[consider].size) {
-    value1 = maxValue(pSize, n-1, consider+1);
-    if (value1 > items[consider].value) return value1; 
-    else return items[consider].value;
-  }
+  if (pSize == items[consider].size) 
+    return max(CValue(pSize, n-1, consider+1), items[consider].value);
+  
+  if (pSize-items[consider].size < 0 
+      || CValue(pSize-items[consider].size, n-1,consider+1) == 0) 
+    return CValue(pSize,n-1,consider+1);
 
+  return max(CValue( pSize, n-1, consider+1), 
+      CValue( pSize-items[consider].size, n-1, consider+1) 
+      + items[consider].value);
+
+}
+
+int Knapsack::max( int a, int b)
+{
+  if ( a < b ){
+    return b;
+  } 
+  else {
+    return a; 
+  }
 }
 
 
