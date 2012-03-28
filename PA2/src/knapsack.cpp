@@ -41,7 +41,7 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
   for (int i = 0; i <= items.size(); i++) 
     for (int j = 0; j <= packSize; j++) 
       dp[i][j] = -1;
-  traceBack = new int [value.size()];
+  //traceBack = new int [value.size()];
       
 }
 
@@ -49,7 +49,7 @@ Knapsack::~Knapsack()
 {
   for (int i = 0; i <= items.size(); i++) delete[] dp[i];
   delete[] dp;
-  delete[] traceBack;
+  //delete[] traceBack;
 }
 
 // -------------------------------------------------------------------------- //
@@ -82,6 +82,7 @@ void Knapsack::bruteForce()
     for (int i = 0; i < allCase[maxCase].size(); i++) {
       result[allCase[maxCase][i].number] = 1;
     }  
+    //std::cout<<totalValue(allCase[maxCase])<<std::endl;
   }
 }
 
@@ -152,17 +153,54 @@ void Knapsack::greedy()
 
 void Knapsack::dynamicProgramming()
 {
+
+  traceBack = new int *[packSize+1];
+  for (int i = 0; i <= items.size(); i++) traceBack[i] = new int[packSize+1];
+  for (int i = 0; i <= items.size(); i++) 
+    for (int j = 0; j <= packSize; j++) 
+      traceBack[i][j] = 0;
+
   for (int i = 0; i <= items.size(); i++) {
     for (int j = 0; j <=  packSize; j++) {
       if ( i== 0 || j == 0) 
         dp[i][j] = 0;
-      else if ( items[i-1].size <= j)
-        dp[i][j] = max( items[i-1].value+dp[i-1][j-items[i-1].size],dp[i-1][j]);
+      else if ( items[i-1].size <= j){
+        if (items[i-1].value+dp[i-1][j-items[i-1].size] > dp[i-1][j] ) {
+          dp[i][j] = items[i-1].value+dp[i-1][j-items[i-1].size];
+          traceBack[i][j] = items[i-1].size;
+        }
+        else dp[i][j] = dp[i-1][j];
+      }
       else 
         dp[i][j] = dp[i-1][j];
     }
   }
-  std::cout << dp[items.size()][packSize] << std::endl;
+//  std::cout << dp[items.size()][packSize] << std::endl;
+
+/*    for (int i = 0; i <= items.size(); i++){ 
+    for (int j = 0; j <= packSize; j++) 
+      std::cout << dp[i][j] << ' ' ;
+    std::cout<< std::endl;
+  }
+
+  for (int i = 0; i <= items.size(); i++){ 
+    for (int j = 0; j <= packSize; j++) 
+      std::cout << traceBack[i][j] << ' ' ;
+    std::cout<< std::endl;
+  }*/
+  /* find the combination */
+  int remain = packSize;
+  int x = items.size();
+  while( dp[items.size()][remain] - dp[items.size()][remain-1] == 0) remain--;
+  while( remain ) {
+    while ( traceBack[x][remain] == 0) x--;
+    result[x-1] = 1;
+    remain = remain - traceBack[x][remain];
+    x--;
+  }
+
+  for (int i = 0; i <= items.size(); i++) delete[] traceBack[i];
+  delete[] traceBack;
 
 }
 

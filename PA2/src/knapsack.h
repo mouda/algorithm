@@ -46,7 +46,7 @@ class Knapsack {
     vector<Item> items; // number, value, size
     vector< vector<Item> > allCase; //for the BF
     int **dp;
-    int *traceBack;
+    int **traceBack;
     int packSize;
     vector<bool> result;
 
