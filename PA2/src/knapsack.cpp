@@ -38,8 +38,8 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
   for (int i = 0; i <= items.size(); i++) dp[i] = new int[packSize+1];
   for (int i = 0; i <= items.size(); i++) dp[i][0] = 0; 
   for (int i = 0; i <= packSize; i++) dp[0][i] = 0; 
-  for (int i = 0; i <= items.size(); i++) 
-    for (int j = 0; j <= packSize; j++) 
+  for (int i = 1; i <= items.size(); i++) 
+    for (int j = 1; j <= packSize; j++) 
       dp[i][j] = -1;
   //traceBack = new int [value.size()];
       
@@ -177,17 +177,6 @@ void Knapsack::dynamicProgramming()
   }
 //  std::cout << dp[items.size()][packSize] << std::endl;
 
-/*    for (int i = 0; i <= items.size(); i++){ 
-    for (int j = 0; j <= packSize; j++) 
-      std::cout << dp[i][j] << ' ' ;
-    std::cout<< std::endl;
-  }
-
-  for (int i = 0; i <= items.size(); i++){ 
-    for (int j = 0; j <= packSize; j++) 
-      std::cout << traceBack[i][j] << ' ' ;
-    std::cout<< std::endl;
-  }*/
   /* find the combination */
   int remain = packSize;
   int x = items.size();
@@ -214,46 +203,52 @@ void Knapsack::dynamicProgramming()
 
 void Knapsack::recursion()
 {
-  for (int i = 0; i <= items.size(); i++){ 
-    for (int j = 0; j <= packSize; j++) 
-      std::cout << dp[i][j] << ' ' ;
-    std::cout<< std::endl;
-  }
-  std::cout<<CValue( packSize, items.size(), 0)<<std::endl;
-
-  for (int i = 0; i <= items.size(); i++){ 
-    for (int j = 0; j <= packSize; j++) 
-      std::cout << dp[i][j] << ' ' ;
-    std::cout<< std::endl;
+  
+  RCFunction( items.size(),packSize);
+  int remain = packSize;
+  int x = items.size();
+  while( remain  && x != 0) {
+    while ( dp[x][remain] == dp[x-1][remain]) x--;
+    result[x-1] = 1;
+    remain = remain - items[x-1].size;
+    x--;
   }
   
 }
 
-int Knapsack::CValue( int pSize, int n, int consider )
+int Knapsack::RCFunction( int i, int pSize)
 {
-  if (n == 0) return 0;
-  if (pSize == items[consider].size) 
-    return max(CValue(pSize, n-1, consider+1), items[consider].value);
-  
-  if (pSize-items[consider].size < 0 
-      || CValue(pSize-items[consider].size, n-1,consider+1) == 0) 
-    return CValue(pSize,n-1,consider+1);
-
-  return max(CValue( pSize, n-1, consider+1), 
-      CValue( pSize-items[consider].size, n-1, consider+1) 
-      + items[consider].value);
+  if ( i == 0 || pSize == 0) { 
+    dp[i][pSize] = 0;
+    return 0;
+  }
+  if (dp[i][pSize] < 0) {
+    if (pSize < items[i-1].size)
+      dp[i][pSize] = RCFunction(i-1,pSize);
+    else
+      dp[i][pSize] = max(RCFunction(i-1,pSize), 
+          items[i-1].value + RCFunction(i-1,pSize-items[i-1].size) );
+  }
+  return dp[i][pSize];
 
 }
 
 int Knapsack::max( int a, int b)
 {
-  if ( a < b ){
-    return b;
-  } 
-  else {
-    return a; 
-  }
+  if ( a > b ) return a;
+  else  return b;
 }
 
+// -------------------------------------------------------------------------- //
+// @Description: print the table for debugging
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
 
-
+void Knapsack::printTable( int **table) 
+{
+  for (int i = 0; i <= items.size(); i++){ 
+    for (int j = 0; j <= packSize; j++) 
+      std::cout << table[i][j] << ' ' ;
+    std::cout<< std::endl;
+  }
+}
