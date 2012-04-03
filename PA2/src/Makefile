@@ -3,7 +3,7 @@ CC=g++
 CFLAGS =  -c 
 #OPT= -o2
 DBGFLAGS = -g -D_DEBUG_ON_
-#TMEFLAGS = -D_TIME_ON_
+TMEFLAGS = -D_TIME_ON_
 # -c option ask g++ to compile the source files, but do not link.
 # -g option is for debugging
 

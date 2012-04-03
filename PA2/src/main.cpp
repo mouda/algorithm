@@ -63,6 +63,13 @@ int main( int argc, char *argv[]) {
 //  cout << endl; 
 #endif 
 
+#ifdef _TIME_ON_ 
+  timeval tvS, tvE;
+  CommonNs::TmUsage tmusg;
+  CommonNs::TmStat stat;
+  tmusg.periodStart();
+  gettimeofday( &tvS, NULL);
+#endif 
 
   // ----- initial the object ----- //
   Knapsack myKnapsack(itemValue, itemSize, packSpace);
@@ -85,6 +92,17 @@ int main( int argc, char *argv[]) {
   outFile << "xi = ";
   for ( int i = 0; i < totalNumber; i++) outFile << Result[i] << ' ';
   outFile << endl;
+#ifdef _TIME_ON_ 
+  gettimeofday( &tvE, NULL);
+  tmusg.getTotalUsage(stat);
+  outFile << "runtime = ";
+  outFile << 1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec <<" usec"<<endl;
+  outFile << "memory = ";
+  outFile << stat.vmPeak / 1024.0 << " MB" <<endl; 
+#endif 
+  outFile.close();
+  inFile.close();
+  return 0;
   
 }
 

@@ -3,7 +3,7 @@
 inputDir="../inputs";
 outputDir="../outputs";
 inputFileNames="$(ls $inputDir)";
-option="GD"
+option="RC"
 
 for name in $inputFileNames
 do
