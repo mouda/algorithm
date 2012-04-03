@@ -1,29 +1,9 @@
-/**
- * 
- *
- * Copyright (C) 2010 - 2012 Yun-da Tsai (mouda) <dses5211@gmail.com>
- * All Rights reserved.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sys/time.h>
 #include "knapsack.h"
+#include "tm_usage.h" 
 
 using namespace std;
 
@@ -41,8 +21,8 @@ int main( int argc, char *argv[]) {
   outFileName = argv[3];
 
 #ifdef _DEBUG_ON_ 
-  cout << "The input file is: " << inFileName << endl;  
-  cout << "The output file is: " << outFileName << endl;  
+  //cout << "The input file is: " << inFileName << endl;  
+  //cout << "The output file is: " << outFileName << endl;  
 #endif 
 
   char buffer[200]; 
@@ -57,8 +37,8 @@ int main( int argc, char *argv[]) {
   inFile >> junk >> junk >> packSpace;
   
 #ifdef _DEBUG_ON_ 
-  cout << "total number: " << totalNumber << endl;  
-  cout << "pack size: " << packSpace << endl;  
+  //cout << "total number: " << totalNumber << endl;  
+  //cout << "pack size: " << packSpace << endl;  
 #endif 
 
   inFile >> junk >> junk >> junk;
@@ -74,13 +54,13 @@ int main( int argc, char *argv[]) {
   }
 
 #ifdef _DEBUG_ON_ 
-  cout << "the value array: ";
-for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
-  cout << endl; 
+//  cout << "the value array: ";
+//  for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
+//  cout << endl; 
 
-  cout << "the size array: ";
-  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
-  cout << endl; 
+//  cout << "the size array: ";
+//  for ( int i = 0; i < totalNumber ; i++) cout << itemSize[i] << ' ';
+//  cout << endl; 
 #endif 
 
 
@@ -89,24 +69,22 @@ for ( int i = 0; i < totalNumber ; i++) cout << itemValue[i] << ' ';
   //myKnapsack.displayElements();
 
   if ( argv[1][0] == '-' && argv[1][1] == 'B' && argv[1][2] == 'F') 
-    myKnapsack.bruteForce();
+    outFile << "Max = " << myKnapsack.bruteForce() << endl;
   else if ( argv[1][0] == '-' && argv[1][1] == 'G' && argv[1][2] == 'D') 
-    myKnapsack.greedy();
+    outFile << "Max = " << myKnapsack.greedy() << endl;
   else if ( argv[1][0] == '-' && argv[1][1] == 'D' && argv[1][2] == 'P') 
-    myKnapsack.dynamicProgramming();
+    outFile << "Max = " << myKnapsack.dynamicProgramming() << endl;
   else if ( argv[1][0] == '-' && argv[1][1] == 'R' && argv[1][2] == 'C') 
-    myKnapsack.recursion();
+    outFile << "Max = " << myKnapsack.recursion() << endl;
   else {
     cout << "Missing the option "<< endl;
     return 1;
   }
 
-#ifdef _DEBUG_ON_ 
   vector<bool> Result = myKnapsack.getResult();
-  cout << "the result: " << endl;
-  for ( int i = 0; i < totalNumber; i++) cout << Result[i] << ' ';
-  cout << endl;
-#endif 
+  outFile << "xi = ";
+  for ( int i = 0; i < totalNumber; i++) outFile << Result[i] << ' ';
+  outFile << endl;
   
 }
 

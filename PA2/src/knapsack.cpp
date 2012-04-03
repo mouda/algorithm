@@ -4,12 +4,10 @@
 #include <algorithm>
 #include "knapsack.h"
 
-
 using std::vector;
 using std::pair;
 using std::make_pair;
 using std::find;
-
 
 bool compareFunction( Item a, Item b) {
   return ( a.value > b.value );
@@ -31,26 +29,11 @@ Knapsack::Knapsack( vector<int> value, vector<int> size, int pSize )
     items.push_back(*pItem); 
   } 
   packSize = pSize; 
-//  result = new bool[value.size()];
   for (int i = 0; i < value.size(); i++) result.push_back(0);
 
-  dp = new int *[items.size()+1];
-  for (int i = 0; i <= items.size(); i++) dp[i] = new int[packSize+1];
-  for (int i = 0; i <= items.size(); i++) dp[i][0] = 0; 
-  for (int i = 0; i <= packSize; i++) dp[0][i] = 0; 
-  for (int i = 1; i <= items.size(); i++) 
-    for (int j = 1; j <= packSize; j++) 
-      dp[i][j] = -1;
-  //traceBack = new int [value.size()];
       
 }
 
-Knapsack::~Knapsack()
-{
-  for (int i = 0; i <= items.size(); i++) delete[] dp[i];
-  delete[] dp;
-  //delete[] traceBack;
-}
 
 // -------------------------------------------------------------------------- //
 // @Description: display the items member
@@ -69,11 +52,11 @@ void Knapsack::displayElements() const
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-void Knapsack::bruteForce()
+int Knapsack::bruteForce()
 {
   vector<Item> buffer;
   candidate(buffer);
-  if (allCase.size()== 0 ) return; 
+  if (allCase.size()== 0 ) return 0; 
   else{
     int maxCase = 0;
     for (int i = 1; i < allCase.size() ; i++) 
@@ -83,6 +66,7 @@ void Knapsack::bruteForce()
       result[allCase[maxCase][i].number] = 1;
     }  
     //std::cout<<totalValue(allCase[maxCase])<<std::endl;
+    return totalValue(allCase[maxCase]);
   }
 }
 
@@ -126,10 +110,10 @@ int Knapsack::totalValue( vector<Item> x)
 // -------------------------------------------------------------------------- //
 
 
-void Knapsack::greedy()
+int Knapsack::greedy()
 {
   int remainSpace = packSize;
-  int maxIndex = 0;
+  int maxValue = 0;
   sort(items.begin(),items.end(),compareFunction);
   
   for (int i = 0; i < items.size(); i++) {
@@ -139,8 +123,10 @@ void Knapsack::greedy()
     if (remainSpace >= items[i].size) {
       remainSpace = remainSpace - items[i].size; 
       result[items[i].number] = 1;
+      maxValue += items[i].value;
     }
   }
+  return maxValue;
 #ifdef _DEBUG_ON_ 
   std::cout << "remain space: " << remainSpace << std::endl;
 #endif 
@@ -151,14 +137,12 @@ void Knapsack::greedy()
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-void Knapsack::dynamicProgramming()
+int Knapsack::dynamicProgramming()
 {
 
-  traceBack = new int *[packSize+1];
-  for (int i = 0; i <= items.size(); i++) traceBack[i] = new int[packSize+1];
-  for (int i = 0; i <= items.size(); i++) 
-    for (int j = 0; j <= packSize; j++) 
-      traceBack[i][j] = 0;
+  int maxValue;
+  constructDPTable();
+  constructTraceBackTable();
 
   for (int i = 0; i <= items.size(); i++) {
     for (int j = 0; j <=  packSize; j++) {
@@ -176,7 +160,7 @@ void Knapsack::dynamicProgramming()
     }
   }
 //  std::cout << dp[items.size()][packSize] << std::endl;
-
+  maxValue = dp[items.size()][packSize];
   /* find the combination */
   int remain = packSize;
   int x = items.size();
@@ -187,9 +171,9 @@ void Knapsack::dynamicProgramming()
     remain = remain - traceBack[x][remain];
     x--;
   }
-
-  for (int i = 0; i <= items.size(); i++) delete[] traceBack[i];
-  delete[] traceBack;
+  destructTraceBackTable();
+  destructDPTable();
+  return maxValue; 
 
 }
 
@@ -201,18 +185,22 @@ void Knapsack::dynamicProgramming()
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-void Knapsack::recursion()
+int Knapsack::recursion()
 {
-  
-  RCFunction( items.size(),packSize);
+  int maxValue;
   int remain = packSize;
   int x = items.size();
+  constructDPTable();
+
+  maxValue = RCFunction( items.size(),packSize);
   while( remain  && x != 0) {
     while ( dp[x][remain] == dp[x-1][remain]) x--;
     result[x-1] = 1;
     remain = remain - items[x-1].size;
     x--;
   }
+  destructDPTable();
+  return maxValue;
   
 }
 
@@ -252,3 +240,57 @@ void Knapsack::printTable( int **table)
     std::cout<< std::endl;
   }
 }
+
+// -------------------------------------------------------------------------- //
+// @Description: construct the dynamic programming table
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+void Knapsack::constructDPTable()
+{
+  dp = new int *[items.size()+1];
+  for (int i = 0; i <= items.size(); i++) dp[i] = new int[packSize+1];
+  for (int i = 0; i <= items.size(); i++) dp[i][0] = 0; 
+  for (int i = 0; i <= packSize; i++) dp[0][i] = 0; 
+  for (int i = 1; i <= items.size(); i++) 
+    for (int j = 1; j <= packSize; j++) 
+      dp[i][j] = -1;
+
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: destruct the dynamin programming table
+// @Provides: mouda
+// -------------------------------------------------------------------------- //
+
+void Knapsack::destructDPTable()
+{
+  for (int i = 0; i <= items.size(); i++) delete[] dp[i];
+  delete[] dp;
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: construct the trace back table
+// @Provides: mouda
+// -------------------------------------------------------------------------- //
+
+void Knapsack::constructTraceBackTable()
+{
+  traceBack = new int *[packSize+1];
+  for (int i = 0; i <= items.size(); i++) traceBack[i] = new int[packSize+1];
+  for (int i = 0; i <= items.size(); i++) 
+    for (int j = 0; j <= packSize; j++) 
+      traceBack[i][j] = 0;
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: destruct the trace back table
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+void Knapsack::destructTraceBackTable()
+{
+  for (int i = 0; i <= items.size(); i++) delete[] traceBack[i];
+  delete[] traceBack;
+}
+

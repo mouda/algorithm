@@ -25,24 +25,29 @@ typedef struct Item {
 class Knapsack {
   public:
     Knapsack( vector<int> value, vector<int> size, int pSize);
-    ~Knapsack();
+    ~Knapsack(){}
     void displayElements() const;
     vector<bool> getResult(){return result;}
 
 
-    void bruteForce();
+    int bruteForce();
     void candidate( vector<Item> buffer );
     int totalSize( vector<Item> x);
     int totalValue( vector<Item> x);
 
-    void greedy();
-    void dynamicProgramming();
+    int greedy();
+    int dynamicProgramming();
 
-    void recursion();
+    int recursion();
     int RCFunction( int i, int pSize);
     int max(int a, int b);
 
+    /* utility */
     void printTable( int **talbe);
+    void constructDPTable();
+    void destructDPTable();
+    void constructTraceBackTable();
+    void destructTraceBackTable();
 
   private:
     vector<Item> items; // number, value, size

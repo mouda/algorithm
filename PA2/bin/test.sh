@@ -3,6 +3,7 @@
 inputDir="../inputs";
 outputDir="../outputs";
 inputFileNames="$(ls $inputDir)";
+option="GD"
 
 for name in $inputFileNames
 do
@@ -14,7 +15,10 @@ do
     rm $outputArgument 
   fi
 
-  ./01kanpsack -GD $inputArgument $outputArgument
-  #echo $inputArgument;
-  #echo $outputArgument;
+  echo "*******************  $option  ********************";
+  echo "";
+  echo "The input file:  $inputArgument";
+  echo "The output file: $outputArgument";
+  ./01kanpsack '-'$option $inputArgument $outputArgument
+  cat $outputArgument;
 done

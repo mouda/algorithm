@@ -16,8 +16,8 @@ main.o : ../lib/tm_usage.h main.cpp
 	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS)  main.cpp -I../lib
 
 
-knapsack.o : knapsack.h knapsack.cpp 
-	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS) $(OPT) knapsack.h knapsack.cpp
+knapsack.o :  knapsack.cpp 
+	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS) $(OPT)  knapsack.cpp
 
 
 # clean all the .o and executable files
