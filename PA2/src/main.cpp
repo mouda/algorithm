@@ -96,7 +96,9 @@ int main( int argc, char *argv[]) {
   gettimeofday( &tvE, NULL);
   tmusg.getTotalUsage(stat);
   outFile << "runtime = ";
-  outFile << 1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec <<" usec"<<endl;
+  outFile <<
+    (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000
+    <<" sec"<<endl;
   outFile << "memory = ";
   outFile << stat.vmPeak / 1024.0 << " MB" <<endl; 
 #endif 

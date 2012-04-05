@@ -7,10 +7,10 @@ TMEFLAGS = -D_TIME_ON_
 # -c option ask g++ to compile the source files, but do not link.
 # -g option is for debugging
 
-all		: 01kanpsack
+all		: 01knapsack
 
-01kanpsack: main.o knapsack.o 
-	$(CC) $(DBGFLAGS) $(TMEFLAGS) $(OPT) main.o knapsack.o -ltm_usage -L../lib -o ../bin/01kanpsack 
+01knapsack: main.o knapsack.o 
+	$(CC) $(DBGFLAGS) $(TMEFLAGS) $(OPT) main.o knapsack.o -ltm_usage -L../lib -o ../bin/01knapsack 
 
 main.o : ../lib/tm_usage.h main.cpp 
 	$(CC) $(CFLAGS) $(DBGFLAGS) $(TMEFLAGS)  main.cpp -I../lib
@@ -22,5 +22,5 @@ knapsack.o :  knapsack.cpp
 
 # clean all the .o and executable files
 clean:
-		rm -rf *.o ../bin/01kanpsack *.gch 
+		rm -rf *.o ../bin/01knapsack *.gch 
 

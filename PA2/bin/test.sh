@@ -19,6 +19,6 @@ do
   echo "";
   echo "The input file:  $inputArgument";
   echo "The output file: $outputArgument";
-  ./01kanpsack '-'$option $inputArgument $outputArgument
+  ./01knapsack '-'$option $inputArgument $outputArgument
   cat $outputArgument;
 done
