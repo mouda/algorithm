@@ -1,4 +1,4 @@
-Max = 54
-xi = 1 0 1 0 1 
-runtime = 0.000292 sec
-memory = 3.30859 MB
+max = 54
+xi = 1 0 1 0 1
+runtime = 7.4e-05 sec
+memory = 3.29297 MB
