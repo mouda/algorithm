@@ -1,0 +1,29 @@
+This is README file for Algorithm PA#3
+Author: <please fill in name and student ID>
+Date:
+=====
+SYNOPSIS:
+
+graphlab [-f <command_file_name>]
+
+
+=====
+DIRECTORY:
+
+bin/	executable binary
+doc/	reports
+inputs/ 
+outputs/ 
+lib/	library
+src/ 	source C++ codes
+======
+HOW TO CIMPILE:
+in this directory, simply type
+   	make clean
+	make 	
+======
+HOW TO RUN:
+	bin/graphlab
+======
+OTHER NOTICE:
+

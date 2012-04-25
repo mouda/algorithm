@@ -1,0 +1,11 @@
+// MST_P produced by graphlab
+graph gn4_mst_p {
+v0 -- v1 [label = "2"];
+v2 -- v3 [label = "3"];
+v1 -- v3 [label = "1"];
+}
+// vertices = 4
+// edges = 3
+// total_weight = 6
+// runtime = 0.1 sec
+// memory = 1.0 MB

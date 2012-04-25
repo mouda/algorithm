@@ -1,0 +1,9 @@
+// THIS IS COMMENT: example undirected graph with edge weight 
+graph G {
+     a -- b  [label = "2"];  // edge weight is shown as text label
+     b -- c  [label = "5"]; 
+     a -- d  [label = "4"]; 
+     c -- d  [label = "3"]; 
+     b -- d  [label = "1"];
+ }
+
