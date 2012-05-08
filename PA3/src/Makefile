@@ -3,7 +3,7 @@ ARFLAGS  := cr
 CXX      := g++
 CPPFLAGS := -O2 -I../lib
 
-all : ../bin/graphlab
+all : ../bin/graphlab ../bin/test 
 	@echo -n ""
 
 clean :
@@ -12,8 +12,14 @@ clean :
 ../bin/graphlab : main.o sys_cmd.o user_cmd.o graphMgr.o ../lib/libgraphlab.a
 	$(CXX) $^ -o $@
 
+../bin/test :  test.o graphMgr.o
+	$(CXX) $^ -o $@
+
 main.o : main.cpp sys_cmd.h user_cmd.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
+
+test.o: test.cpp graphMgr.h
+	$(CXX) $(CPPFLAGS) -c test.cpp -o test.o
 
 sys_cmd.o : sys_cmd.cpp sys_cmd.h ../lib/cmd.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
@@ -23,3 +29,4 @@ user_cmd.o : user_cmd.cpp user_cmd.h ../lib/cmd.h
 
 graphMgr.o : graphMgr.cpp graphMgr.h
 	$(CXX) $(CPPFLAGS) -c $< -o $@
+
