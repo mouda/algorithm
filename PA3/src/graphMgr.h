@@ -24,7 +24,7 @@ namespace Graph
   public :
     explicit graph(const vector<pair<T, T> > &vertices, const vector<int> &weight);
     ~graph(){}
-    void insert_vertex_pair_by_keys(T key1, T key2);
+    void insert_vertex_pair_by_keys(T key1, T key2, int value);
 
   // Private contained classes
   private:
@@ -42,7 +42,7 @@ namespace Graph
     {
     public:
       vertex(T key) : m_Key(key) {}
-      void connect_edge(vertex *adjacent);
+      void connect_edge(vertex *adjacent, int value);
       const T key() const {return m_Key;}
       const list<edge> &edges() const {return m_Edges;}
     private:
@@ -74,14 +74,17 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
   typename vector<pair<T, T> >::const_iterator insert_it 
     = vertices_relation.begin();
 
+
+  int i = 0; 
   for(; insert_it != vertices_relation.end(); ++insert_it) {
 
 #ifndef NDEBUG
     cout << insert_it->first << " -- > " << insert_it->second 
-      << endl;
+      << ' '<< weight[i] <<endl;
 #endif
     
-    insert_vertex_pair_by_keys(insert_it->first, insert_it->second);
+    insert_vertex_pair_by_keys(insert_it->first, insert_it->second, weight[i]);
+    i++;
   }
 
 #ifndef NDEBUG
@@ -106,7 +109,7 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
  * key not already present
  */
 template <typename T>
-void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2)
+void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
 {
   /*!
    * Check if vertices already in graph
@@ -137,8 +140,8 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2)
    * if not throw an error.
    */ 
   if (insert1 != NULL && insert2 != NULL) {
-    insert1->connect_edge(insert2);
-    insert2->connect_edge(insert1);
+    insert1->connect_edge(insert2, value);
+    insert2->connect_edge(insert1, value);
   } else {
     throw runtime_error("Unknown");
   }
@@ -168,13 +171,13 @@ typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
  * between vertices
  */
 template <class T>
-void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent)
+void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, int value)
 {
   if (adjacent == NULL)
     return;
 
   if (!contains_edge_to_vertex_with_key(adjacent->key())) {
-    Graph::graph<T>::edge e(adjacent, 1);
+    Graph::graph<T>::edge e(adjacent, value);
     m_Edges.push_back(e);
   }
 }
