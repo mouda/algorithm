@@ -22,7 +22,7 @@ namespace Graph
   class graph
   {
   public :
-    explicit graph(const std::vector<std::pair<T, T> > &vertices);
+    explicit graph(const vector<pair<T, T> > &vertices, const vector<int> &weight);
     ~graph(){}
     void insert_vertex_pair_by_keys(T key1, T key2);
 
@@ -33,9 +33,9 @@ namespace Graph
 
     struct edge
     {
-      edge(vertex *edge, T weight) : m_Edge(edge), m_Weight(weight){}
+      edge(vertex *edge, int weight) : m_Edge(edge), m_Weight(weight){}
       vertex *m_Edge;
-      T m_Weight;
+      int m_Weight;
     }; // END EDGE
 
     class vertex
@@ -64,7 +64,7 @@ namespace Graph
  * to insert if not already in graph. Then connect them in edge list
  */
 template <class T>
-Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation)
+Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vector<int> &weight)
 {
 
 #ifndef NDEBUG

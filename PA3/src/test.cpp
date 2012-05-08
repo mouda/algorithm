@@ -15,6 +15,6 @@ int main(int argc, char *argv[])
   for (int i = 0; i < 100; i++) {
     graph_vect.push_back(std::pair<int, int>(rand()%20, rand()%20));
   }
-  Graph::graph<int> my_graph(graph_vect);
+//  Graph::graph<int> my_graph(graph_vect);
   return 0;
 }

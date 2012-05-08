@@ -1,0 +1,2 @@
+read_graph ../inputs/gn4.dot
+exit

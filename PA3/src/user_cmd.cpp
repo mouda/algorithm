@@ -11,7 +11,8 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 using namespace CommonNs;
@@ -103,24 +104,34 @@ bool ReadGraph::exec(int argc, char **argv)
   }
 
   stringstream ss;
-  string s, token1, ignore ,token2, graphName ;
+  string s, token1, ignore ,token2, graphName, number ;
+  size_t found1, found2;
+  int weight = 0;  
 
   getline(inFile,s);
   ss.str(s);
   ss >> token1 >> graphName; 
-
-  cout << graphName << endl;
+ 
   vector< pair<string, string > > graph_vect;  
+  vector< int > graph_weight;
+
   while( getline(inFile,s) ){
-    ss.str(s); 
+
+    ss.str(s);
     ss >> token1; 
     if (!token1.compare("}")) break; 
     ss >> ignore >> token2; 
     graph_vect.push_back( pair<string, string>( token1, token2 ) ); 
-    cout << token1 <<' ' << token2 << endl;
+
+    found1 = s.find_first_of('"');
+    found2 = s.find_last_of('"');
+    number = s.substr(found1+1, found2-found1-1);
+    graph_weight.push_back(atoi(number.c_str()));
+
+    s.clear();
   }
   
-  Graph::graph<string> my_graph(graph_vect);
+  Graph::graph<string> my_graph(graph_vect, graph_weight);
 
 
   inFile.close();
