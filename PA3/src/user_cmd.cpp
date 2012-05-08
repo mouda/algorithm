@@ -6,6 +6,12 @@
 // **************************************************************************
 
 #include "user_cmd.h"
+#include "graphMgr.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <vector>
+
 
 using namespace std;
 using namespace CommonNs;
@@ -59,14 +65,9 @@ ReadGraph::ReadGraph(const char * const name) : Cmd(name)
   opt->addFlag("help");
   optMgr_.regOpt(opt);
 
-  opt = new Opt(Opt::STR_REQ, "source node", "<sourcenode>");
-  opt->addFlag("s");
+  opt = new Opt(Opt::STR_REQ, "dot_filename", "<dot_filename>");
+  //  opt->addFlag("s");
   optMgr_.regOpt(opt);
-
-  opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
-  opt->addFlag("o");
-  optMgr_.regOpt(opt);
-
 
 }
 
@@ -80,22 +81,50 @@ bool ReadGraph::exec(int argc, char **argv)
     optMgr_.usage();
     return true;
   }
-  char *sname, *fname;
-  if (optMgr_.getParsedOpt("s"))
-    sname = optMgr_.getParsedValue("s");
-  else
-  {
-    fprintf(stderr, "**ERROR ReadGraph::exec(): input node # is needed\n");
+
+  if (argc < 2) {
+    fprintf(stderr, "**ERROR ReadGraph::exec(): ");
+    fprintf(stderr, "please specify source file\n");
     return false;
   }
 
-  if (optMgr_.getParsedOpt("o")) fname = optMgr_.getParsedValue("o");
-  else
-  {
-    fprintf(stderr, 
-        "**ERROR ReadGraph::exec(): output dot file path is needed\n");
+  ifstream inFile;
+  inFile.open(argv[1]);
+  if (inFile.fail()) {
+    fprintf(stderr, "**ERROR ReadGraph::exec(): ");
+    fprintf(stderr, "file cannot be opened\n");
     return false;
   }
+
+  if (argc > 2) {
+    fprintf(stderr, "**ERROR ReadGraph::exec(): ");
+    fprintf(stderr, "too many arguments\n");
+    return false;
+  }
+
+  stringstream ss;
+  string s, token1, ignore ,token2, graphName ;
+
+  getline(inFile,s);
+  ss.str(s);
+  ss >> token1 >> graphName; 
+
+  cout << graphName << endl;
+  vector< pair<string, string > > graph_vect;  
+  while( getline(inFile,s) ){
+    ss.str(s); 
+    ss >> token1; 
+    if (!token1.compare("}")) break; 
+    ss >> ignore >> token2; 
+    graph_vect.push_back( pair<string, string>( token1, token2 ) ); 
+    cout << token1 <<' ' << token2 << endl;
+  }
+  
+  Graph::graph<string> my_graph(graph_vect);
+
+
+  inFile.close();
+  return true;
 
 }
 
@@ -222,8 +251,12 @@ WriteTreeMst::WriteTreeMst(const char * const name) : Cmd(name)
   opt->addFlag("help");
   optMgr_.regOpt(opt);
 
-  opt = new Opt(Opt::STR_REQ, "source node", "<sourcenode>");
-  opt->addFlag("s");
+  opt = new Opt(Opt::STR_REQ, "algorithm", "<algorithm>");
+  opt->addFlag("a");
+  optMgr_.regOpt(opt);
+
+  opt = new Opt(Opt::STR_REQ, "rootnode", "<rootnode>");
+  opt->addFlag("r");
   optMgr_.regOpt(opt);
 
   opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
@@ -276,12 +309,9 @@ IsSpanningTree::IsSpanningTree(const char * const name) : Cmd(name)
   opt->addFlag("help");
   optMgr_.regOpt(opt);
 
-  opt = new Opt(Opt::STR_REQ, "source node", "<sourcenode>");
-  opt->addFlag("s");
-  optMgr_.regOpt(opt);
 
   opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
-  opt->addFlag("o");
+  opt->addFlag("i");
   optMgr_.regOpt(opt);
 
 }

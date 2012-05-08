@@ -14,6 +14,8 @@
 #include <stdexcept>
 #include <assert.h>
 
+using namespace std;
+
 namespace Graph
 {
   template <class T>
@@ -21,8 +23,7 @@ namespace Graph
   {
   public :
     explicit graph(const std::vector<std::pair<T, T> > &vertices);
-    ~graph()
-    {}
+    ~graph(){}
     void insert_vertex_pair_by_keys(T key1, T key2);
 
   // Private contained classes
@@ -32,10 +33,7 @@ namespace Graph
 
     struct edge
     {
-      edge(vertex *edge, T weight) :
-        m_Edge(edge),
-        m_Weight(weight)
-      {}
+      edge(vertex *edge, T weight) : m_Edge(edge), m_Weight(weight){}
       vertex *m_Edge;
       T m_Weight;
     }; // END EDGE
@@ -46,17 +44,18 @@ namespace Graph
       vertex(T key) : m_Key(key) {}
       void connect_edge(vertex *adjacent);
       const T key() const {return m_Key;}
-      const std::list<edge> &edges() const {return m_Edges;}
+      const list<edge> &edges() const {return m_Edges;}
     private:
-      std::list<edge> m_Edges;
+      list<edge> m_Edges;
       T m_Key;
       bool contains_edge_to_vertex_with_key(const T key);
     }; // END VERTEX
 
    // Private methods and member variables
    private:
-     std::list<vertex> m_Vertices;
+     list<vertex> m_Vertices;
      vertex *contains_vertex(const T key);
+     string name;
   };
 }
 
@@ -65,31 +64,40 @@ namespace Graph
  * to insert if not already in graph. Then connect them in edge list
  */
 template <class T>
-Graph::graph<T>::graph(const std::vector<std::pair<T, T> > &vertices_relation)
+Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation)
 {
+
 #ifndef NDEBUG
-  std::cout << "Inserting pairs: " << std::endl;
+  cout << "Inserting pairs: " << endl;
 #endif
-  typename std::vector<std::pair<T, T> >::const_iterator insert_it = vertices_relation.begin();
+
+  typename vector<pair<T, T> >::const_iterator insert_it 
+    = vertices_relation.begin();
+
   for(; insert_it != vertices_relation.end(); ++insert_it) {
+
 #ifndef NDEBUG
-    std::cout << insert_it->first << " -- > " << insert_it->second << 
-std::endl;
+    cout << insert_it->first << " -- > " << insert_it->second 
+      << endl;
 #endif
+    
     insert_vertex_pair_by_keys(insert_it->first, insert_it->second);
   }
+
 #ifndef NDEBUG
-  std::cout << "Printing results: " << std::endl;
-  typename std::list<vertex>::iterator print_it = m_Vertices.begin();
+  cout << "Printing results: " << endl;
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
-    std::cout << print_it->key();
-    typename std::list<edge>::const_iterator edge_it = print_it->edges().begin();
+    cout << print_it->key();
+    typename list<edge>::const_iterator edge_it 
+      = print_it->edges().begin();
     for(; edge_it != print_it->edges().end(); ++edge_it) {
-      std::cout << "-->" << edge_it->m_Edge->key();
+      cout << "-->" << edge_it->m_Edge->key();
     }
-    std::cout << std::endl;
+    cout << endl;
   }
 #endif
+
 }
 
 /*!
@@ -132,7 +140,7 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2)
     insert1->connect_edge(insert2);
     insert2->connect_edge(insert1);
   } else {
-    throw std::runtime_error("Unknown");
+    throw runtime_error("Unknown");
   }
 }
 
@@ -145,7 +153,7 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2)
 template <typename T>
 typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
 {
-  typename std::list<vertex >::iterator find_it = m_Vertices.begin();
+  typename list<vertex >::iterator find_it = m_Vertices.begin();
   for(; find_it != m_Vertices.end(); ++find_it) {
     if (find_it->key() == key) {
       return &(*find_it);
@@ -178,7 +186,7 @@ void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent)
 template <class T>
 bool Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 {
-  typename std::list<edge>::iterator find_it = m_Edges.begin();
+  typename list<edge>::iterator find_it = m_Edges.begin();
   for(; find_it != m_Edges.end(); ++find_it) {
     if (find_it->m_Edge->key() == key) {
       return true;

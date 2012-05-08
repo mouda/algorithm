@@ -111,6 +111,16 @@ void initCmds(CmdMgr *mgr) {
   // add your command here
   Cmd *testCmd   = new TestCmd("test");
   mgr->regCmd(testCmd);
+  Cmd *readGraphCmd = new ReadGraph("read_graph");
+  mgr->regCmd(readGraphCmd);
+  Cmd *writeDFSCmd = new WriteTreeDfs("write_tree_dfs");
+  mgr->regCmd(writeDFSCmd);
+  Cmd *writeBFSCmd = new WriteTreeBfs("write_tree_bfs");
+  mgr->regCmd(writeBFSCmd);
+  Cmd *writeMSTCmd = new WriteTreeMst("write_tree_mst");
+  mgr->regCmd(writeMSTCmd);
+  Cmd *isSpanCmd = new IsSpanningTree("is_spanning_tree");
+  mgr->regCmd(isSpanCmd);
 
 
 
