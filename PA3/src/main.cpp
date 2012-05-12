@@ -13,16 +13,19 @@ using namespace std;
 
 #include "sys_cmd.h"
 #include "user_cmd.h"
+#include "graphMgr.h"
 
 using namespace CommonNs;
 
 void initOpts(OptMgr *mgr);
 void initCmds(CmdMgr *mgr);
 
+
 int main(int argc, char **argv) {
 
     OptMgr *optMgr = new OptMgr;
     CmdMgr *cmdMgr = new CmdMgr;
+
 
     initOpts(optMgr);
     initCmds(cmdMgr);

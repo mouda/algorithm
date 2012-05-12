@@ -17,6 +17,8 @@
 using namespace std;
 using namespace CommonNs;
 
+Graph::graph<string> *my_graph;
+
 TestCmd::TestCmd(const char * const name) : Cmd(name) {
   optMgr_.setShortDes("test");
   optMgr_.setDes("test");
@@ -131,7 +133,7 @@ bool ReadGraph::exec(int argc, char **argv)
     s.clear();
   }
   
-  Graph::graph<string> my_graph(graph_vect, graph_weight);
+   my_graph = new Graph::graph<string>(graph_vect, graph_weight);
 
 
   inFile.close();
@@ -191,6 +193,7 @@ bool WriteTreeDfs::exec(int argc, char **argv)
   }
 
   //TODO
+  my_graph->printGraph();
 }
 
 
@@ -246,6 +249,17 @@ bool WriteTreeBfs::exec(int argc, char **argv)
   }
 
   //TODO
+  string startVetex;
+  vector< pair<string,string> > result;
+  startVetex = sname;
+
+  my_graph->printGraph();
+  cout << my_graph->BFS(&startVetex, &result) << endl;
+
+//  cout <<" the result lenght " << result.size() << endl;
+
+  /* write the bfs tree to the output file */
+
 }
 
 // -------------------------------------------------------------------------- //
@@ -304,6 +318,8 @@ bool WriteTreeMst::exec(int argc, char **argv)
   }
 
   //TODO
+
+
 }
 
 // -------------------------------------------------------------------------- //

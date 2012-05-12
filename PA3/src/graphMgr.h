@@ -10,11 +10,14 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
+#include <deque>
 #include <iostream>
 #include <stdexcept>
 #include <assert.h>
 
 using namespace std;
+
+enum Color{ WHITE, GRAY, BLACK };
 
 namespace Graph
 {
@@ -22,9 +25,11 @@ namespace Graph
   class graph
   {
   public :
-    explicit graph(const vector<pair<T, T> > &vertices, const vector<int> &weight);
+    explicit graph(const vector<pair<T, T> > &vertices, 
+        const vector<int> &weight);
     ~graph(){}
     void insert_vertex_pair_by_keys(T key1, T key2, int value);
+
 
   // Private contained classes
   private:
@@ -49,6 +54,11 @@ namespace Graph
       list<edge> m_Edges;
       T m_Key;
       bool contains_edge_to_vertex_with_key(const T key);
+
+      Color color;    //BFS DFS
+      vertex *predecssor;
+      int distance;
+      int pi;
     }; // END VERTEX
 
    // Private methods and member variables
@@ -56,8 +66,20 @@ namespace Graph
      list<vertex> m_Vertices;
      vertex *contains_vertex(const T key);
      string name;
+  public:
+    bool  BFS( const string *start, vector< pair< T, T> > *tree);
+    vector< pair< T, T> > DFS( const string *start);
+    vector< pair< T, T> > MST();
+    void DrawGraph();
+    void printGraph();
   };
 }
+
+// -------------------------------------------------------------------------- //
+// @Description: implemetation
+// @Provides: 
+// -------------------------------------------------------------------------- //
+
 
 /*!
  * Constructor of graph: Take a pair of vertices as connection, attempt 
@@ -88,17 +110,6 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
   }
 
 #ifndef NDEBUG
-  cout << "Printing results: " << endl;
-  typename list<vertex>::iterator print_it = m_Vertices.begin();
-  for(; print_it != m_Vertices.end(); ++print_it) {
-    cout << print_it->key();
-    typename list<edge>::const_iterator edge_it 
-      = print_it->edges().begin();
-    for(; edge_it != print_it->edges().end(); ++edge_it) {
-      cout << "-->" << edge_it->m_Edge->key();
-    }
-    cout << endl;
-  }
 #endif
 
 }
@@ -196,4 +207,84 @@ bool Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
     }   
   }
   return false;
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: report all the tree node
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+template <class T>
+void Graph::graph<T>::printGraph()
+{
+  cout << "Printing results: " << endl;
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
+  for(; print_it != m_Vertices.end(); ++print_it) {
+    cout << print_it->key();
+    typename list<edge>::const_iterator edge_it 
+      = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) {
+      cout << "-->" << edge_it->m_Edge->key();
+    }
+    cout << endl;
+  }
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: perform the breath first traversal
+// @Provides: mouda
+// -------------------------------------------------------------------------- //
+
+template <class T> 
+bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
+{
+  typename list<vertex>::iterator s = m_Vertices.begin();
+  for (;  s != m_Vertices.end(); s++)
+    if ( s->key() == *start ) break; 
+  if ( s == m_Vertices.end()) return false; 
+  
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u < m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->distance = -1; 
+    u->pi = 0; 
+  }
+  s->color = GRAY;
+  s->distance = 0;
+  s->pi = -1;
+
+  deque<Graph::graph<T>::vertex *> queue;
+  queue.pusback(s);
+  Graph::graph<T>::vertex *ui;
+  while ( !queue.empty() ){
+   ui = queue.pop();
+  }
+  
+
+  return true;
+
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: perform the depth first traversal
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+template <class T> 
+vector< pair<T, T> > Graph::graph<T>::DFS( const string *start)
+{
+  
+
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: perform the firms algortihm to find the miminum spanning tree
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+template <class T> 
+vector< pair<T, T> > Graph::graph<T>::MST()
+{
+  
+
 }
