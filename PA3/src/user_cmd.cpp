@@ -17,7 +17,7 @@
 using namespace std;
 using namespace CommonNs;
 
-Graph::graph<string> *my_graph;
+Graph::graph<string> *my_graph = 0;
 
 TestCmd::TestCmd(const char * const name) : Cmd(name) {
   optMgr_.setShortDes("test");
@@ -193,6 +193,12 @@ bool WriteTreeDfs::exec(int argc, char **argv)
   }
 
   //TODO
+  if (my_graph == 0 ) 
+  {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): read dot file is needed first\n");
+    return false;
+  }
   my_graph->printGraph();
 }
 
@@ -248,6 +254,12 @@ bool WriteTreeBfs::exec(int argc, char **argv)
     return false;
   }
 
+  if (my_graph == 0 ) 
+  {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): read dot file is needed first\n");
+    return false;
+  }
   //TODO
   string startVetex;
   vector< pair<string,string> > result;
