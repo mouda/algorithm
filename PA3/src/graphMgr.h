@@ -22,57 +22,58 @@ enum Color{ WHITE, GRAY, BLACK };
 namespace Graph
 {
   template <class T>
-  class graph
-  {
-  public :
-    explicit graph(const vector<pair<T, T> > &vertices, 
-        const vector<int> &weight);
-    ~graph(){}
-    void insert_vertex_pair_by_keys(T key1, T key2, int value);
-
-
-  // Private contained classes
-  private:
-   // Forward Definition of vertex
-   class vertex;
-
-    struct edge
+    class graph
     {
-      edge(vertex *edge, int weight) : m_Edge(edge), m_Weight(weight){}
-      vertex *m_Edge;
-      int m_Weight;
-    }; // END EDGE
+      public :
+        explicit graph(const vector<pair<T, T> > &vertices, 
+            const vector<int> &weight);
+        ~graph(){}
+        void insert_vertex_pair_by_keys(T key1, T key2, int value);
 
-    class vertex
-    {
-    public:
-      vertex(T key) : m_Key(key) {}
-      void connect_edge(vertex *adjacent, int value);
-      const T key() const {return m_Key;}
-      const list<edge> &edges() const {return m_Edges;}
-    private:
-      list<edge> m_Edges;
-      T m_Key;
-      bool contains_edge_to_vertex_with_key(const T key);
 
-      Color color;    //BFS DFS
-      vertex *predecssor;
-      int distance;
-      int pi;
-    }; // END VERTEX
+        // Private contained classes
+      private:
+        // Forward Definition of vertex
+        class vertex;
 
-   // Private methods and member variables
-   private:
-     list<vertex> m_Vertices;
-     vertex *contains_vertex(const T key);
-     string name;
-  public:
-    bool  BFS( const string *start, vector< pair< T, T> > *tree);
-    vector< pair< T, T> > DFS( const string *start);
-    vector< pair< T, T> > MST();
-    void DrawGraph();
-    void printGraph();
-  };
+        struct edge
+        {
+          edge(vertex *edge, int weight) : m_Edge(edge), m_Weight(weight){}
+          vertex *m_Edge;
+          int m_Weight;
+        }; // END EDGE
+
+        class vertex
+        {
+          public:
+            vertex(T key) : m_Key(key) {}
+            void connect_edge(vertex *adjacent, int value);
+            const T key() const {return m_Key;}
+            const list<edge> &edges() const {return m_Edges;}
+          private:
+            list<edge> m_Edges;
+            T m_Key;
+            bool contains_edge_to_vertex_with_key(const T key);
+
+          public: //data
+            Color color;    //BFS DFS
+            vertex *pi;
+            int distance;
+
+        }; // END VERTEX
+
+        // Private methods and member variables
+      private:
+        list<vertex> m_Vertices;
+        vertex *contains_vertex(const T key);
+        string name;
+      public:
+        bool  BFS( const string *start, vector< pair< T, T> > *tree);
+        vector< pair< T, T> > DFS( const string *start);
+        vector< pair< T, T> > MST();
+        void DrawGraph();
+        void printGraph();
+    };
 }
 
 // -------------------------------------------------------------------------- //
@@ -85,7 +86,7 @@ namespace Graph
  * Constructor of graph: Take a pair of vertices as connection, attempt 
  * to insert if not already in graph. Then connect them in edge list
  */
-template <class T>
+  template <class T>
 Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vector<int> &weight)
 {
 
@@ -104,7 +105,7 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
     cout << insert_it->first << " -- > " << insert_it->second 
       << ' '<< weight[i] <<endl;
 #endif
-    
+
     insert_vertex_pair_by_keys(insert_it->first, insert_it->second, weight[i]);
     i++;
   }
@@ -119,7 +120,7 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
  * inserts it into graph data structure if 
  * key not already present
  */
-template <typename T>
+  template <typename T>
 void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
 {
   /*!
@@ -142,8 +143,8 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
   }
 
 #ifndef NDEBUG
-    assert(insert1 != NULL && "Failed to insert first vertex");
-    assert(insert2 != NULL && "Failed to insert second vertex");
+  assert(insert1 != NULL && "Failed to insert first vertex");
+  assert(insert2 != NULL && "Failed to insert second vertex");
 #endif
 
   /*!
@@ -164,7 +165,7 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
  * already in graph else return NULL to indicate
  * new node
  */
-template <typename T>
+  template <typename T>
 typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
 {
   typename list<vertex >::iterator find_it = m_Vertices.begin();
@@ -181,7 +182,7 @@ typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
  * into adjacent list, you can have multiple edges
  * between vertices
  */
-template <class T>
+  template <class T>
 void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, int value)
 {
   if (adjacent == NULL)
@@ -197,7 +198,7 @@ void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, in
  * Private member function that check if there is already
  * an edge between the two vertices
  */
-template <class T>
+  template <class T>
 bool Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 {
   typename list<edge>::iterator find_it = m_Edges.begin();
@@ -214,7 +215,7 @@ bool Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-template <class T>
+  template <class T>
 void Graph::graph<T>::printGraph()
 {
   cout << "Printing results: " << endl;
@@ -242,24 +243,37 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
   for (;  s != m_Vertices.end(); s++)
     if ( s->key() == *start ) break; 
   if ( s == m_Vertices.end()) return false; 
-  
+
   typename list<vertex>::iterator u = m_Vertices.begin();
-  for (; u < m_Vertices.end(); u++) {
+  for (; u != m_Vertices.end(); u++) {
     u->color = WHITE; 
     u->distance = -1; 
     u->pi = 0; 
   }
   s->color = GRAY;
   s->distance = 0;
-  s->pi = -1;
+  s->pi = 0;
 
   deque<Graph::graph<T>::vertex *> queue;
-  queue.pusback(s);
+  typename deque<Graph::graph<T>::vertex *>::size_type sz = queue.size();
+  queue.push_back(&(*s)); //get the pointer from iterator
   Graph::graph<T>::vertex *ui;
   while ( !queue.empty() ){
-   ui = queue.pop();
+    ui = queue[sz];// still have some problems!! 
+    queue.pop_back();
+    typename list<edge>::const_iterator v = ui->edges().begin();
+    for(; v != ui->edges().end(); ++v) {
+      if ( v->m_Edge->color == WHITE ){ 
+        v->m_Edge->color = GRAY;
+        v->m_Edge->distance = ui->distance + 1;
+        v->m_Edge->pi = ui;
+        queue.push_back(v->m_Edge);
+        cout << "hello" << endl;
+      }
+    }
+    ui->color = BLACK;
   }
-  
+
 
   return true;
 
@@ -270,10 +284,10 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-template <class T> 
+  template <class T> 
 vector< pair<T, T> > Graph::graph<T>::DFS( const string *start)
 {
-  
+
 
 }
 
@@ -282,9 +296,9 @@ vector< pair<T, T> > Graph::graph<T>::DFS( const string *start)
 // @Provides: mouda 
 // -------------------------------------------------------------------------- //
 
-template <class T> 
+  template <class T> 
 vector< pair<T, T> > Graph::graph<T>::MST()
 {
-  
+
 
 }

@@ -4,5 +4,5 @@ read_graph ../inputs/gn4.dot
 //read_graph ../inputs/gn1000.dot
 //read_graph ../inputs/gn10000.dot
 //read_graph ../inputs/gn50000.dot
-write_tree_bfs -s v4 -o dummy  
+write_tree_bfs -s v2 -o dummy  
 exit
