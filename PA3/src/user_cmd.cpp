@@ -266,7 +266,16 @@ bool WriteTreeBfs::exec(int argc, char **argv)
   startVetex = sname;
 
   my_graph->printGraph();
-  cout << my_graph->BFS(&startVetex, &result) << endl;
+  if ( my_graph->BFS(&startVetex, result) ) {
+    for (size_t i = 0; i < result.size(); i++) {
+      cout << result[i].first << ' ' << result[i].second << endl;
+    }
+  } else {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
+    return false;
+  }
+  
 
 //  cout <<" the result lenght " << result.size() << endl;
 

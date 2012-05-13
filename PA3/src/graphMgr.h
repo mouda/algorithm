@@ -68,7 +68,7 @@ namespace Graph
         vertex *contains_vertex(const T key);
         string name;
       public:
-        bool BFS( const string *start, vector< pair< T, T> > *tree);
+        bool BFS( const string *start, vector< pair< T, T> > &tree);
         bool DFS( const string *start, vector< pair< T, T> > *tree);
         void DFS_Visit( vertex *u);
         vector< pair< T, T> > MST();
@@ -238,7 +238,7 @@ void Graph::graph<T>::printGraph()
 // -------------------------------------------------------------------------- //
 
 template <class T> 
-bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
+bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > &tree)
 {
   typename list<vertex>::iterator s = m_Vertices.begin();
   for (;  s != m_Vertices.end(); s++)
@@ -259,7 +259,7 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
   queue.push_back(&(*s)); //get the pointer from iterator
   Graph::graph<T>::vertex *ui;
   while ( !queue.empty() ){
-    ui = queue[queue.size()-1];// still have some problems!! 
+    ui = queue[queue.size()-1];
     queue.pop_back();
     typename list<edge>::const_iterator v = ui->edges().begin();
     for(; v != ui->edges().end(); ++v) {
@@ -268,6 +268,8 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > *tree)
         v->m_Edge->distance = ui->distance + 1;
         v->m_Edge->pi = ui;
         queue.push_back(v->m_Edge);
+        //record
+        tree.push_back( pair<string, string>(ui->key(), v->m_Edge->key()));
       }
     }
     ui->color = BLACK;
