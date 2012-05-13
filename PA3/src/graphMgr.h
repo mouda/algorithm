@@ -26,7 +26,7 @@ namespace Graph
     {
       public :
         explicit graph(const vector<pair<T, T> > &vertices, 
-            const vector<int> &weight);
+            const vector<int> &weight, string N);
         ~graph(){}
         void insert_vertex_pair_by_keys(T key1, T key2, int value);
 
@@ -66,7 +66,6 @@ namespace Graph
       private:
         list<vertex> m_Vertices;
         vertex *contains_vertex(const T key);
-        string name;
       public:
         bool BFS( const string *start, vector< pair< T, T> > &tree);
         bool DFS( const string *start, vector< pair< T, T> > *tree);
@@ -74,6 +73,8 @@ namespace Graph
         vector< pair< T, T> > MST();
         void DrawGraph();
         void printGraph();
+
+        string name;
     };
 }
 
@@ -88,7 +89,8 @@ namespace Graph
  * to insert if not already in graph. Then connect them in edge list
  */
   template <class T>
-Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vector<int> &weight)
+Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, 
+    const vector<int> &weight, string N)
 {
 
 #ifndef NDEBUG
@@ -111,9 +113,7 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, const vecto
     i++;
   }
 
-#ifndef NDEBUG
-#endif
-
+  name = N;
 }
 
 /*!
@@ -267,7 +267,7 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > &tree)
         v->m_Edge->color = GRAY;
         v->m_Edge->distance = ui->distance + 1;
         v->m_Edge->pi = ui;
-        queue.push_back(v->m_Edge);
+        queue.push_front(v->m_Edge);
         //record
         tree.push_back( pair<string, string>(ui->key(), v->m_Edge->key()));
       }

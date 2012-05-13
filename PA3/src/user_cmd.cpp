@@ -133,7 +133,7 @@ bool ReadGraph::exec(int argc, char **argv)
     s.clear();
   }
   
-   my_graph = new Graph::graph<string>(graph_vect, graph_weight);
+   my_graph = new Graph::graph<string>(graph_vect, graph_weight, graphName);
 
 
   inFile.close();
@@ -261,11 +261,15 @@ bool WriteTreeBfs::exec(int argc, char **argv)
     return false;
   }
   //TODO
+  ofstream outFile;
   string startVetex;
   vector< pair<string,string> > result;
   startVetex = sname;
 
+  outFile.open(fname);
   my_graph->printGraph();
+
+  outFile << my_graph->name <<'{' <<endl; 
   if ( my_graph->BFS(&startVetex, result) ) {
     for (size_t i = 0; i < result.size(); i++) {
       cout << result[i].first << ' ' << result[i].second << endl;
