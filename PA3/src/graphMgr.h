@@ -291,14 +291,25 @@ bool Graph::graph<T>::DFS( const string *start, vector< pair< T, T> > *tree)
     if ( s->key() == *start ) break; 
   if ( s == m_Vertices.end()) return false; 
 
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u != m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->pi = 0; 
+  }
+
+
+  if (s->color == WHITE)  DFS_Visit( &(*s) );
 
   return true;
 }
 
 template <class T>
-void Graph::graph<T>::DFS_Visit( vertex * )
+void Graph::graph<T>::DFS_Visit( vertex * u )
 {
-
+ u->color = GRAY; 
+ typename list<edge>::const_iterator v = u->edges().begin();
+ for (; v != u->edges().end(); v++) 
+   if ( v->color == WHITE) DFS_Visit( &(*v) ); 
 }
 
 // -------------------------------------------------------------------------- //
