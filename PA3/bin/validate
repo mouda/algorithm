@@ -5,6 +5,6 @@ read_graph ../inputs/gn4.dot
 //read_graph ../inputs/gn10000.dot
 //read_graph ../inputs/gn50000.dot
 //dot ../inputs/gn10.dot -Tpng -o ../outputs/gn10.png  
-display ../outputs/gn4.png
+//display ../outputs/gn4.png
 write_tree_bfs -s v0 -o dummy  
 exit

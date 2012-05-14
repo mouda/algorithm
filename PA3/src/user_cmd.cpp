@@ -7,17 +7,19 @@
 
 #include "user_cmd.h"
 #include "graphMgr.h"
+#include "tm_usage.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 using namespace std;
 using namespace CommonNs;
 
-Graph::graph<string> *my_graph = 0;
+Graph::graph<unsigned> *my_graph = 0;
 
 TestCmd::TestCmd(const char * const name) : Cmd(name) {
   optMgr_.setShortDes("test");
@@ -114,8 +116,9 @@ bool ReadGraph::exec(int argc, char **argv)
   ss.str(s);
   ss >> token1 >> graphName; 
  
-  vector< pair<string, string > > graph_vect;  
+  vector< pair<unsigned, unsigned > > graph_vect;  
   vector< int > graph_weight;
+  unsigned Nvalue;
 
   while( getline(inFile,s) ){
 
@@ -123,7 +126,10 @@ bool ReadGraph::exec(int argc, char **argv)
     ss >> token1; 
     if (!token1.compare("}")) break; 
     ss >> ignore >> token2; 
-    graph_vect.push_back( pair<string, string>( token1, token2 ) ); 
+    token1 = token1.substr(1);
+    token2 = token2.substr(1);
+    graph_vect.push_back( pair<unsigned, unsigned>( strtol(token1.c_str(),NULL,0), 
+          strtol(token2.c_str(),NULL,0) ) ); 
 
     found1 = s.find_first_of('"');
     found2 = s.find_last_of('"');
@@ -133,7 +139,7 @@ bool ReadGraph::exec(int argc, char **argv)
     s.clear();
   }
   
-   my_graph = new Graph::graph<string>(graph_vect, graph_weight, graphName);
+   my_graph = new Graph::graph<unsigned>(graph_vect, graph_weight, graphName);
 
 
   inFile.close();
@@ -261,27 +267,57 @@ bool WriteTreeBfs::exec(int argc, char **argv)
     return false;
   }
   //TODO
+
+#ifdef _TIME_ON_ 
+  timeval tvS, tvE;
+  CommonNs::TmUsage tmusg;
+  CommonNs::TmStat stat;
+  tmusg.periodStart();
+  gettimeofday( &tvS, NULL);
+#endif 
+
   ofstream outFile;
-  string startVetex;
-  vector< pair<string,string> > result;
-  startVetex = sname;
+  string startNode = sname;
+  unsigned vertexValue, verticesNum;
+  vector< pair<unsigned,unsigned> > result;
+  vector< int > value;
+  startNode = startNode.substr(1);
+
 
   outFile.open(fname);
   my_graph->printGraph();
+  
+  verticesNum = my_graph->BFS( strtol(startNode.c_str(),NULL,0), result,value ); 
+  if ( verticesNum ) {
+  
+    outFile <<"graph "  << my_graph->name <<"_bfs {" <<endl; 
 
-  outFile << my_graph->name <<'{' <<endl; 
-  if ( my_graph->BFS(&startVetex, result) ) {
     for (size_t i = 0; i < result.size(); i++) {
-      cout << result[i].first << ' ' << result[i].second << endl;
+      outFile <<'v'<<result[i].first << " -- " <<'v' <<result[i].second;
+      outFile << " [label = " << '"' << value[i] << '"' << "];" << endl;
     }
+  
+#ifdef _TIME_ON_ 
+    gettimeofday( &tvE, NULL);
+    tmusg.getTotalUsage(stat);
+    unsigned sum = 0;
+    for (size_t i = 0; i < value.size(); i++) sum += value[i]; 
+    outFile << '}' << endl;
+    outFile << "// vertices = " << verticesNum<< endl;
+    outFile << "// edges = " << result.size()<<endl;
+    outFile << "// total_weight = " << sum << endl;
+    outFile << "// runtime = " << 
+      (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
+      << " sec" << endl;
+    outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
+#endif 
   } else {
     fprintf(stderr, 
         "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
     return false;
   }
-  
 
-//  cout <<" the result lenght " << result.size() << endl;
+
 
   /* write the bfs tree to the output file */
 

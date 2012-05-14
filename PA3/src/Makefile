@@ -2,7 +2,7 @@ AR       := ar
 ARFLAGS  := cr
 CXX      := g++
 #CPPFLAGS := -O2 -I../lib
-CPPFLAGS := -g  -I../lib
+  CPPFLAGS := -g  -I../lib -D_TIME_ON_
 
 all : ../bin/graphlab ../bin/test 
 	@echo -n ""

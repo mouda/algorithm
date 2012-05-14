@@ -67,8 +67,8 @@ namespace Graph
         list<vertex> m_Vertices;
         vertex *contains_vertex(const T key);
       public:
-        bool BFS( const string *start, vector< pair< T, T> > &tree);
-        bool DFS( const string *start, vector< pair< T, T> > *tree);
+        unsigned BFS( const T &start, vector< pair< T, T> > &tree, vector<int> &value);
+        bool DFS( const T *start, vector< pair< T, T> > *tree);
         void DFS_Visit( vertex *u);
         vector< pair< T, T> > MST();
         void DrawGraph();
@@ -238,12 +238,13 @@ void Graph::graph<T>::printGraph()
 // -------------------------------------------------------------------------- //
 
 template <class T> 
-bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > &tree)
+unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vector<int> &value)
 {
+  unsigned vertexNumber = 0;
   typename list<vertex>::iterator s = m_Vertices.begin();
   for (;  s != m_Vertices.end(); s++)
-    if ( s->key() == *start ) break; 
-  if ( s == m_Vertices.end()) return false; 
+    if ( s->key() == start ) break; 
+  if ( s == m_Vertices.end()) return vertexNumber; 
 
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
@@ -269,14 +270,16 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > &tree)
         v->m_Edge->pi = ui;
         queue.push_front(v->m_Edge);
         //record
-        tree.push_back( pair<string, string>(ui->key(), v->m_Edge->key()));
+        tree.push_back( pair<T, T>(ui->key(), v->m_Edge->key()));
+        value.push_back(v->m_Weight);
       }
     }
     ui->color = BLACK;
+    vertexNumber++;
   }
 
 
-  return true;
+  return vertexNumber;
 
 }
 
@@ -286,7 +289,7 @@ bool Graph::graph<T>::BFS( const string *start, vector< pair<T, T> > &tree)
 // -------------------------------------------------------------------------- //
 
   template <class T> 
-bool Graph::graph<T>::DFS( const string *start, vector< pair< T, T> > *tree)
+bool Graph::graph<T>::DFS( const T *start, vector< pair< T, T> > *tree)
 {
   typename list<vertex>::iterator s = m_Vertices.begin();
   for (;  s != m_Vertices.end(); s++)
