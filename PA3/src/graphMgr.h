@@ -67,9 +67,13 @@ namespace Graph
         list<vertex> m_Vertices;
         vertex *contains_vertex(const T key);
       public:
-        unsigned BFS( const T &start, vector< pair< T, T> > &tree, vector<int> &value);
-        bool DFS( const T *start, vector< pair< T, T> > *tree);
-        void DFS_Visit( vertex *u);
+        unsigned BFS( const T &start, vector< pair< T, T> > &tree, 
+            vector<int> &value);
+        unsigned DFS( const T &start, vector< pair< T, T> > &tree,
+            vector<int> &value);
+        void DFS_Visit( vertex &u, vector< pair< T, T> > &tree, 
+            vector<int> &value);
+
         vector< pair< T, T> > MST();
         void DrawGraph();
         void printGraph();
@@ -289,11 +293,12 @@ unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vecto
 // -------------------------------------------------------------------------- //
 
   template <class T> 
-bool Graph::graph<T>::DFS( const T *start, vector< pair< T, T> > *tree)
+unsigned Graph::graph<T>::DFS( const T &start, vector< pair< T, T> > &tree, 
+    vector<int> &value)
 {
   typename list<vertex>::iterator s = m_Vertices.begin();
   for (;  s != m_Vertices.end(); s++)
-    if ( s->key() == *start ) break; 
+    if ( s->key() == start ) break; 
   if ( s == m_Vertices.end()) return false; 
 
   typename list<vertex>::iterator u = m_Vertices.begin();
@@ -303,18 +308,23 @@ bool Graph::graph<T>::DFS( const T *start, vector< pair< T, T> > *tree)
   }
 
 
-  if (s->color == WHITE)  DFS_Visit( &(*s) );
+  if (s->color == WHITE)  DFS_Visit( *s , tree, value);
 
   return true;
 }
 
 template <class T>
-void Graph::graph<T>::DFS_Visit( vertex * u )
+void Graph::graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
+   vector<int> &value )
 {
- u->color = GRAY; 
- typename list<edge>::const_iterator v = u->edges().begin();
- for (; v != u->edges().end(); v++) 
-   if ( v->color == WHITE) DFS_Visit( &(*v) ); 
+ u.color = GRAY; 
+ typename list<edge>::const_iterator v = u.edges().begin();
+ for (; v != u.edges().end(); v++) 
+   if ( v->m_Edge->color == WHITE) {
+     tree.push_back( pair<T,T>(u.key(), v->m_Edge->key()) );
+     value.push_back( v->m_Weight);
+     DFS_Visit( *v->m_Edge, tree, value ); 
+   }
 }
 
 // -------------------------------------------------------------------------- //

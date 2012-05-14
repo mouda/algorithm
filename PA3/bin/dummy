@@ -1,10 +1,16 @@
-graph gn4_bfs {
-v0 -- v1 [label = "2"];
-v0 -- v3 [label = "4"];
-v1 -- v2 [label = "5"];
+graph gn10_dfs {
+v0 -- v1 [label = "96"];
+v1 -- v2 [label = "61"];
+v2 -- v3 [label = "71"];
+v3 -- v4 [label = "91"];
+v4 -- v5 [label = "59"];
+v5 -- v6 [label = "70"];
+v6 -- v7 [label = "79"];
+v7 -- v8 [label = "29"];
+v8 -- v9 [label = "76"];
 }
-// vertices = 4
-// edges = 3
-// total_weight = 11
-// runtime = 0.000176 sec
-// memory = 3.37109 MB
+// vertices = 1
+// edges = 9
+// total_weight = 632
+// runtime = 0.000174 sec
+// memory = 3.375 MB
