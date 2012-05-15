@@ -9,8 +9,8 @@ v6 -- v7 [label = "79"];
 v7 -- v8 [label = "29"];
 v8 -- v9 [label = "76"];
 }
-// vertices = 1
+// vertices = 10
 // edges = 9
 // total_weight = 632
-// runtime = 0.000174 sec
+// runtime = 0.000252 sec
 // memory = 3.375 MB

@@ -74,7 +74,8 @@ namespace Graph
         void DFS_Visit( vertex &u, vector< pair< T, T> > &tree, 
             vector<int> &value);
 
-        vector< pair< T, T> > MST();
+        unsigned MST( const T &start, vector< pair<T, T> > &tree, 
+            vector<int> &value);
         void DrawGraph();
         void printGraph();
 
@@ -299,7 +300,7 @@ unsigned Graph::graph<T>::DFS( const T &start, vector< pair< T, T> > &tree,
   typename list<vertex>::iterator s = m_Vertices.begin();
   for (;  s != m_Vertices.end(); s++)
     if ( s->key() == start ) break; 
-  if ( s == m_Vertices.end()) return false; 
+  if ( s == m_Vertices.end()) return 0; 
 
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
@@ -310,7 +311,8 @@ unsigned Graph::graph<T>::DFS( const T &start, vector< pair< T, T> > &tree,
 
   if (s->color == WHITE)  DFS_Visit( *s , tree, value);
 
-  return true;
+
+  return tree.size()+1;
 }
 
 template <class T>
@@ -333,8 +335,20 @@ void Graph::graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
 // -------------------------------------------------------------------------- //
 
   template <class T> 
-vector< pair<T, T> > Graph::graph<T>::MST()
+unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
+    vector<int> &value)
 {
+  typename list<vertex>::iterator s = m_Vertices.begin();
+  for (;  s != m_Vertices.end(); s++)
+    if ( s->key() == start ) break; 
+  if ( s == m_Vertices.end()) return 0; 
 
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u != m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->pi = 0; 
+  }
+
+  return true;
 
 }
