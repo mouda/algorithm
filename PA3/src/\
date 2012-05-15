@@ -77,17 +77,15 @@ namespace Graph
 
         unsigned MST( const T &start, vector< pair<T, T> > &tree, 
             vector<int> &value);
-        vertex* EXTRACT_MIN( deque<vertex*> & queue );
+        vertex* EXTRACT_MIN( deque & queue );
         void DrawGraph();
         void printGraph();
 
-
         string name;
     };
-
+//  bool compareFunction( graph::vertex *i, graph::vertex *j ){ 
+//    return i->d}
 }
-
-
 
 // -------------------------------------------------------------------------- //
 // @Description: implemetation
@@ -365,36 +363,23 @@ unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
     queue.push_back(&(*u));
 
   while( !queue.empty() ) {
-    ui = EXTRACT_MIN( queue );
+    ui = queue[queue.size()-1];
+    queue.pop_back();
     v = ui->edges().begin();
     for(; v != ui->edges().end(); ++v) {
       if ( (find(queue.begin(),queue.end(), v->m_Edge) != queue.end()) && 
           (v->m_Weight < v->m_Edge->distance)){ 
         v->m_Edge->pi = ui;
         v->m_Edge->distance = v->m_Weight;
+        tree.push_back(pair<T, T>(ui->key(), v->m_Edge->key()));
+        value.push_back(v->m_Weight);
       }
-    }
-    if (ui->pi != 0) {
-      tree.push_back(pair<T, T>(ui->key(), ui->pi->key()));
-      value.push_back(ui->distance);
     }
   }
   return tree.size()+1;
 }
-  template<class T>
-typename Graph::graph<T>::vertex* 
-Graph::graph<T>::EXTRACT_MIN( deque<Graph::graph<T>::vertex* > &queue)
-{
-  typename deque<Graph::graph<T>::vertex*>::iterator it = queue.begin();
-  typename deque<Graph::graph<T>::vertex*>::iterator it_min = queue.begin();
-  Graph::graph<T>::vertex  *minimum;
-  for (; it != queue.end(); it++) {
-    if (((*it)->distance) < ((*it_min)->distance)) 
-      it_min = it;
-  }
-  minimum = *it_min;
-  queue.erase(it_min);
-  return minimum;
-} 
+  template<T>
+unsigned 
+
 
 

@@ -1,19 +1,16 @@
 graph gn10_mst {
-v9 -- v8 [label = "76"];
+v8 -- v0 [label = "19"];
+v5 -- v8 [label = "22"];
+v7 -- v8 [label = "29"];
+v4 -- v7 [label = "39"];
+v2 -- v5 [label = "66"];
+v1 -- v2 [label = "61"];
+v6 -- v5 [label = "70"];
 v9 -- v6 [label = "52"];
-v9 -- v3 [label = "75"];
-v9 -- v7 [label = "93"];
-v8 -- v7 [label = "29"];
-v8 -- v4 [label = "68"];
-v8 -- v5 [label = "22"];
-v8 -- v1 [label = "99"];
-v7 -- v4 [label = "39"];
-v6 -- v3 [label = "58"];
-v5 -- v2 [label = "66"];
-v2 -- v1 [label = "61"];
+v3 -- v6 [label = "58"];
 }
-// vertices = 1
-// edges = 12
-// total_weight = 738
-// runtime = 0.000316 sec
-// memory = 3.37891 MB
+// vertices = 10
+// edges = 9
+// total_weight = 416
+// runtime = 0.000328 sec
+// memory = 3.38281 MB
