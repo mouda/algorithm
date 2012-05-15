@@ -7,5 +7,6 @@ read_graph ../inputs/gn10.dot
 //dot ../inputs/gn10.dot -Tpng -o ../outputs/gn10.png  
 //display ../outputs/gn4.png
 //write_tree_bfs -s v0 -o dummy  
-write_tree_dfs -s v0 -o dummy  
+//write_tree_dfs -s v0 -o dummy  
+write_tree_mst -r v0 -o dummy  
 exit

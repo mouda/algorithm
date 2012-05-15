@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <assert.h>
 
+#define INFINITY 65536
 using namespace std;
 
 enum Color{ WHITE, GRAY, BLACK };
@@ -81,6 +82,8 @@ namespace Graph
 
         string name;
     };
+//  bool compareFunction( graph::vertex *i, graph::vertex *j ){ 
+//    return i->d}
 }
 
 // -------------------------------------------------------------------------- //
@@ -286,6 +289,7 @@ unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vecto
 
   return vertexNumber;
 
+#define INF 65536
 }
 
 // -------------------------------------------------------------------------- //
@@ -345,23 +349,32 @@ unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
 
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
-    u->distance = -1;
+    u->distance = INFINITY;
     u->pi = 0; 
   }
   r->distance = 0;
 
   deque<Graph::graph<T>::vertex *> queue;
   Graph::graph<T>::vertex *ui;
-  for (u = m_Vertices.begin(); u < m_Vertices.size(); u++) 
+  typename list<edge>::const_iterator v ;
+
+  for (u = m_Vertices.begin(); u != m_Vertices.end(); u++) 
     queue.push_back(&(*u));
+
+//  sort(queue.begin(),queue.end());
   while( !queue.empty() ) {
     ui = queue[queue.size()-1];
     queue.pop_back();
+    v = ui->edges().begin();
     for(; v != ui->edges().end(); ++v) {
-      if (  ){ 
+      if ( (find(queue.begin(),queue.end(), v->m_Edge) != queue.end()) && 
+          (v->m_Weight < v->m_Edge->distance)){ 
+        v->m_Edge->pi = ui;
+        v->m_Edge->distance = v->m_Weight;
+        tree.push_back(pair<T, T>(ui->key(), v->m_Edge->key()));
+        value.push_back(v->m_Weight);
       }
     }
-
   }
 
 
