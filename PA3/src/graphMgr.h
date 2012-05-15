@@ -338,16 +338,32 @@ void Graph::graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
 unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
     vector<int> &value)
 {
-  typename list<vertex>::iterator s = m_Vertices.begin();
-  for (;  s != m_Vertices.end(); s++)
-    if ( s->key() == start ) break; 
-  if ( s == m_Vertices.end()) return 0; 
+  typename list<vertex>::iterator r = m_Vertices.begin();
+  for (;  r != m_Vertices.end(); r++)
+    if ( r->key() == start ) break; 
+  if ( r == m_Vertices.end()) return 0; 
 
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
-    u->color = WHITE; 
+    u->distance = -1;
     u->pi = 0; 
   }
+  r->distance = 0;
+
+  deque<Graph::graph<T>::vertex *> queue;
+  Graph::graph<T>::vertex *ui;
+  for (u = m_Vertices.begin(); u < m_Vertices.size(); u++) 
+    queue.push_back(&(*u));
+  while( !queue.empty() ) {
+    ui = queue[queue.size()-1];
+    queue.pop_back();
+    for(; v != ui->edges().end(); ++v) {
+      if (  ){ 
+      }
+    }
+
+  }
+
 
   return true;
 
