@@ -12,5 +12,5 @@ v3 -- v6 [label = "58"];
 // vertices = 10
 // edges = 9
 // total_weight = 416
-// runtime = 0.00032 sec
+// runtime = 0.0003 sec
 // memory = 3.38281 MB

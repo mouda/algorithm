@@ -51,7 +51,7 @@ namespace Graph
             void connect_edge(vertex *adjacent, int value);
             const T key() const {return m_Key;}
             const list<edge> &edges() const {return m_Edges;}
-            bool contains_edge_to_vertex_with_key(const T key);
+            edge *contains_edge_to_vertex_with_key(const T key);
           private:
             list<edge> m_Edges;
             T m_Key;
@@ -213,15 +213,16 @@ void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, in
  * an edge between the two vertices
  */
   template <class T>
-bool Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
+typename Graph::graph<T>::edge* 
+Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 {
   typename list<edge>::iterator find_it = m_Edges.begin();
   for(; find_it != m_Edges.end(); ++find_it) {
     if (find_it->m_Edge->key() == key) {
-      return true;
+      return &(*find_it);
     }   
   }
-  return false;
+  return 0;
 }
 
 // -------------------------------------------------------------------------- //
@@ -412,17 +413,20 @@ bool Graph::graph<T>::IsSpanningTree(  graph &toBeCompare)
 {
   if (toBeCompare.vertices().size() != this->m_Vertices.size())  return false;
 
-  Graph::graph<T>::vertex *rescent = 0;
+  Graph::graph<T>::vertex *rescentVertex = 0;
+  Graph::graph<T>::edge *rescentEdge = 0;
   typename list<vertex>::const_iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
-   rescent = toBeCompare.contains_vertex(print_it->key());
-   if (!rescent) return false;
+   rescentVertex = toBeCompare.contains_vertex(print_it->key());
+   if (!rescentVertex) return false;
     
     typename list<edge>::const_iterator edge_it 
       = print_it->edges().begin();
     for(; edge_it != print_it->edges().end(); ++edge_it) {
-      if (rescent->contains_edge_to_vertex_with_key(edge_it->m_Edge->key()))
-      return true;
+      rescentEdge = 
+        rescentVertex->contains_edge_to_vertex_with_key(edge_it->m_Edge->key());
+      if ( (!rescentEdge) || (rescentEdge->weight != edge_it->m_Weight))
+      return false;
     }
   }
   return true;

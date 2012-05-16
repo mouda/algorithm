@@ -1,13 +1,13 @@
 //read_graph ../inputs/gn4.dot
-read_graph ../inputs/gn10.dot
+//read_graph ../inputs/gn10.dot
 //read_graph ../inputs/gn100.dot
 //read_graph ../inputs/gn1000.dot
-//read_graph ../inputs/gn10000.dot
+read_graph ../inputs/gn10000.dot
 //read_graph ../inputs/gn50000.dot
 //dot ../inputs/gn10.dot -Tpng -o ../outputs/gn10.png  
 //display ../outputs/gn4.png
 //write_tree_bfs -s v0 -o dummy  
 //write_tree_dfs -s v0 -o dummy  
-write_tree_mst -r v0 -o dummy  
+//write_tree_mst -r v0 -o dummy  
 is_spanning_tree -i dummy
 exit
