@@ -9,4 +9,5 @@ read_graph ../inputs/gn10.dot
 //write_tree_bfs -s v0 -o dummy  
 //write_tree_dfs -s v0 -o dummy  
 write_tree_mst -r v0 -o dummy  
+is_spanning_tree -i dummy
 exit

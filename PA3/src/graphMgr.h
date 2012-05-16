@@ -51,10 +51,10 @@ namespace Graph
             void connect_edge(vertex *adjacent, int value);
             const T key() const {return m_Key;}
             const list<edge> &edges() const {return m_Edges;}
+            bool contains_edge_to_vertex_with_key(const T key);
           private:
             list<edge> m_Edges;
             T m_Key;
-            bool contains_edge_to_vertex_with_key(const T key);
 
           public: //data
             Color color;    //BFS DFS
@@ -66,8 +66,9 @@ namespace Graph
         // Private methods and member variables
       private:
         list<vertex> m_Vertices;
-        vertex *contains_vertex(const T key);
       public:
+        vertex *contains_vertex(const T key);
+        const list<vertex> &vertices() const { return m_Vertices;}
         unsigned BFS( const T &start, vector< pair< T, T> > &tree, 
             vector<int> &value);
         unsigned DFS( const T &start, vector< pair< T, T> > &tree,
@@ -80,6 +81,7 @@ namespace Graph
         vertex* EXTRACT_MIN( deque<vertex*> & queue );
         void DrawGraph();
         void printGraph();
+        bool IsSpanningTree( graph &toBeCompare);
 
 
         string name;
@@ -396,5 +398,36 @@ Graph::graph<T>::EXTRACT_MIN( deque<Graph::graph<T>::vertex* > &queue)
   queue.erase(it_min);
   return minimum;
 } 
+
+// -------------------------------------------------------------------------- //
+// @Description: Is spanning tree, need to check out two things, we have to 
+//  compare the number of vertices in the original graph and the input graph.
+//  Second, if one edge exist in the input graph, there must exist edge with 
+//  the same weight.
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+  template<class T>
+bool Graph::graph<T>::IsSpanningTree(  graph &toBeCompare)
+{
+  if (toBeCompare.vertices().size() != this->m_Vertices.size())  return false;
+
+  Graph::graph<T>::vertex *rescent = 0;
+  typename list<vertex>::const_iterator print_it = m_Vertices.begin();
+  for(; print_it != m_Vertices.end(); ++print_it) {
+   rescent = toBeCompare.contains_vertex(print_it->key());
+   if (!rescent) return false;
+    
+    typename list<edge>::const_iterator edge_it 
+      = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) {
+      if (rescent->contains_edge_to_vertex_with_key(edge_it->m_Edge->key()))
+      return true;
+    }
+  }
+  return true;
+
+}
+
 
 
