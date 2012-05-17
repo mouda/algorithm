@@ -20,8 +20,8 @@ using namespace std;
 
 enum Color{ WHITE, GRAY, BLACK };
 
-namespace Graph
-{
+//namespace Graph
+//{
   template <class T>
     class graph
     {
@@ -50,7 +50,7 @@ namespace Graph
             vertex(T key) : m_Key(key) {}
             void connect_edge(vertex *adjacent, int value);
             const T key() const {return m_Key;}
-            const list<edge> &edges() const {return m_Edges;}
+            list<edge> &edges() {return m_Edges;}
             edge *contains_edge_to_vertex_with_key(const T key);
           private:
             list<edge> m_Edges;
@@ -83,12 +83,14 @@ namespace Graph
         void printGraph();
         bool IsSpanningTree( graph &toBeCompare);
 
+        static bool compare_d( edge j, edge  i){
+        return i.m_Edge->key() > j.m_Edge->key();
+        }
 
         string name;
     };
 
-}
-
+//}
 
 
 // -------------------------------------------------------------------------- //
@@ -102,11 +104,11 @@ namespace Graph
  * to insert if not already in graph. Then connect them in edge list
  */
   template <class T>
-Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation, 
+graph<T>::graph(const vector<pair<T, T> > &vertices_relation, 
     const vector<int> &weight, string N)
 {
 
-#ifndef NDEBUG
+#ifdef NDEBUG
   cout << "Inserting pairs: " << endl;
 #endif
 
@@ -117,7 +119,7 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation,
   int i = 0; 
   for(; insert_it != vertices_relation.end(); ++insert_it) {
 
-#ifndef NDEBUG
+#ifdef NDEBUG
     cout << insert_it->first << " -- > " << insert_it->second 
       << ' '<< weight[i] <<endl;
 #endif
@@ -127,6 +129,11 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation,
   }
 
   name = N;
+  
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
+  for(; print_it != m_Vertices.end(); ++print_it) {
+    print_it->edges().sort(graph<T>::compare_d);
+  }
 }
 
 /*!
@@ -135,13 +142,13 @@ Graph::graph<T>::graph(const vector<pair<T, T> > &vertices_relation,
  * key not already present
  */
   template <typename T>
-void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
+void graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
 {
   /*!
    * Check if vertices already in graph
    */
-  Graph::graph<T>::vertex *insert1 = contains_vertex(key1);
-  Graph::graph<T>::vertex *insert2 = contains_vertex(key2);
+  graph<T>::vertex *insert1 = contains_vertex(key1);
+  graph<T>::vertex *insert2 = contains_vertex(key2);
   /*!
    * If not in graph then insert it and get a pointer to it
    * to pass into edge. See () for information on how
@@ -156,7 +163,7 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
     insert2 = contains_vertex(key2);
   }
 
-#ifndef NDEBUG
+#ifdef NDEBUG
   assert(insert1 != NULL && "Failed to insert first vertex");
   assert(insert2 != NULL && "Failed to insert second vertex");
 #endif
@@ -180,7 +187,7 @@ void Graph::graph<T>::insert_vertex_pair_by_keys(T key1, T key2, int value)
  * new node
  */
   template <typename T>
-typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
+typename graph<T>::vertex *graph<T>::contains_vertex(T key)
 {
   typename list<vertex >::iterator find_it = m_Vertices.begin();
   for(; find_it != m_Vertices.end(); ++find_it) {
@@ -197,13 +204,13 @@ typename Graph::graph<T>::vertex *Graph::graph<T>::contains_vertex(T key)
  * between vertices
  */
   template <class T>
-void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, int value)
+void graph<T>::vertex::connect_edge(graph<T>::vertex *adjacent, int value)
 {
   if (adjacent == NULL)
     return;
 
   if (!contains_edge_to_vertex_with_key(adjacent->key())) {
-    Graph::graph<T>::edge e(adjacent, value);
+    graph<T>::edge e(adjacent, value);
     m_Edges.push_back(e);
   }
 }
@@ -213,8 +220,8 @@ void Graph::graph<T>::vertex::connect_edge(Graph::graph<T>::vertex *adjacent, in
  * an edge between the two vertices
  */
   template <class T>
-typename Graph::graph<T>::edge* 
-Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
+typename graph<T>::edge* 
+graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 {
   typename list<edge>::iterator find_it = m_Edges.begin();
   for(; find_it != m_Edges.end(); ++find_it) {
@@ -231,7 +238,7 @@ Graph::graph<T>::vertex::contains_edge_to_vertex_with_key(const T key)
 // -------------------------------------------------------------------------- //
 
   template <class T>
-void Graph::graph<T>::printGraph()
+void graph<T>::printGraph()
 {
   cout << "Printing results: " << endl;
   typename list<vertex>::iterator print_it = m_Vertices.begin();
@@ -252,7 +259,7 @@ void Graph::graph<T>::printGraph()
 // -------------------------------------------------------------------------- //
 
 template <class T> 
-unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vector<int> &value)
+unsigned graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vector<int> &value)
 {
   unsigned vertexNumber = 0;
   typename list<vertex>::iterator s = m_Vertices.begin();
@@ -270,9 +277,9 @@ unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vecto
   s->distance = 0;
   s->pi = 0;
 
-  deque<Graph::graph<T>::vertex *> queue;
+  deque<graph<T>::vertex *> queue;
   queue.push_back(&(*s)); //get the pointer from iterator
-  Graph::graph<T>::vertex *ui;
+  graph<T>::vertex *ui;
   while ( !queue.empty() ){
     ui = queue[queue.size()-1];
     queue.pop_back();
@@ -304,7 +311,7 @@ unsigned Graph::graph<T>::BFS( const T &start, vector< pair<T, T> > &tree, vecto
 // -------------------------------------------------------------------------- //
 
   template <class T> 
-unsigned Graph::graph<T>::DFS( const T &start, vector< pair< T, T> > &tree, 
+unsigned graph<T>::DFS( const T &start, vector< pair< T, T> > &tree, 
     vector<int> &value)
 {
   typename list<vertex>::iterator s = m_Vertices.begin();
@@ -326,7 +333,7 @@ unsigned Graph::graph<T>::DFS( const T &start, vector< pair< T, T> > &tree,
 }
 
 template <class T>
-void Graph::graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
+void graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
    vector<int> &value )
 {
  u.color = GRAY; 
@@ -345,7 +352,7 @@ void Graph::graph<T>::DFS_Visit( vertex &u, vector< pair<T ,T> > &tree,
 // -------------------------------------------------------------------------- //
 
   template <class T> 
-unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
+unsigned graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
     vector<int> &value)
 {
   typename list<vertex>::iterator r = m_Vertices.begin();
@@ -360,8 +367,8 @@ unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
   }
   r->distance = 0;
 
-  deque<Graph::graph<T>::vertex *> queue;
-  Graph::graph<T>::vertex *ui;
+  deque<graph<T>::vertex *> queue;
+  graph<T>::vertex *ui;
   typename list<edge>::const_iterator v ;
 
   for (u = m_Vertices.begin(); u != m_Vertices.end(); u++) 
@@ -385,12 +392,12 @@ unsigned Graph::graph<T>::MST( const T &start, vector< pair< T, T> > &tree,
   return tree.size()+1;
 }
   template<class T>
-typename Graph::graph<T>::vertex* 
-Graph::graph<T>::EXTRACT_MIN( deque<Graph::graph<T>::vertex* > &queue)
+typename graph<T>::vertex* 
+graph<T>::EXTRACT_MIN( deque<graph<T>::vertex* > &queue)
 {
-  typename deque<Graph::graph<T>::vertex*>::iterator it = queue.begin();
-  typename deque<Graph::graph<T>::vertex*>::iterator it_min = queue.begin();
-  Graph::graph<T>::vertex  *minimum;
+  typename deque<graph<T>::vertex*>::iterator it = queue.begin();
+  typename deque<graph<T>::vertex*>::iterator it_min = queue.begin();
+  graph<T>::vertex  *minimum;
   for (; it != queue.end(); it++) {
     if (((*it)->distance) < ((*it_min)->distance)) 
       it_min = it;
@@ -409,28 +416,27 @@ Graph::graph<T>::EXTRACT_MIN( deque<Graph::graph<T>::vertex* > &queue)
 // -------------------------------------------------------------------------- //
 
   template<class T>
-bool Graph::graph<T>::IsSpanningTree(  graph &toBeCompare)
+bool graph<T>::IsSpanningTree(  graph &toBeCompare)
 {
   if (toBeCompare.vertices().size() != this->m_Vertices.size())  return false;
 
-  Graph::graph<T>::vertex *rescentVertex = 0;
-  Graph::graph<T>::edge *rescentEdge = 0;
-  typename list<vertex>::const_iterator print_it = m_Vertices.begin();
+  graph<T>::vertex *rescentVertex = 0;
+  graph<T>::edge *rescentEdge = 0;
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
    rescentVertex = toBeCompare.contains_vertex(print_it->key());
    if (!rescentVertex) return false;
     
-    typename list<edge>::const_iterator edge_it 
+    typename list<edge>::iterator edge_it 
       = print_it->edges().begin();
     for(; edge_it != print_it->edges().end(); ++edge_it) {
       rescentEdge = 
         rescentVertex->contains_edge_to_vertex_with_key(edge_it->m_Edge->key());
-      if ( (!rescentEdge) || (rescentEdge->weight != edge_it->m_Weight))
+      if ( (!rescentEdge) || (rescentEdge->m_Weight != edge_it->m_Weight))
       return false;
     }
   }
   return true;
-
 }
 
 

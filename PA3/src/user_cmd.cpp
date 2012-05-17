@@ -19,7 +19,7 @@
 using namespace std;
 using namespace CommonNs;
 
-Graph::graph<unsigned> *my_graph = 0;
+graph<unsigned> *my_graph = 0;
 
 TestCmd::TestCmd(const char * const name) : Cmd(name) {
   optMgr_.setShortDes("test");
@@ -140,7 +140,7 @@ bool ReadGraph::exec(int argc, char **argv)
     s.clear();
   }
   
-   my_graph = new Graph::graph<unsigned>(graph_vect, graph_weight, graphName);
+   my_graph = new graph<unsigned>(graph_vect, graph_weight, graphName);
 
 
   inFile.close();
@@ -224,7 +224,6 @@ bool WriteTreeDfs::exec(int argc, char **argv)
 
 
   outFile.open(fname);
-  my_graph->printGraph();
   
   verticesNum = my_graph->DFS( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
@@ -249,8 +248,8 @@ bool WriteTreeDfs::exec(int argc, char **argv)
       (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
       << " sec" << endl;
     outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
-    outFile.close();
 #endif 
+    outFile.close();
   } else {
     fprintf(stderr, 
         "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
@@ -336,7 +335,6 @@ bool WriteTreeBfs::exec(int argc, char **argv)
 
 
   outFile.open(fname);
-  my_graph->printGraph();
   
   verticesNum = my_graph->BFS( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
@@ -361,8 +359,8 @@ bool WriteTreeBfs::exec(int argc, char **argv)
       (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
       << " sec" << endl;
     outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
-    outFile.close();
 #endif 
+    outFile.close();
   } else {
     fprintf(stderr, 
         "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
@@ -384,7 +382,8 @@ bool WriteTreeBfs::exec(int argc, char **argv)
 WriteTreeMst::WriteTreeMst(const char * const name) : Cmd(name)
 {
   optMgr_.setShortDes("Perform Prim's MST  and write to a dot file.");
-  optMgr_.setDes("Perform Prim’s MST starting from the root node.    Then write to a dot file.");
+  optMgr_.setDes("Perform Prim’s MST starting from the root node. \
+      Then write to a dot file.");
   Opt *opt = new Opt(Opt::BOOL, "print usage", "");
   opt->addFlag("h");
   opt->addFlag("help");
@@ -414,7 +413,7 @@ bool WriteTreeMst::exec(int argc, char **argv)
     optMgr_.usage();
     return true;
   }
-  char *rname, *fname;
+  char *rname, *fname, *algoName;
   if (optMgr_.getParsedOpt("r"))
     rname = optMgr_.getParsedValue("r");
   else
@@ -428,6 +427,14 @@ bool WriteTreeMst::exec(int argc, char **argv)
   {
     fprintf(stderr, 
         "**ERROR WriteMSTCmd::exec(): output dot file path is needed\n");
+    return false;
+  }
+
+  if (optMgr_.getParsedOpt("a"))
+    algoName = optMgr_.getParsedValue("a");
+  else
+  {
+    fprintf(stderr, "**ERROR WriteTreeMst::exec(): specisfy algorithm is needed\n");
     return false;
   }
 
@@ -450,7 +457,6 @@ bool WriteTreeMst::exec(int argc, char **argv)
 
 
   outFile.open(fname);
-  my_graph->printGraph();
   
   verticesNum = my_graph->MST( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
@@ -475,8 +481,8 @@ bool WriteTreeMst::exec(int argc, char **argv)
       (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
       << " sec" << endl;
     outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
-    outFile.close();
 #endif 
+    outFile.close();
   } else {
     fprintf(stderr, 
         "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
@@ -494,7 +500,9 @@ bool WriteTreeMst::exec(int argc, char **argv)
 IsSpanningTree::IsSpanningTree(const char * const name) : Cmd(name)
 {
   optMgr_.setShortDes("Check if the dot file is a spanning tree");
-  optMgr_.setDes("Check if the dot file is a spanning tree of the existing graph. The output is simply Yes or No output to the screen.  No output file is needed.");
+  optMgr_.setDes("Check if the dot file is a spanning tree of the existing \
+      graph. The output is simply Yes or No output to the screen. \
+      No output file is needed.");
   Opt *opt = new Opt(Opt::BOOL, "print usage", "");
   opt->addFlag("h");
   opt->addFlag("help");
@@ -569,7 +577,7 @@ bool IsSpanningTree::exec(int argc, char **argv)
     s.clear();
   }
   
-  Graph::graph<unsigned> toComp(graph_vect, graph_weight, graphName);
+  graph<unsigned> toComp(graph_vect, graph_weight, graphName);
 
   if ( toComp.IsSpanningTree(*my_graph) ) 
     cout << "Yes" << endl; 
