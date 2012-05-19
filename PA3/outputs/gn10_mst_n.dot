@@ -1,0 +1,16 @@
+graph gn10_mst {
+v8 -- v0 [label = "19"];
+v5 -- v8 [label = "22"];
+v7 -- v8 [label = "29"];
+v4 -- v7 [label = "39"];
+v2 -- v5 [label = "66"];
+v1 -- v2 [label = "61"];
+v6 -- v5 [label = "70"];
+v9 -- v6 [label = "52"];
+v3 -- v6 [label = "58"];
+}
+// vertices = 10
+// edges = 9
+// total_weight = 416
+// runtime = 0.000112 sec
+// memory = 3.38672 MB

@@ -102,5 +102,5 @@ v24 -- v23 [label = "83"];
 // vertices = 100
 // edges = 99
 // total_weight = 4878
-// runtime = 0.000603 sec
+// runtime = 0.000537 sec
 // memory = 3.38672 MB

@@ -1,0 +1,14 @@
+digraph dg6_mf {
+v0 -> v1 [label = "4"];
+v0 -> v2 [label = "1"];
+v0 -> v3 [label = "1"];
+v1 -> v4 [label = "4"];
+v2 -> v5 [label = "1"];
+v3 -> v4 [label = "1"];
+v4 -> v5 [label = "5"];
+} 
+// vertices = 6
+// edges = 7
+// max flow = 6
+// runtime = 0.0 sec
+// memory = 1.0 MB

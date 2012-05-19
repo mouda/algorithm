@@ -1,0 +1,10 @@
+digraph gn6 {
+v0 -> v1 [label = "4"];
+v0 -> v2 [label = "1"];
+v0 -> v3 [label = "3"];
+v1 -> v4 [label = "7"];
+v2 -> v4 [label = "3"];
+v2 -> v5 [label = "5"];
+v3 -> v4 [label = "1"];
+v4 -> v5 [label = "6"];
+}

@@ -1,0 +1,33 @@
+digraph gn10 {
+v0 -> v1 [label = "80"];
+v0 -> v2 [label = "19"];
+v0 -> v3 [label = "49"];
+v0 -> v4 [label = "45"];
+v0 -> v5 [label = "65"];
+v0 -> v6 [label = "71"];
+v0 -> v7 [label = "75"];
+v1 -> v2 [label = "28"];
+v1 -> v4 [label = "68"];
+v1 -> v5 [label = "66"];
+v1 -> v8 [label = "16"];
+v1 -> v9 [label = "12"];
+v2 -> v3 [label = "50"];
+v2 -> v5 [label = "96"];
+v2 -> v6 [label = "34"];
+v2 -> v8 [label = "59"];
+v3 -> v5 [label = "22"];
+v3 -> v6 [label = "75"];
+v3 -> v7 [label = "26"];
+v3 -> v8 [label = "51"];
+v4 -> v5 [label = "70"];
+v4 -> v6 [label = "89"];
+v4 -> v7 [label = "96"];
+v4 -> v8 [label = "55"];
+v4 -> v9 [label = "14"];
+v5 -> v7 [label = "15"];
+v5 -> v9 [label = "26"];
+v6 -> v8 [label = "84"];
+v6 -> v9 [label = "25"];
+v7 -> v9 [label = "81"];
+v8 -> v9 [label = "24"];
+}
