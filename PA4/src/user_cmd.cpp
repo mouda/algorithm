@@ -8,6 +8,7 @@
 #include "user_cmd.h"
 #include "graphMgr.h"
 #include "tm_usage.h"
+#include "utility.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -19,7 +20,7 @@
 using namespace std;
 using namespace CommonNs;
 
-graph<unsigned> *my_graph = 0;
+graph *my_graph = 0;
 
 TestCmd::TestCmd(const char * const name) : Cmd(name) {
   optMgr_.setShortDes("test");
@@ -115,7 +116,7 @@ bool ReadGraph::exec(int argc, char **argv)
   getline(inFile,s);
   ss.str(s);
   ss >> token1 >> graphName; 
- 
+
   vector< pair<unsigned, unsigned > > graph_vect;  
   vector< int > graph_weight;
   unsigned Nvalue;
@@ -139,10 +140,15 @@ bool ReadGraph::exec(int argc, char **argv)
 
     s.clear();
   }
-  
-   my_graph = new graph<unsigned>(graph_vect, graph_weight, graphName);
 
 
+  if (my_graph == 0) {
+    my_graph = new graph(graph_vect, graph_weight, graphName);
+  }
+  else {
+    delete my_graph;
+    my_graph = new graph(graph_vect, graph_weight, graphName);
+  }
   inFile.close();
   return true;
 
@@ -224,30 +230,20 @@ bool WriteTreeDfs::exec(int argc, char **argv)
 
 
   outFile.open(fname);
-  
+
   verticesNum = my_graph->DFS( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
-  
-    outFile <<"graph "  << my_graph->name <<"_dfs {" <<endl; 
-
-    for (size_t i = 0; i < result.size(); i++) {
-      outFile <<'v'<<result[i].first << " -- " <<'v' <<result[i].second;
-      outFile << " [label = " << '"' << value[i] << '"' << "];" << endl;
-    }
-  
 #ifdef _TIME_ON_ 
     gettimeofday( &tvE, NULL);
     tmusg.getTotalUsage(stat);
-    unsigned sum = 0;
-    for (size_t i = 0; i < value.size(); i++) sum += value[i]; 
-    outFile << '}' << endl;
-    outFile << "// vertices = " << verticesNum<< endl;
-    outFile << "// edges = " << result.size()<<endl;
-    outFile << "// total_weight = " << sum << endl;
-    outFile << "// runtime = " << 
-      (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
-      << " sec" << endl;
-    outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
+    writeMessage(outFile, 
+        value, 
+        result, 
+        my_graph->name,
+        verticesNum,
+        (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000, 
+        stat.vmPeak / 1024.0
+        );
 #endif 
     outFile.close();
   } else {
@@ -333,32 +329,21 @@ bool WriteTreeBfs::exec(int argc, char **argv)
   vector< int > value;
   startNode = startNode.substr(1);
 
-
   outFile.open(fname);
-  
+
   verticesNum = my_graph->BFS( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
-  
-    outFile <<"graph "  << my_graph->name <<"_bfs {" <<endl; 
-
-    for (size_t i = 0; i < result.size(); i++) {
-      outFile <<'v'<<result[i].first << " -- " <<'v' <<result[i].second;
-      outFile << " [label = " << '"' << value[i] << '"' << "];" << endl;
-    }
-  
 #ifdef _TIME_ON_ 
     gettimeofday( &tvE, NULL);
     tmusg.getTotalUsage(stat);
-    unsigned sum = 0;
-    for (size_t i = 0; i < value.size(); i++) sum += value[i]; 
-    outFile << '}' << endl;
-    outFile << "// vertices = " << verticesNum<< endl;
-    outFile << "// edges = " << result.size()<<endl;
-    outFile << "// total_weight = " << sum << endl;
-    outFile << "// runtime = " << 
-      (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
-      << " sec" << endl;
-    outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
+    writeMessage(outFile, 
+        value, 
+        result, 
+        my_graph->name,
+        verticesNum,
+        (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000, 
+        stat.vmPeak / 1024.0
+        );
 #endif 
     outFile.close();
   } else {
@@ -457,30 +442,20 @@ bool WriteTreeMst::exec(int argc, char **argv)
 
 
   outFile.open(fname);
-  
+
   verticesNum = my_graph->MST( strtol(startNode.c_str(),NULL,0), result,value ); 
   if ( verticesNum ) {
-  
-    outFile <<"graph "  << my_graph->name <<"_mst {" <<endl; 
-
-    for (size_t i = 0; i < result.size(); i++) {
-      outFile <<'v'<<result[i].first << " -- " <<'v' <<result[i].second;
-      outFile << " [label = " << '"' << value[i] << '"' << "];" << endl;
-    }
-  
 #ifdef _TIME_ON_ 
     gettimeofday( &tvE, NULL);
     tmusg.getTotalUsage(stat);
-    unsigned sum = 0;
-    for (size_t i = 0; i < value.size(); i++) sum += value[i]; 
-    outFile << '}' << endl;
-    outFile << "// vertices = " << verticesNum<< endl;
-    outFile << "// edges = " << result.size()<<endl;
-    outFile << "// total_weight = " << sum << endl;
-    outFile << "// runtime = " << 
-      (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000 
-      << " sec" << endl;
-    outFile << "// memory = " << stat.vmPeak / 1024.0 << " MB" ;
+    writeMessage(outFile, 
+        value, 
+        result, 
+        my_graph->name,
+        verticesNum,
+        (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000, 
+        stat.vmPeak / 1024.0
+        );
 #endif 
     outFile.close();
   } else {
@@ -541,7 +516,7 @@ bool IsSpanningTree::exec(int argc, char **argv)
     return false;
   }
   //TODO
-  
+
   ifstream inFile;
   inFile.open(iname);
 
@@ -553,7 +528,7 @@ bool IsSpanningTree::exec(int argc, char **argv)
   getline(inFile,s);
   ss.str(s);
   ss >> token1 >> graphName; 
- 
+
   vector< pair<unsigned, unsigned > > graph_vect;  
   vector< int > graph_weight;
   unsigned Nvalue;
@@ -576,8 +551,8 @@ bool IsSpanningTree::exec(int argc, char **argv)
 
     s.clear();
   }
-  
-  graph<unsigned> toComp(graph_vect, graph_weight, graphName);
+
+  graph toComp(graph_vect, graph_weight, graphName);
 
   if ( toComp.IsSpanningTree(*my_graph) ) 
     cout << "Yes" << endl; 
@@ -585,4 +560,106 @@ bool IsSpanningTree::exec(int argc, char **argv)
     cout << "NO" << endl;
 
   inFile.close();
+}
+// -------------------------------------------------------------------------- //
+// @Description: max flow
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+
+WriteMaxFlow::WriteMaxFlow(const char * const name) : Cmd(name)
+{
+  optMgr_.setShortDes("Check if the dot file is a spanning tree");
+  optMgr_.setDes("Check if the dot file is a spanning tree of the existing \
+      graph. The output is simply Yes or No output to the screen. \
+      No output file is needed.");
+  Opt *opt = new Opt(Opt::BOOL, "print usage", "");
+  opt->addFlag("h");
+  opt->addFlag("help");
+  optMgr_.regOpt(opt);
+
+
+  opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
+  opt->addFlag("i");
+  optMgr_.regOpt(opt);
+
+}
+
+WriteMaxFlow::~WriteMaxFlow(){}
+
+bool WriteMaxFlow::exec(int argc, char **argv)
+{
+  optMgr_.parse(argc, argv);
+  if ( optMgr_.getParsedOpt("h"))
+  {
+    optMgr_.usage();
+    return true;
+  }
+  char *iname;
+  if (optMgr_.getParsedOpt("i")) iname = optMgr_.getParsedValue("i");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR IsSpanningTree::exec(): output dot file path is needed\n");
+    return false;
+  }
+
+  if (my_graph == 0 ) 
+  {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): read dot file is needed first\n");
+    return false;
+  }
+  //TODO
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: is flow
+// @Provides: mouda 
+// -------------------------------------------------------------------------- //
+
+IsFlow::IsFlow(const char * const name) : Cmd(name)
+{
+  optMgr_.setShortDes("Check if the dot file is a spanning tree");
+  optMgr_.setDes("Check if the dot file is a spanning tree of the existing \
+      graph. The output is simply Yes or No output to the screen. \
+      No output file is needed.");
+  Opt *opt = new Opt(Opt::BOOL, "print usage", "");
+  opt->addFlag("h");
+  opt->addFlag("help");
+  optMgr_.regOpt(opt);
+
+
+  opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
+  opt->addFlag("i");
+  optMgr_.regOpt(opt);
+
+}
+
+IsFlow::~IsFlow(){}
+
+bool IsFlow::exec(int argc, char **argv)
+{
+  optMgr_.parse(argc, argv);
+  if ( optMgr_.getParsedOpt("h"))
+  {
+    optMgr_.usage();
+    return true;
+  }
+  char *iname;
+  if (optMgr_.getParsedOpt("i")) iname = optMgr_.getParsedValue("i");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR IsSpanningTree::exec(): output dot file path is needed\n");
+    return false;
+  }
+
+  if (my_graph == 0 ) 
+  {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): read dot file is needed first\n");
+    return false;
+  }
+  //TODO
 }

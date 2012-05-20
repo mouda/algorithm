@@ -1,0 +1,12 @@
+graph gn6_dfs {
+v2 -- v0 [label = "1"];
+v3 -- v0 [label = "3"];
+v4 -- v3 [label = "1"];
+v1 -- v0 [label = "4"];
+v5 -- v2 [label = "5"];
+}
+// vertices = 6
+// edges = 5
+// total_weight = 14
+// runtime = 7.5e-05 sec
+// memory = 3.38672 MB

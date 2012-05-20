@@ -58,5 +58,22 @@ public:
 
     bool exec(int argc, char **argv);
 };
+
+class WriteMaxFlow : public CommonNs::Cmd {
+public:
+         WriteMaxFlow(const char * const name);
+         ~WriteMaxFlow();
+
+    bool exec(int argc, char **argv);
+};
+
+
+class IsFlow : public CommonNs::Cmd {
+public:
+         IsFlow(const char * const name);
+         ~IsFlow();
+
+    bool exec(int argc, char **argv);
+};
 #endif
 
