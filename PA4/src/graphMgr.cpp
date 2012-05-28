@@ -11,7 +11,6 @@
 #include <algorithm>
 
 using namespace std;
-//using namespace Graph;
 
 
 // -------------------------------------------------------------------------- //
@@ -180,7 +179,9 @@ void graph::printGraph()
 // -------------------------------------------------------------------------- //
 
  
-unsigned graph::BFS( const unsigned &start, vector< pair<unsigned, unsigned> > &tree, vector<int> &value)
+unsigned 
+graph::BFS( const unsigned &start, vector< pair<unsigned, unsigned> > &tree, 
+    vector<int> &value)
 {
   unsigned vertexNumber = 0;
   typename list<vertex>::iterator s = m_Vertices.begin();
