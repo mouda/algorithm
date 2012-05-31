@@ -150,7 +150,6 @@ bool ReadGraph::exec(int argc, char **argv)
     my_graph = new graph(graph_vect, graph_weight, graphName);
   }
   inFile.close();
-  my_graph->printGraph();
   return true;
 
 }

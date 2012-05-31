@@ -372,16 +372,12 @@ graph::MaxFlow( const unsigned source, const unsigned sink,
     vector< pair <unsigned, unsigned> > &tree, vector<int> &value  )
 {
   /* initialize all the flow as 0 */
-  cout << "Printing results: " << endl;
+  cout << "Max flow " << endl;
   typename list<vertex>::iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
-    cout << print_it->key();
-    typename list<edge>::const_iterator edge_it 
-      = print_it->edges().begin();
-    for(; edge_it != print_it->edges().end(); ++edge_it) {
-      cout << "-->" << edge_it->m_Edge->key();
-    }
-    cout << endl;
+    typename list<edge>::iterator edge_it = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) 
+      edge_it->flow = 0;
   }
 
 
