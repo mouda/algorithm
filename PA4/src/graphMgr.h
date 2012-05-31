@@ -89,6 +89,7 @@ class graph
     /* HW5 */
     void MaxFlow( const unsigned source, const unsigned sink, 
         vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
+    void augmentation(const vertex &source, const vertex &sink);
     bool IsFlow( graph &toBeCompare);
 
     static bool compare_d( edge j, edge  i){
