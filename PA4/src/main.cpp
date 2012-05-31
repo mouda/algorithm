@@ -124,6 +124,10 @@ void initCmds(CmdMgr *mgr) {
   mgr->regCmd(writeMSTCmd);
   Cmd *isSpanCmd = new IsSpanningTree("is_spanning_tree");
   mgr->regCmd(isSpanCmd);
+  Cmd *writeMaxFlow = new WriteMaxFlow("write_max_flow");
+  mgr->regCmd(writeMaxFlow);
+  Cmd *isFlow = new IsFlow("is_flow");
+  mgr->regCmd(isFlow);
 
 
 

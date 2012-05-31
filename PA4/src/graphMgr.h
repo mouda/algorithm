@@ -40,6 +40,7 @@ class graph
       edge(vertex *edge, int weight) : m_Edge(edge), m_Weight(weight){}
       vertex *m_Edge;
       int m_Weight;
+      unsigned flow;
     }; // END EDGE
 
     class vertex
@@ -67,19 +68,28 @@ class graph
   public:
     vertex *contains_vertex(const unsigned key);
     const list<vertex> &vertices() const { return m_Vertices;}
-    unsigned BFS( const unsigned &start, vector< pair< unsigned, unsigned> > &tree, 
-        vector<int> &value);
-    unsigned DFS( const unsigned &start, vector< pair< unsigned, unsigned> > &tree,
-        vector<int> &value);
+    /* HW3 */
+    unsigned BFS( const unsigned &start, 
+        vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
+
+    unsigned DFS( const unsigned &start, 
+        vector< pair< unsigned, unsigned> > &tree,vector<int> &value);
+
     void DFS_Visit( vertex &u, vector< pair< unsigned, unsigned> > &tree, 
         vector<int> &value);
 
-    unsigned MST( const unsigned &start, vector< pair<unsigned, unsigned> > &tree, 
-        vector<int> &value);
+    unsigned MST( const unsigned &start, 
+        vector< pair<unsigned, unsigned> > &tree, vector<int> &value);
+
     vertex* EXTRACT_MIN( deque<vertex*> & queue );
     void DrawGraph();
     void printGraph();
     bool IsSpanningTree( graph &toBeCompare);
+
+    /* HW5 */
+    void MaxFlow( const unsigned source, const unsigned sink, 
+        vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
+    bool IsFlow( graph &toBeCompare);
 
     static bool compare_d( edge j, edge  i){
       return i.m_Edge->key() > j.m_Edge->key();

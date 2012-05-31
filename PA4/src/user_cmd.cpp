@@ -420,7 +420,8 @@ bool WriteTreeMst::exec(int argc, char **argv)
     algoName = optMgr_.getParsedValue("a");
   else
   {
-    fprintf(stderr, "**ERROR WriteTreeMst::exec(): specisfy algorithm is needed\n");
+    fprintf(stderr, "**ERROR WriteTreeMst::exec(): specisfy algorithm is \
+        ineeded\n");
     return false;
   }
 
@@ -579,11 +580,17 @@ WriteMaxFlow::WriteMaxFlow(const char * const name) : Cmd(name)
   opt->addFlag("help");
   optMgr_.regOpt(opt);
 
-
-  opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
-  opt->addFlag("i");
+  opt = new Opt(Opt::STR_REQ, "sourcenode", "<sourcenode>");
+  opt->addFlag("s");
   optMgr_.regOpt(opt);
 
+  opt = new Opt(Opt::STR_REQ, "sinknode", "<sinknode>");
+  opt->addFlag("t");
+  optMgr_.regOpt(opt);
+
+  opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
+  opt->addFlag("o");
+  optMgr_.regOpt(opt);
 }
 
 WriteMaxFlow::~WriteMaxFlow(){}
@@ -596,12 +603,28 @@ bool WriteMaxFlow::exec(int argc, char **argv)
     optMgr_.usage();
     return true;
   }
-  char *iname;
-  if (optMgr_.getParsedOpt("i")) iname = optMgr_.getParsedValue("i");
+  char *fname, *source, *sink;
+  if (optMgr_.getParsedOpt("s")) source = optMgr_.getParsedValue("s");
   else
   {
     fprintf(stderr, 
-        "**ERROR IsSpanningTree::exec(): output dot file path is needed\n");
+        "**ERROR WriteMaxFlow::exec(): source need to be specisfied\n");
+    return false;
+  }
+
+  if (optMgr_.getParsedOpt("t")) sink = optMgr_.getParsedValue("t");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR WriteMaxFlow::exec(): sink need to be specisfied\n");
+    return false;
+  }
+
+  if (optMgr_.getParsedOpt("o")) fname = optMgr_.getParsedValue("o");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR WriteMaxFlow::exec(): output dot file path is needed\n");
     return false;
   }
 
@@ -612,6 +635,15 @@ bool WriteMaxFlow::exec(int argc, char **argv)
     return false;
   }
   //TODO
+   
+  ofstream outFile;
+  vector< pair<unsigned,unsigned> > result;
+  vector< int > value;
+
+  outFile.open(fname);
+
+  my_graph->MaxFlow( atoi(source), atoi(sink), result, value);
+  outFile.close();
 }
 
 // -------------------------------------------------------------------------- //

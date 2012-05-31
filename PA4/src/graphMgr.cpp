@@ -362,4 +362,40 @@ bool graph::IsSpanningTree(  graph &toBeCompare)
 }
 
 
+// -------------------------------------------------------------------------- //
+// @Description: Find the Max flow
+// @Provides: mouda // HW4 
+// -------------------------------------------------------------------------- //
+
+void 
+graph::MaxFlow( const unsigned source, const unsigned sink, 
+    vector< pair <unsigned, unsigned> > &tree, vector<int> &value  )
+{
+  /* initialize all the flow as 0 */
+  cout << "Printing results: " << endl;
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
+  for(; print_it != m_Vertices.end(); ++print_it) {
+    cout << print_it->key();
+    typename list<edge>::const_iterator edge_it 
+      = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) {
+      cout << "-->" << edge_it->m_Edge->key();
+    }
+    cout << endl;
+  }
+
+
+
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: verify if the graph is the flow
+// @Provides: mouda //HW4 
+// -------------------------------------------------------------------------- //
+
+bool 
+graph::IsFlow( graph &toBeCompare)
+{
+
+}
 
