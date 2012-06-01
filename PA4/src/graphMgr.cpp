@@ -10,6 +10,8 @@
 #include <set>
 #include <algorithm>
 
+#define INF 65536
+
 using namespace std;
 
 
@@ -224,7 +226,6 @@ graph::BFS( const unsigned &start, vector< pair<unsigned, unsigned> > &tree,
 
   return vertexNumber;
 
-#define INF 65536
 }
 
 // -------------------------------------------------------------------------- //
@@ -367,12 +368,16 @@ bool graph::IsSpanningTree(  graph &toBeCompare)
 // @Provides: mouda // HW4 
 // -------------------------------------------------------------------------- //
 
-void 
+bool
 graph::MaxFlow( const unsigned source, const unsigned sink, 
     vector< pair <unsigned, unsigned> > &tree, vector<int> &value  )
 {
+  vertex *sourceVertex = 0;
+  vertex *sinkVertex = 0;
+  vector<graph::vertex*> path;
+
   /* initialize all the flow as 0 */
-  cout << "Max flow " << endl;
+
   typename list<vertex>::iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
     typename list<edge>::iterator edge_it = print_it->edges().begin();
@@ -380,8 +385,45 @@ graph::MaxFlow( const unsigned source, const unsigned sink,
       edge_it->flow = 0;
   }
 
+  typename list<vertex>::iterator s = m_Vertices.begin();
+  for (;  s != m_Vertices.end(); s++) {
+    if ( s->key() == source ) sourceVertex = &(*s); 
+    if ( s->key() == sink   ) sinkVertex = &(*s);
+  }
 
+  if (sourceVertex == 0 || sinkVertex == 0) {
+    return false;
+  }
 
+  while(IsPathInResidual( sourceVertex, sinkVertex, path)){
+
+  }
+
+}
+
+bool 
+graph::IsPathInResidual(graph::vertex *source, graph::vertex *sink,
+   vector< graph::vertex* > &path)
+{
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u != m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->pi = 0; 
+  }
+  if (source->color == WHITE)  DFS_RPath( *source , path);
+  return true;
+}
+
+bool 
+graph::DFS_RPath( vertex &u, vector<vertex*> &path)
+{
+ u.color = GRAY; 
+ typename list<edge>::const_iterator v = u.edges().begin();
+ for (; v != u.edges().end(); v++) 
+   if ( v->m_Edge->color == WHITE && (v->m_Weight - v->flow)) {
+     path.push_back( v->m_Edge);
+     DFS_RPath( *v->m_Edge, path ); 
+   }
 }
 
 // -------------------------------------------------------------------------- //
