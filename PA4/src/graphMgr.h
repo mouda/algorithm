@@ -87,15 +87,18 @@ class graph
     bool IsSpanningTree( graph &toBeCompare);
 
     /* HW5 */
-    bool MaxFlow( unsigned source, unsigned sink, 
+    unsigned MaxFlow( unsigned source, unsigned sink, 
         vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
-    bool IsPathInResidual( vertex *source, vertex *sink, vector<vertex*> &path);
-    bool DFS_RPath( vertex &u, vector<vertex*> &path);
+    bool IsPathInResidual( vertex *source, vertex *sink, vector<edge*> &path);
+    bool DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
 
     bool IsFlow( graph &toBeCompare);
 
     static bool compare_d( edge j, edge  i){
       return i.m_Edge->key() > j.m_Edge->key();
+    }
+    static bool compare_flow( edge *i, edge *j) {
+      return (i->m_Weight - i->flow) > (j->m_Weight - j->flow);
     }
     string name;
 };

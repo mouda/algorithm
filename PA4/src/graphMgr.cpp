@@ -368,13 +368,13 @@ bool graph::IsSpanningTree(  graph &toBeCompare)
 // @Provides: mouda // HW4 
 // -------------------------------------------------------------------------- //
 
-bool
+unsigned 
 graph::MaxFlow( const unsigned source, const unsigned sink, 
     vector< pair <unsigned, unsigned> > &tree, vector<int> &value  )
 {
   vertex *sourceVertex = 0;
   vertex *sinkVertex = 0;
-  vector<graph::vertex*> path;
+  vector<graph::edge*> path;
 
   /* initialize all the flow as 0 */
 
@@ -392,37 +392,53 @@ graph::MaxFlow( const unsigned source, const unsigned sink,
   }
 
   if (sourceVertex == 0 || sinkVertex == 0) {
-    return false;
+    return 0;
   }
 
+  vector<edge*>::iterator it;
   while(IsPathInResidual( sourceVertex, sinkVertex, path)){
-
+    it = min_element(path.begin(),path.end(),graph::compare_flow);
+    for (int i = 0; i < path.size(); i++) {
+      path[i]->flow = path[i]->flow + ((*it)->m_Weight - (*it)->flow);
+    }
   }
+
+  return m_Vertices.size();
 
 }
 
 bool 
 graph::IsPathInResidual(graph::vertex *source, graph::vertex *sink,
-   vector< graph::vertex* > &path)
+   vector< graph::edge* > &path)
 {
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
     u->color = WHITE; 
     u->pi = 0; 
   }
-  if (source->color == WHITE)  DFS_RPath( *source , path);
-  return true;
+  vector<edge*> trace;
+  if (source->color == WHITE) {
+    DFS_RPath( *source, *sink, path, trace);
+  } 
+  if ( path.size() == 0) return false;
+  else return true;
 }
 
 bool 
-graph::DFS_RPath( vertex &u, vector<vertex*> &path)
+graph::DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, 
+    vector<edge*> &trace)
 {
  u.color = GRAY; 
- typename list<edge>::const_iterator v = u.edges().begin();
+ if (&u == &sink) {
+   path = trace;
+   return true;
+ }
+ typename list<edge>::iterator v = u.edges().begin();
  for (; v != u.edges().end(); v++) 
    if ( v->m_Edge->color == WHITE && (v->m_Weight - v->flow)) {
-     path.push_back( v->m_Edge);
-     DFS_RPath( *v->m_Edge, path ); 
+     trace.push_back( &(*v) );
+     DFS_RPath( *v->m_Edge, sink , path, trace ); 
+     trace.push_back( &(*v) );
    }
 }
 

@@ -602,8 +602,8 @@ bool WriteMaxFlow::exec(int argc, char **argv)
     optMgr_.usage();
     return true;
   }
-  char *fname, *source, *sink;
-  if (optMgr_.getParsedOpt("s")) source = optMgr_.getParsedValue("s");
+  char *fname, *source_name, *sink_name;
+  if (optMgr_.getParsedOpt("s")) source_name = optMgr_.getParsedValue("s");
   else
   {
     fprintf(stderr, 
@@ -611,7 +611,7 @@ bool WriteMaxFlow::exec(int argc, char **argv)
     return false;
   }
 
-  if (optMgr_.getParsedOpt("t")) sink = optMgr_.getParsedValue("t");
+  if (optMgr_.getParsedOpt("t")) sink_name = optMgr_.getParsedValue("t");
   else
   {
     fprintf(stderr, 
@@ -635,14 +635,47 @@ bool WriteMaxFlow::exec(int argc, char **argv)
   }
   //TODO
    
+#ifdef _TIME_ON_ 
+  timeval tvS, tvE;
+  CommonNs::TmUsage tmusg;
+  CommonNs::TmStat stat;
+  tmusg.periodStart();
+  gettimeofday( &tvS, NULL);
+#endif 
+
   ofstream outFile;
   vector< pair<unsigned,unsigned> > result;
   vector< int > value;
-
+  string source = source_name; 
+  string sink = sink_name;
+  source.substr(1);
+  sink.substr(1);
   outFile.open(fname);
+  unsigned verticesNum;
 
-  my_graph->MaxFlow( atoi(source), atoi(sink), result, value);
-  outFile.close();
+  verticesNum = my_graph->MaxFlow( strtol(source.c_str(),NULL,0), 
+        strtol(sink.c_str(),NULL,0), result, value);
+
+  if ( verticesNum ) {
+#ifdef _TIME_ON_ 
+    gettimeofday( &tvE, NULL);
+    tmusg.getTotalUsage(stat);
+    writeMessage(outFile, 
+        value, 
+        result, 
+        my_graph->name,
+        verticesNum,
+        (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000, 
+        stat.vmPeak / 1024.0
+        );
+#endif 
+    outFile.close();
+  } else {
+    fprintf(stderr, 
+        "**ERROR WriteTreeDfs::exec(): input node# doesn't exist! \n");
+    outFile.close();
+    return false;
+  }
 }
 
 // -------------------------------------------------------------------------- //
