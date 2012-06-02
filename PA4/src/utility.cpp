@@ -13,9 +13,9 @@ bool writeMessage( ofstream & outFile,
     const double &runtime, 
     const double &memory){
 
-    outFile <<"graph "  << graphName <<"_dfs {" <<endl; 
+    outFile <<"digraph "  << graphName <<"_mf {" <<endl; 
     for (size_t i = 0; i < result.size(); i++) {
-      outFile <<'v'<<result[i].first << " -- " <<'v' <<result[i].second;
+      outFile <<'v'<<result[i].first << " -> " <<'v' <<result[i].second;
       outFile << " [label = " << '"' << value[i] << '"' << "];" << endl;
     }
 
@@ -26,7 +26,7 @@ bool writeMessage( ofstream & outFile,
     outFile << '}' << endl;
     outFile << "// vertices = " << verticesNum<< endl;
     outFile << "// edges = " << result.size()<<endl;
-    outFile << "// total_weight = " << sum << endl;
+    outFile << "// max flow = " << sum << endl;
     outFile << "// runtime = " << runtime << " sec" << endl;
     outFile << "// memory = " << memory << " MB" ;
     

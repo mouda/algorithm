@@ -51,6 +51,7 @@ class graph
         const unsigned key() const {return m_Key;}
         list<edge> &edges() {return m_Edges;}
         edge *contains_edge_to_vertex_with_key(const unsigned key);
+        bool operator==(vertex i){return i.m_Key == this->m_Key;}
       private:
         list<edge> m_Edges;
         unsigned m_Key;
@@ -91,6 +92,8 @@ class graph
         vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
     bool IsPathInResidual( vertex *source, vertex *sink, vector<edge*> &path);
     bool DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
+    unsigned BFS_flow( const unsigned &start, 
+        vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
 
     bool IsFlow( graph &toBeCompare);
 
@@ -98,7 +101,7 @@ class graph
       return i.m_Edge->key() > j.m_Edge->key();
     }
     static bool compare_flow( edge *i, edge *j) {
-      return (i->m_Weight - i->flow) > (j->m_Weight - j->flow);
+      return (i->m_Weight - i->flow) < (j->m_Weight - j->flow);
     }
     string name;
 };

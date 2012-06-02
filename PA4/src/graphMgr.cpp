@@ -395,16 +395,18 @@ graph::MaxFlow( const unsigned source, const unsigned sink,
     return 0;
   }
 
+  int increase = 0;
   vector<edge*>::iterator it;
   while(IsPathInResidual( sourceVertex, sinkVertex, path)){
     it = min_element(path.begin(),path.end(),graph::compare_flow);
+    increase = ((*it)->m_Weight - (*it)->flow);
     for (int i = 0; i < path.size(); i++) {
-      path[i]->flow = path[i]->flow + ((*it)->m_Weight - (*it)->flow);
+      path[i]->flow = path[i]->flow + increase;
     }
+    path.clear();
+    increase = 0;
   }
-
-  return m_Vertices.size();
-
+  return BFS_flow(0,tree,value);
 }
 
 bool 
@@ -429,17 +431,71 @@ graph::DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path,
     vector<edge*> &trace)
 {
  u.color = GRAY; 
- if (&u == &sink) {
+ if (u == sink) {
    path = trace;
    return true;
  }
  typename list<edge>::iterator v = u.edges().begin();
  for (; v != u.edges().end(); v++) 
-   if ( v->m_Edge->color == WHITE && (v->m_Weight - v->flow)) {
+
+   if ( v->m_Edge->color == WHITE && ((v->m_Weight - v->flow) > 0)) {
      trace.push_back( &(*v) );
      DFS_RPath( *v->m_Edge, sink , path, trace ); 
      trace.push_back( &(*v) );
    }
+}
+
+// -------------------------------------------------------------------------- //
+// @Description: BFS for report flow
+// @Provides: mouda //HW4 
+// -------------------------------------------------------------------------- //
+unsigned 
+graph::BFS_flow( const unsigned &start, 
+    vector< pair< unsigned, unsigned> > &tree, vector<int> &value)
+{
+  unsigned vertexNumber = 0;
+  typename list<vertex>::iterator s = m_Vertices.begin();
+  for (;  s != m_Vertices.end(); s++)
+    if ( s->key() == start ) break; 
+  if ( s == m_Vertices.end()) return vertexNumber; 
+
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u != m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->distance = -1; 
+    u->pi = 0; 
+  }
+  s->color = GRAY;
+  s->distance = 0;
+  s->pi = 0;
+
+  deque<graph::vertex *> queue;
+  queue.push_back(&(*s)); //get the pointer from iterator
+  graph::vertex *ui;
+  while ( !queue.empty() ){
+    ui = queue[queue.size()-1];
+    queue.pop_back();
+    if (ui->color == BLACK) {
+      continue;
+    }
+    typename list<edge>::const_iterator v = ui->edges().begin();
+    for(; v != ui->edges().end(); ++v) {
+//      if ( v->m_Edge->color == WHITE ){ 
+        v->m_Edge->color = GRAY;
+        v->m_Edge->distance = ui->distance + 1;
+        v->m_Edge->pi = ui;
+        queue.push_front(v->m_Edge);
+        //record
+        if (v->flow != 0) {
+          tree.push_back( pair<unsigned, unsigned>(ui->key(), v->m_Edge->key()));
+          value.push_back(v->flow);
+        }
+//      }
+    }
+    ui->color = BLACK;
+    vertexNumber++;
+  }
+  return vertexNumber;
 }
 
 // -------------------------------------------------------------------------- //

@@ -648,11 +648,12 @@ bool WriteMaxFlow::exec(int argc, char **argv)
   vector< int > value;
   string source = source_name; 
   string sink = sink_name;
-  source.substr(1);
-  sink.substr(1);
+  source = source.substr(1);
+  sink = sink.substr(1);
   outFile.open(fname);
   unsigned verticesNum;
 
+  my_graph->printGraph();
   verticesNum = my_graph->MaxFlow( strtol(source.c_str(),NULL,0), 
         strtol(sink.c_str(),NULL,0), result, value);
 
