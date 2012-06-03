@@ -7,4 +7,8 @@ read_graph ../inputs/dg6.dot
 //write_tree_dfs -s v0 -o dummy 
 //write_tree_mst -a prim -r v0 -o dummy 
 write_max_flow -s v0 -t v5 -o dummy
+//write_max_flow -s v0 -t v9 -o dummy
+//write_max_flow -s v0 -t v99 -o dummy
+//write_max_flow -s v0 -t v999 -o dummy
+//write_max_flow -s v0 -t v4999 -o dummy
 exit

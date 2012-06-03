@@ -652,20 +652,22 @@ bool WriteMaxFlow::exec(int argc, char **argv)
   sink = sink.substr(1);
   outFile.open(fname);
   unsigned verticesNum;
+  unsigned maxFlow = 0;
 
   my_graph->printGraph();
   verticesNum = my_graph->MaxFlow( strtol(source.c_str(),NULL,0), 
-        strtol(sink.c_str(),NULL,0), result, value);
+        strtol(sink.c_str(),NULL,0), result, value, maxFlow);
 
   if ( verticesNum ) {
 #ifdef _TIME_ON_ 
     gettimeofday( &tvE, NULL);
     tmusg.getTotalUsage(stat);
-    writeMessage(outFile, 
+    writeMessageFlow(outFile, 
         value, 
         result, 
         my_graph->name,
         verticesNum,
+        maxFlow,
         (double)(1000000*(tvE.tv_sec-tvS.tv_sec)+tvE.tv_usec-tvS.tv_usec)/1000000, 
         stat.vmPeak / 1024.0
         );

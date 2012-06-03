@@ -59,6 +59,7 @@ class graph
       public: //data
         Color color;    //BFS DFS
         vertex *pi;
+        edge *edgePi;
         int distance;
 
     }; // END VERTEX
@@ -89,10 +90,10 @@ class graph
 
     /* HW5 */
     unsigned MaxFlow( unsigned source, unsigned sink, 
-        vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
+        vector< pair< unsigned, unsigned > > &tree, vector<int> &value , unsigned &maxFlow);
     bool IsPathInResidual( vertex *source, vertex *sink, vector<edge*> &path);
     bool DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
-    bool BFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
+    bool BFS_RPath( vertex &u, vertex &sink, vector<edge*> &path );
     unsigned BFS_flow( const unsigned &start, 
         vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
 

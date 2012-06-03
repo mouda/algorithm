@@ -16,4 +16,13 @@ bool writeMessage( ofstream & outFile, const vector<int> &value,
     const double &memory
     );
 
+bool writeMessageFlow( ofstream & outFile, const vector<int> &value, 
+    const vector< pair<unsigned, unsigned > > & result, 
+    const string &graphName,
+    const unsigned &verticesNum, 
+    const unsigned &maxFlow,
+    const double &runtime, 
+    const double &memory
+    );
+
 bool readMessage();

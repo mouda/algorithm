@@ -370,7 +370,7 @@ bool graph::IsSpanningTree(  graph &toBeCompare)
 
 unsigned 
 graph::MaxFlow( const unsigned source, const unsigned sink, 
-    vector< pair <unsigned, unsigned> > &tree, vector<int> &value  )
+    vector< pair <unsigned, unsigned> > &tree, vector<int> &value, unsigned &maxFlow )
 {
   vertex *sourceVertex = 0;
   vertex *sinkVertex = 0;
@@ -406,6 +406,11 @@ graph::MaxFlow( const unsigned source, const unsigned sink,
     path.clear();
     increase = 0;
   }
+
+  typename list<edge>::iterator x = sourceVertex->edges().begin();
+  for (; x != sourceVertex->edges().end(); x++) {
+    maxFlow += x->flow;
+  }
   return BFS_flow(0,tree,value);
 }
 
@@ -413,15 +418,17 @@ bool
 graph::IsPathInResidual(graph::vertex *source, graph::vertex *sink,
    vector< graph::edge* > &path)
 {
+  /*
   typename list<vertex>::iterator u = m_Vertices.begin();
   for (; u != m_Vertices.end(); u++) {
     u->color = WHITE; 
     u->pi = 0; 
   }
+  */
   vector<edge*> trace;
-  if (source->color == WHITE) {
+//  if (source->color == WHITE) {
     BFS_RPath( *source, *sink, path);
-  } 
+//  } 
   if ( path.size() == 0) return false;
   else return true;
 }
@@ -454,32 +461,43 @@ graph::BFS_RPath(vertex &source, vertex &sink, vector<edge*> &path)
     u->color = WHITE; 
     u->distance = -1; 
     u->pi = 0; 
+    u->edgePi = 0;
   }
   source.color = GRAY;
   source.distance = 0;
   source.pi = 0;
+  source.edgePi = 0;
 
   deque<graph::vertex *> queue;
   queue.push_back(&source); //get the pointer from iterator
   graph::vertex *ui;
+  bool broke = false;
   while ( !queue.empty() ){
     ui = queue[queue.size()-1];
     queue.pop_back();
+    if (*ui == sink) 
+      break;
     typename list<edge>::iterator v = ui->edges().begin();
     for(; v != ui->edges().end(); ++v) {
       if ( v->m_Edge->color == WHITE && ((v->m_Weight - v->flow) > 0)){ 
         v->m_Edge->color = GRAY;
         v->m_Edge->distance = ui->distance + 1;
         v->m_Edge->pi = ui;
+        v->m_Edge->edgePi = &(*v);
         queue.push_front(v->m_Edge);
         //record
-        path.push_back(&(*v));
-        if (*ui == *(v->m_Edge) ) return true; 
       }
     }
     ui->color = BLACK;
   }
-  return false;
+  /* trace to get path */
+  ui = &sink;
+  while( ui && ui->edgePi ){
+    path.push_back(ui->edgePi);
+    ui = ui->pi;
+  }
+  reverse(path.begin(), path.end());
+  return true;
 
 }
 
@@ -524,10 +542,10 @@ graph::BFS_flow( const unsigned &start,
         v->m_Edge->pi = ui;
         queue.push_front(v->m_Edge);
         //record
-//        if (v->flow != 0) {
+        if (v->flow != 0) {
           tree.push_back( pair<unsigned, unsigned>(ui->key(), v->m_Edge->key()));
           value.push_back(v->flow);
-//        }
+        }
 //      }
     }
     ui->color = BLACK;
