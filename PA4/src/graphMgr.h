@@ -97,7 +97,7 @@ class graph
     unsigned BFS_flow( const unsigned &start, 
         vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
 
-    bool IsFlow( graph &toBeCompare);
+    bool IsFlow();
 
     static bool compare_d( edge j, edge  i){
       return i.m_Edge->key() > j.m_Edge->key();

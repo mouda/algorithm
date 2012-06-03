@@ -697,6 +697,13 @@ IsFlow::IsFlow(const char * const name) : Cmd(name)
   opt->addFlag("help");
   optMgr_.regOpt(opt);
 
+  opt = new Opt(Opt::STR_REQ, "sourcenode", "<sourcenode>");
+  opt->addFlag("s");
+  optMgr_.regOpt(opt);
+
+  opt = new Opt(Opt::STR_REQ, "sinknode", "<sinknode>");
+  opt->addFlag("t");
+  optMgr_.regOpt(opt);
 
   opt = new Opt(Opt::STR_REQ, "dot file", "<dot_filename>");
   opt->addFlag("i");
@@ -714,7 +721,24 @@ bool IsFlow::exec(int argc, char **argv)
     optMgr_.usage();
     return true;
   }
-  char *iname;
+  char *iname, *source_name, *sink_name;
+
+  if (optMgr_.getParsedOpt("s")) source_name = optMgr_.getParsedValue("s");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR WriteMaxFlow::exec(): source need to be specisfied\n");
+    return false;
+  }
+
+  if (optMgr_.getParsedOpt("t")) sink_name = optMgr_.getParsedValue("t");
+  else
+  {
+    fprintf(stderr, 
+        "**ERROR WriteMaxFlow::exec(): sink need to be specisfied\n");
+    return false;
+  }
+
   if (optMgr_.getParsedOpt("i")) iname = optMgr_.getParsedValue("i");
   else
   {
@@ -730,4 +754,50 @@ bool IsFlow::exec(int argc, char **argv)
     return false;
   }
   //TODO
+  //
+  ifstream inFile;
+  inFile.open(iname);
+
+  stringstream ss;
+  string s, token1, ignore ,token2, graphName, number ;
+  size_t found1, found2;
+  int weight = 0;  
+
+  getline(inFile,s);
+  ss.str(s);
+  ss >> token1 >> graphName; 
+
+  vector< pair<unsigned, unsigned > > graph_vect;  
+  vector< int > graph_weight;
+  unsigned Nvalue;
+
+  while( getline(inFile,s) ){
+
+    ss.str(s);
+    ss >> token1; 
+    if (!token1.compare("}")) break; 
+    ss >> ignore >> token2; 
+    token1 = token1.substr(1);
+    token2 = token2.substr(1);
+    graph_vect.push_back( pair<unsigned, unsigned>( 
+          strtol(token1.c_str(),NULL,0), strtol(token2.c_str(),NULL,0) ) 
+        ); 
+    found1 = s.find_first_of('"');
+    found2 = s.find_last_of('"');
+    number = s.substr(found1+1, found2-found1-1);
+    graph_weight.push_back(atoi(number.c_str()));
+
+    s.clear();
+  }
+
+  graph toComp(graph_vect, graph_weight, graphName);
+  toComp.printGraph();
+
+  if ( toComp.IsFlow() ) 
+    cout << "Yes" << endl; 
+  else 
+    cout << "No" << endl;
+
+  inFile.close();
+  
 }

@@ -560,8 +560,18 @@ graph::BFS_flow( const unsigned &start,
 // -------------------------------------------------------------------------- //
 
 bool 
-graph::IsFlow( graph &toBeCompare)
+graph::IsFlow()
 {
-
+  graph::vertex *rescentVertex = 0;
+  graph::edge *rescentEdge = 0;
+  typename list<vertex>::iterator print_it = m_Vertices.begin();
+  for(; print_it != m_Vertices.end(); ++print_it) {
+    typename list<edge>::iterator edge_it 
+      = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) {
+      return false;
+    }
+  }
+  return true;
 }
 
