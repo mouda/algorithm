@@ -420,7 +420,7 @@ graph::IsPathInResidual(graph::vertex *source, graph::vertex *sink,
   }
   vector<edge*> trace;
   if (source->color == WHITE) {
-    DFS_RPath( *source, *sink, path, trace);
+    BFS_RPath( *source, *sink, path);
   } 
   if ( path.size() == 0) return false;
   else return true;
@@ -443,6 +443,44 @@ graph::DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path,
      DFS_RPath( *v->m_Edge, sink , path, trace ); 
      trace.push_back( &(*v) );
    }
+}
+
+bool 
+graph::BFS_RPath(vertex &source, vertex &sink, vector<edge*> &path)
+{
+
+  typename list<vertex>::iterator u = m_Vertices.begin();
+  for (; u != m_Vertices.end(); u++) {
+    u->color = WHITE; 
+    u->distance = -1; 
+    u->pi = 0; 
+  }
+  source.color = GRAY;
+  source.distance = 0;
+  source.pi = 0;
+
+  deque<graph::vertex *> queue;
+  queue.push_back(&source); //get the pointer from iterator
+  graph::vertex *ui;
+  while ( !queue.empty() ){
+    ui = queue[queue.size()-1];
+    queue.pop_back();
+    typename list<edge>::iterator v = ui->edges().begin();
+    for(; v != ui->edges().end(); ++v) {
+      if ( v->m_Edge->color == WHITE && ((v->m_Weight - v->flow) > 0)){ 
+        v->m_Edge->color = GRAY;
+        v->m_Edge->distance = ui->distance + 1;
+        v->m_Edge->pi = ui;
+        queue.push_front(v->m_Edge);
+        //record
+        path.push_back(&(*v));
+        if (*ui == *(v->m_Edge) ) return true; 
+      }
+    }
+    ui->color = BLACK;
+  }
+  return false;
+
 }
 
 // -------------------------------------------------------------------------- //
@@ -486,10 +524,10 @@ graph::BFS_flow( const unsigned &start,
         v->m_Edge->pi = ui;
         queue.push_front(v->m_Edge);
         //record
-        if (v->flow != 0) {
+//        if (v->flow != 0) {
           tree.push_back( pair<unsigned, unsigned>(ui->key(), v->m_Edge->key()));
           value.push_back(v->flow);
-        }
+//        }
 //      }
     }
     ui->color = BLACK;

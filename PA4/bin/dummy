@@ -1,14 +1,15 @@
 digraph gn6_mf {
-v0 -> v1 [label = "4"];
-v0 -> v2 [label = "1"];
-v0 -> v3 [label = "1"];
-v1 -> v4 [label = "4"];
-v2 -> v4 [label = "1"];
-v3 -> v4 [label = "1"];
-v4 -> v5 [label = "6"];
+v0 -> v1 [label = "0"];
+v0 -> v2 [label = "0"];
+v0 -> v3 [label = "0"];
+v1 -> v4 [label = "0"];
+v2 -> v4 [label = "0"];
+v2 -> v5 [label = "0"];
+v3 -> v4 [label = "0"];
+v4 -> v5 [label = "0"];
 }
 // vertices = 6
-// edges = 7
-// max flow = 18
-// runtime = 0.00066 sec
-// memory = 3.39844 MB
+// edges = 8
+// max flow = 0
+// runtime = 0.000156 sec
+// memory = 3.40234 MB

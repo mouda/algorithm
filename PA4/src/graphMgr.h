@@ -92,6 +92,7 @@ class graph
         vector< pair< unsigned, unsigned > > &tree, vector<int> &value );
     bool IsPathInResidual( vertex *source, vertex *sink, vector<edge*> &path);
     bool DFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
+    bool BFS_RPath( vertex &u, vertex &sink, vector<edge*> &path, vector<edge*> &trace);
     unsigned BFS_flow( const unsigned &start, 
         vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
 
