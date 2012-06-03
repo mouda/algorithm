@@ -562,14 +562,44 @@ graph::BFS_flow( const unsigned &start,
 bool 
 graph::IsFlow()
 {
-  graph::vertex *rescentVertex = 0;
-  graph::edge *rescentEdge = 0;
+  /* use flow as a check out variable  */
   typename list<vertex>::iterator print_it = m_Vertices.begin();
   for(; print_it != m_Vertices.end(); ++print_it) {
-    typename list<edge>::iterator edge_it 
-      = print_it->edges().begin();
-    for(; edge_it != print_it->edges().end(); ++edge_it) {
-      return false;
+    typename list<edge>::iterator edge_it = print_it->edges().begin();
+    for(; edge_it != print_it->edges().end(); ++edge_it) 
+      edge_it->flow = 0;
+  }
+
+  list<vertex>::iterator check_it = m_Vertices.begin();
+  list<edge>::iterator edge_it;
+  for(; check_it != m_Vertices.end(); ++check_it) {
+    edge_it = check_it->edges().begin();
+    for(; edge_it != check_it->edges().end(); ++edge_it) {
+      if (!CheckEdge( *check_it, *edge_it) ) 
+        return false;
+    }
+  }
+  return true;
+}
+
+bool
+graph::CheckEdge( graph::vertex &u, graph::edge &j )
+{
+  list<edge>::iterator check_it = j.m_Edge->edges().begin();
+  if (j.flow) {
+    return true;
+  }
+  for (; check_it != j.m_Edge->edges().end(); check_it++) {
+    if ( *(check_it->m_Edge) == u ) {
+      if ( ((check_it->m_Weight) * j.m_Weight) ) {
+        cout << u.key() << ": " << j.m_Weight <<' '  <<check_it->m_Edge->key() << ": " << check_it->m_Weight << endl;
+        return false;
+      } 
+      else {
+        check_it->flow = 1;
+        j.flow = 1;
+        break;
+      }
     }
   }
   return true;

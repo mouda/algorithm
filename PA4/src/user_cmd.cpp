@@ -791,7 +791,6 @@ bool IsFlow::exec(int argc, char **argv)
   }
 
   graph toComp(graph_vect, graph_weight, graphName);
-  toComp.printGraph();
 
   if ( toComp.IsFlow() ) 
     cout << "Yes" << endl; 

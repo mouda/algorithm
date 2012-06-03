@@ -1,6 +1,6 @@
-read_graph ../inputs/dg6.dot
+//read_graph ../inputs/dg6.dot
 //read_graph ../inputs/dg10.dot
-//read_graph ../inputs/dg100.dot
+read_graph ../inputs/dg100.dot
 //read_graph ../inputs/dg1000.dot
 //read_graph ../inputs/dg5000.dot
 //write_tree_bfs -s v0 -o dummy
@@ -11,5 +11,11 @@ read_graph ../inputs/dg6.dot
 //write_max_flow -s v0 -t v99 -o dummy
 //write_max_flow -s v0 -t v999 -o dummy
 //write_max_flow -s v0 -t v4999 -o dummy
-is_flow -s v0 -t v5 -i ../outputs/dg6.dot
+//is_flow -s v0 -t v5 -i ../inputs/dg6_is_flow.dot
+//is_flow -s v0 -t v5 -i ../outputs/dg6_mf.dot
+//is_flow -s v0 -t v5 -i../inputs/dg6.dot
+//is_flow -s v0 -t v9 -i ../inputs/dg10.dot
+is_flow -s v0 -t v99 -i ../inputs/dg100.dot
+//is_flow -s v0 -t v999 -i ../inputs/dg1000.dot
+//is_flow -s v0 -t v4999 -i../inputs/dg5000.dot
 exit

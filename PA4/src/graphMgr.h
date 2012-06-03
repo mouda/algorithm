@@ -98,6 +98,7 @@ class graph
         vector< pair< unsigned, unsigned> > &tree, vector<int> &value);
 
     bool IsFlow();
+    bool CheckEdge( vertex &u, edge &j);
 
     static bool compare_d( edge j, edge  i){
       return i.m_Edge->key() > j.m_Edge->key();
